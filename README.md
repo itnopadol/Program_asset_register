@@ -1,5 +1,5 @@
-# ออกแบบหน้าจอโปรแกรมทะเบียนสินทรัพย์
-### Tools
+# โปรแกรมทะเบียนสินทรัพย์
+### 1. Tools
 ```
  - Xampp V3.2.2
  - PHP v7.10.1
@@ -9,19 +9,19 @@
 
 ```
 ===
-### Framework
+### 2. Framework
 ```
 	- CSS
 	- Java Scrip
 ```
 ===
-### ER-Diagram
+### 3. ER-Diagram
 ```
 	-inForder ERDiagram
 
 ```
 ===
-### ออกแบบหน้าจอ
+### 4. ออกแบบหน้าจอ
 ```
 	*Login page
 	*home page
