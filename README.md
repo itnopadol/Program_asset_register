@@ -17,17 +17,17 @@
 ===
 ### 3. ER-Diagram
 ```
-	-inForder ERDiagram
+	- inForder ERDiagram
 
 ```
 ===
 ### 4. ออกแบบหน้าจอ
 ```
-	*Login page
-	*home page
-	*Edit User
-	*Add User
-	*Management Asset
+	* Login page
+	* home page
+	* Edit User
+	* Add User
+	* Management Asset
 	* Add Asset
 	* Status
 	* Report
