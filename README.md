@@ -1,14 +1,11 @@
 # โปรแกรมทะเบียนสินทรัพย์
 ### 1. Tools
 
-> 
-```
-- Xampp V3.2.2
-- PHP v7.10.1
-- HTML
-- Dreamweaver CS6
-- Google สไลค์ (Powverpoint)
-```
+> - Xampp V3.2.2
+> - PHP v7.10.1
+> - HTML
+> - Dreamweaver CS6
+> - Google สไลค์ (Powverpoint)
 
 ===
 ### 2. Framework
