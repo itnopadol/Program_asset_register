@@ -21,14 +21,14 @@
 ===
 ### ออกแบบหน้าจอ
 
-	> * Login page
-	> * home page
-	> * Edit User
-	> * Add User
-	> * Management Asset
-	> * Add Asset
-	> * Status
-	> * Report
+> * Login page
+> * home page
+> * Edit User
+> * Add User
+> * Management Asset
+> * Add Asset
+> * Status
+> * Report
 
 ===
 
