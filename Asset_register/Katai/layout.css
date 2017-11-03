@@ -32,26 +32,15 @@ h3{
 	font-family:"TH Sarabun New", "Tw Cen MT";
 }
 
-h4{
-	line-height:30px;
-	margin:20px 0;
-	border-radius:-1px;
-	padding:10px 30px;
-	background-color:#FFFAFA;
-	font-size:1.5em;
-	color:#0000000;
-	font-family:"TH Sarabun New", "Tw Cen MT";
-}
-
 #contatiner {
-	width: 80%;
+	width: 90%;
 	display:block;
 	margin:20px auto;
 	padding:2%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 header{
-	height:55px;
+	height:150px;
 	margin-bottom:10px;
 }
 header h1{
@@ -67,7 +56,6 @@ nav ul{
 	margin-left:40px;	
 	margin-right:30px;
 	width:70%;
-	
 }
 nav li{
 	list-style-type:none;
@@ -81,7 +69,6 @@ section{
 }
 
 #welcome{
-	vertical-align:auto;
 	padding:0 20px 20px 20px;
 }
 
