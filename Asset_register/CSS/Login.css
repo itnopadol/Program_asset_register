@@ -8,6 +8,7 @@ button {
     border: none;
     cursor: pointer;
     width: 100%;
+	
 }
 .b2 {
     background-color: #FF0000;
@@ -19,9 +20,6 @@ button {
     width: 100%;
 }
 P {
-	
 	font-size:24px;
 	font-family:"TH Sarabun New", "Tw Cen MT";
-	
-	
 }

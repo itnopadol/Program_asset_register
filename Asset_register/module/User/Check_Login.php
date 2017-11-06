@@ -1,6 +1,6 @@
 <?php
 	//session_start();
-	//include("Funtion/funtion.php");
+	include("../../Funtion/funtion.php");
 	$con = connect_db(); //เรียกไฟล์
 	$form_user = $_POST['username'];
 	$form_pwd = $_POST['passwd'];
