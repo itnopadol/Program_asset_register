@@ -1,63 +1,69 @@
 <?php 
 	session_start();
 	include("Funtion/funtion.php");
-	//$con = connect_db();
+	$con = connect_db();
 ?>
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html >
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
-<title>Asset Register </title>
-<link href="layout.css" rel="stylesheet" type="text/css">
-<link href="CSS/Login.css" rel="stylesheet" type="text/css">
-
+  <meta charset="UTF-8">
+  <title>Asset Register</title>
+<link rel="stylesheet" href="CSS/style.css" type="text/css">
+<link rel="stylesheet" href="CSS/Login.css" type="text/css">
+<link rel="stylesheet" href="layout.css" type="text/css">
+<link rel="stylesheet" href="CSS/body.css" type="text/css">
 </head>
-
 <body>
-<div id="contatiner">
-	<header>
-	  <div id="sitename" align="center"><h2>ระบบการจัดการทะเบียนสินทรัพย์ บริษัทนพดลพาณิชย์</div></h2>
+<header>
+
+	  <header>
+	  <div id="sitename" align="center"><h1 class="">ระบบการจัดการทะเบียนสินทรัพย์ บริษัทนพดลพาณิชย์</div></h1>
     </header>
-   
     <div id="main">
-    	<aside class="h3">
-        <div id="login">
-        <h3 align="center"><img src="img/home-48.png" width="38" height="38">หน้าหลัก</h3>
-        <h3 align="center">ยินดีต้อนรับ <br>
-		-เข้าสู่ระบบ- </h3>
-        	<?php 
-			if(empty($_SESSION['valid_user'])){
-				include("Module/user/Login_Form.php");	
-			}
-			else{
-				echo "<H1 class='title'>Welcome to System</H1>";
-				echo "<P>ยินดีต้อนรับ</P>
-				<P>User : $_SESSION[valid_user]</P>";
-				
-				//แสดงเมนูของ user ใน level นั้น
-				echo "<nav>";
-				select_menu($_SESSION['user_Level']); //แสดงเมนูของแต่ละ Level
-				echo"</nav>";
-			}
-		?>
-        </div>
-        </aside>
-        <section>
-			<div id="welcome" align="center">
-            	<img src="img/NQyEP2823.gif" >
-              <p></p>
+		<aside>
+		<div id="login" class="fontcolor">
+			<?php 
+				if(empty($_SESSION['valid_user'])){					
+					include("module\User\Login_Form.php");	
+				}
+				else{				
+					//แสดงเมนูของ user ใน level นั้น
+					echo "<nav>";
+					select_menu($_SESSION['user_Level']); //แสดงเมนูของแต่ละ Level
+					echo"</nav>";
+				}
+			?>
 			</div>
-       </section>    
-       <div class="clearfloat"></div>
+			</aside>
+		<section>
+  			<div id="main_content" class="helper">
+    			<?php 
+					if(empty($_GET['module']) or empty($_GET['action'])){
+					$module = 1;
+					$action = 1;
+				}	
+				else{
+					$module = $_GET['module'];
+					$action = $_GET['action'];
+				}
+				select_module($module,$action);
+				?>
+  		</div>
+		</section>
+		<div class="clearfloat"></div>
       <div class="clearfloat"></div>
     <footer>
-    	<div id="footer_top"><p>© 2014 Nopadol Panich Co., Ltd. All Rights Reserved</p></div>
-    	<div id="footer_bottom">392 ถ.เชียงใหม่-ลำปาง ตำบลฟ้าฮ่าม อำเภอเมือง จังหวัดเชียงใหม่ 50000
-โทร. 053 261 000</p></div>
+    	<a href="https://www.facebook.com/NopadolPanich/" target=_blank>
+        <img src="img/fb.png" style="width:40px;height:40px;"></a>
+        <a href="http://www.nopadol.com" target=_blank>
+        <img src="img/nopadol-logo.png" style="width:40px;height:40px;"></a>
+        <a href="sale@nopadol.com" target=_blank>
+        <img src="img/email-icon.png" style="width:40px;height:40px;."></a>
+    	<div id="footer_top" class="fontcolor"><p>©2014 Nopadol Panich Co., Ltd. All Rights Reserved</p></div>
+    	<div id="footer_bottom" class="fontcolor2">128 Chiang Mai - Lampang Road, t.Fah Ham a. Muang Chiang Mai ,Thailand</p></div>
     </footer>
 </div>
-
-
+<a style="position: fixed; bottom: 10px; right: 10px;color:#CCC" </a>
 </body>
+</div>
 </html>

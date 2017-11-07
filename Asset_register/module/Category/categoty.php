@@ -7,11 +7,11 @@
 
 <body>
 <?php
-	include("../../Funtion/funtion.php");
+	//include("../../Funtion/funtion.php");
 	$con = connect_db();
 	
 	$resulf = mysqli_query($con,"SELECT * FROM category")
-	or die ("MySQL Error =>".mysqli_errno($con));
+	or die ("MySQL Error =>".mysqli_error($con));
 	
 	echo "<table border = 1 >";
 	echo "<TH>รหัสประเภท</TH>";

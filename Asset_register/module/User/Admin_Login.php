@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Admin Login</title>
 <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
+<link rel="stylesheet" href="../../CSS/body.css" type="text/css">
 </head>
 
 <body>
