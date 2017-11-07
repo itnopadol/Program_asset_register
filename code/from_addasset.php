@@ -13,49 +13,56 @@
  <table >
     <tr>
         <td style="font-size:21px; font-weight:bold; ">รหัสสินทรัพย์</td><td>
-            <input type="text" name="user_name" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
-    </tr><tr>
+            <input type="text" name="Asset_code" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
+    </tr>
+    <tr>
+        <td style="font-size:21px; font-weight:bold; ">Serial Number</td><td>
+            <input type="text" name="Asset_serial" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
+    </tr>
+    
+    
+    <tr>
         <td style="font-size:21px; font-weight:bold; ">ชื่อสินทรัพย์</td>
         <td>
         <input type="text" name="user_name" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
     </tr><tr>
-        <td style="font-size:21px; font-weight:bold;">รุ่น/ยี่ห้อ</td>
-        <td>
-       <input type="text" name="user_name" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
-        </td>
-    </tr>
-    <tr>
-        <td style="font-size:21px; font-weight:bold;">ซื้อจาก</td><td>
-            <input type="text" name="user_name" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
-        </tr>
-        <tr>
-            <td style="font-size:21px; font-weight:bold;">ราคาซื้อ</td><td>
-                <input type="text" name="user_name" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
-        </tr>
-    <tr>
-        <td style="font-size:21px; font-weight:bold;">ประเภทสินทรัพย์</td>
-        <td>
-            <input type="text" name="employee_name" class="form-control" style="font-size:20px; width:150px; float:left;" id="employee_name_show">
-        </td>
-    </tr>
-    <tr>
-        <td style="font-size:21px; font-weight:bold;">พนักงานผู้รับผิดชอบ</td>
-        <td>
-            <input type="text" name="employee_sername" class="form-control" style="font-size:20px; width:150px; float:left;" id="employee_sername_show">
-        </td>
-    </tr>
-    <tr>
-        <td style="font-size:21px; font-weight:bold; ">วันที่ซื้อ </td>
-        <td>
-            <input type="date" name="employee_sername" class="form-control" style="font-size:15px; width:150px; float:left;" id="employee_sername_show">
-        </td>
-    </tr>
-    <tr>
         <td style="font-size:21px; font-weight:bold;">จำนวน</td>
         <td>
-            <input type="text" name="employee_phone" class="form-control" style="font-size:20px; width:150px; float:left;" id="employee_phone_show">
+       <input type="text" name="Asset_receivr_amout" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
         </td>
     </tr>
+    <tr>
+        <td style="font-size:21px; font-weight:bold;">หน่วยนับ</td><td>
+            <input type="text" name="Asset_unit" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
+        </tr>
+        <tr>
+        <td style="font-size:21px; font-weight:bold; ">วันที่ซื้อ </td>
+        <td>
+            <input type="date" name="Asset_date" class="form-control" style="font-size:15px; width:150px; float:left;" id="employee_sername_show">
+        </td>
+    </tr>
+        <tr>
+            <td style="font-size:21px; font-weight:bold;">ซื้อจาก</td><td>
+                <input type="text" name="Asset_company" class="form-control" style="font-size:20px; float:left; width:150px;" id="user_name_show" onchange="change();this"><span style="color:red; font-size:18" id="d"></span></td>
+        </tr>
+    <tr>
+        <td style="font-size:21px; font-weight:bold;">ราคา</td>
+        <td>
+            <input type="text" name="Asset_price" class="form-control" style="font-size:20px; width:150px; float:left;" id="employee_name_show">
+        </td>
+    </tr>
+    <tr>
+        <td style="font-size:21px; font-weight:bold;">ประเภทของสินทรัพย์</td>
+        <td>
+            <select name="Category_id" class="form-control" style="font-size:20px; width:160px; float:left;" id="employee_sername_show">
+            <option value="เครื่องคอมพิวเตอร์">เครื่องคอมพิวเตอร์</option><option value="Handheld">Handheld</option><option value="All in One">All in One</option><option value="จอภาพ">จอภาพ</option><option value="Note Book">Note Book</option></select>
+        </td>
+    </tr>
+    
+    
+    
+    
+    
     <tr>
         <td style="font-size:20px; font-weight:bold;">รูปภาพ</td>
         <td>
