@@ -1,6 +1,6 @@
 <?php
 function connect_db(){
-	$con = mysqli_connect("localhost","cistrain_bigza","bigmanmx2004","nopadol"); 
+	$con=mysqli_connect("localhost","root","","nopadol");
 	//mysqli_connect("","ชื่อเข้าใช้","รหัส","ชื่อฐานข้อมูล")
 	mysqli_set_charset($con,"utf8"); //เพื่อให้รองรับภาษาไทย
 	return $con;
