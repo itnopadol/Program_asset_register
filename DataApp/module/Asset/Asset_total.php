@@ -32,8 +32,12 @@
 	echo "<TH>ไฟล์รูปภาพ</TH>";
 	echo "<TH>เวลาแก้ไข</TH>";
 	
-	while(list($Asset_id , $Asset_code ,$Asset_serial ,$Asset_name ,$Asset_receivr_amout ,$Asset_unit ,$Asset_date 
-	,$Asset_company ,$Asset_price,$Asset_barcode ,$Category_id ,$Asset_photo ,$Asset_time) = mysqli_fetch_row($resulf)){
+	list($Asset_id , $Asset_code ,$Asset_serial ,$Asset_name ,$Asset_receivr_amout ,$Asset_unit ,$Asset_date 
+	,$Asset_company ,$Asset_price,$Asset_barcode ,$Asset_category ,$Asset_photo ,$Asset_time) = mysqli_fetch_row($resulf);
+	
+	$resulf = mysqli_query($con,"SELECT Category_name FROM category WHERE Category_id = $Asset_category")
+	or die("SQL Error2=>".mysqli_error($con)) ;
+	list($Category_id) = mysqli_fetch_row($resulf);
 		
 		echo "<TR>";
 		echo "<TD>$Asset_id</TD>";
@@ -45,13 +49,13 @@
 		echo "<TD>$Asset_date</TD>";
 		echo "<TD>$Asset_company</TD>";
 		echo "<TD>,$Asset_price</TD>";
-		echo "<TD>$Category_id</TD>";
+		echo "<TD>$Asset_category</TD>";
 		echo "<TD>$Asset_photo</TD>";
 		echo "<TD>$Asset_time</TD>";
 		echo "<TD></TD>";
 		echo "<TD></TD>";
 		echo "</TR>";
-	}
+	
 	echo "</table>";	
 ?>
 </body>
