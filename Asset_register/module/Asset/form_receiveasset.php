@@ -4,17 +4,15 @@
 <meta charset="utf-8">
 <title>รับวัสดุ</title>
 <!--<link href="CSS.css" rel="stylesheet" type="text/css">-->
-
 </head>
 <style type="text/css">
 .receivbody{
-	font-size:18px;
 	font-family:"TH Sarabun New", "Tw Cen MT";
-	color:#000;
+	color:#60F;
 }
 </style>
 <body class="receivbody">
-<h1 align="center">ฟอร์มเพิ่มข้อมูลการรับวัสดุ</h1>
+<h2 align="center" >ฟอร์มเพิ่มข้อมูลการรับวัสดุ</h2>
 <form method="POST" action="" enctype="multipart/form-data">
 <center>
  <table >

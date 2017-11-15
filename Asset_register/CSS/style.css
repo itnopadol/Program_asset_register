@@ -1,33 +1,14 @@
-h1{
-	line-height:35px;
-	margin:0px 0;
-	border-radius:-1px;
-	padding:10px 30px;
-	background-color:#666666;
-	font-size:2.5em;
-	color:#FFFAFA;
-	padding:15px;
-	font-family:"TH Sarabun New", "Tw Cen MT";
-}
 body {
   background: White;
   margin: 0;
   font-size:18px;
   font-family: "TH Sarabun New", "Tw Cen MT";
   color: #fff;
-  padding-left: 240px;
+  padding-left: 0px;
 }
 .fonSize{ /*เปลี่ยนสีฟอร์นกับขนาด*/
 	font-size:24px;
 	color:#0000cc;	
-}
-.fontcolor{ /* เปลี่ยนฟอร์นเป็นสีดำ */
-	color:#000;	
-}
-.fontcolor2{ /* เปลี่ยนฟอร์นเป็นสีดำ */
-	
-	color:#000;	
-	font-size:20px;
 }
 main {
   position: relative;
@@ -88,7 +69,7 @@ main .helper span {
   font-weight: regular;
   background-repeat: no-repeat;
   background-position: left 15px center;
-  background-size: auto 20px;
+  background-size: auto 26px;
   transition: all 0.15s linear;
   cursor: pointer;
 }
@@ -116,19 +97,15 @@ main .helper span {
 	font-size:20px;
   background-image: url(../img/if_printer_289614.png);
 }
+.menu ul li.icon-logout {
+	font-size:20px;
+	background-image: url(../img/Logout.png)
+}
 .menu ul li:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .menu ul li:focus {
   outline: none;
-}
-aside{
-	float:left;
-	width:20%;
-}
-section{
-	float:right;
-	width:79%
 }
 @media screen and (max-width: 900px) and (min-width: 400px) {
   body {

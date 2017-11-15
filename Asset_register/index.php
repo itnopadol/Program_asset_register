@@ -13,11 +13,10 @@
 <link rel="stylesheet" href="layout.css" type="text/css">
 <link rel="stylesheet" href="CSS/body.css" type="text/css">
 </head>
-<body>
+<body >
 <header>
-
 	  <header>
-	  <div id="sitename" align="center"><h1 class="">ระบบการจัดการทะเบียนสินทรัพย์ บริษัทนพดลพาณิชย์</div></h1>
+	  <div id="sitename" align="center"><h1>ระบบการจัดการทะเบียนสินทรัพย์ บริษัทนพดลพาณิชย์</div></h1>
     </header>
     <div id="main">
 		<aside>
@@ -60,7 +59,7 @@
         <a href="sale@nopadol.com" target=_blank>
         <img src="img/email-icon.png" style="width:40px;height:40px;."></a>
     	<div id="footer_top" class="fontcolor"><p>©2014 Nopadol Panich Co., Ltd. All Rights Reserved</p></div>
-    	<div id="footer_bottom" class="fontcolor2">128 Chiang Mai - Lampang Road, t.Fah Ham a. Muang Chiang Mai ,Thailand</p></div>
+    	<div id="footer_bottom" class="fontcolor2">392 Chiang Mai - Lampang Road, t.Fah Ham a. Muang Chiang Mai ,Thailand</p></div>
     </footer>
 </div>
 <a style="position: fixed; bottom: 10px; right: 10px;color:#CCC" </a>

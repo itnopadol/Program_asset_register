@@ -16,26 +16,9 @@
 }
 </style>
 <body class="edittotal">
-<form method="GET">
-	<input type="search" name="keyword" size="80"> 
-    <input type="submit" value="ค้นหา" name="Form1">
-
-
-</form>
 <?php
 	$sql = "SELECT * FROM asset ORDER BY Asset_id ASC";
 	$resulf = mysqli_query($con,$sql) or die ("MySQL =>".mysqli_error($con));	
-	$rows = mysqli_num_rows($resulf);
-	
-	if(empty($_GET['keyword'])){ //ถ้าไม่มีการใส่คำค้นหาจากไฟล์
-		$keyword = ""; //กำหนดให้ตัวแปร $keyword ว่าง	
-	}
-	else{
-		$keyword = $_GET['keyword']; //รับค่าคำค้นมาจากฟอร์ม
-	}
-	if($rows == 0){ //ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้น
-		echo "<p>ไม่ตรวจพบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p>";	
-	}
 	
 	echo "<table border = 1 align='center' class='editbody'>";
 	echo "<TH>รหัสสินทรัพย์</TH>";
@@ -49,19 +32,17 @@
 	echo "<TH>ราคา</TH>";
 	echo "<TH>ประเภท</TH>";
 	echo "<TH>ไฟล์รูปภาพ</TH>";
-	echo "<TH>แก้ไข</TH>";
-	echo "<TH>ลบ</TH>";
 	echo "<TH>เวลาแก้ไข</TH>";
 	while(list($Asset_id , $Asset_code ,$Asset_serial ,$Asset_name ,$Asset_receivr_amout ,$Asset_unit ,$Asset_date ,$Asset_company,
 	$Asset_price,$Asset_barcode ,$Asset_category ,$Asset_photo ,$Asset_time) = mysqli_fetch_row($resulf)){
 	$sql2 = "SELECT Category_name FROM category WHERE Category_id = $Asset_category";
-		$Category_id = mysqli_query($con,$sql2);
-		list($Category_id) = mysqli_fetch_row($resulf);
+		$Asset_category = mysqli_query($con,$sql2);
+		list($Asset_category) = mysqli_fetch_row($Asset_category);
 		echo "<TR align='center'>";
 		echo "<TD>$Asset_id</TD>";
 		echo "<TD>$Asset_code</TD>";
 		echo "<TD>$Asset_serial</TD>";
-		echo "<TD><a href='index.php?module=2&action=15&id=$Asset_id'>$Asset_name</a></TD>";
+		echo "<TD>$Asset_name</TD>";
 		//echo "<TD>$Asset_receivr_amout</TD>";
 		echo "<TD>$Asset_unit</TD>";
 		echo "<TD>$Asset_date</TD>";
@@ -69,11 +50,6 @@
 		echo "<TD>$Asset_price</TD>";
 		echo "<TD>$Asset_category</TD>";
 		echo "<TD>$Asset_photo</TD>";
-		
-		echo "<TD><a href='index.php?module=2&action=9&id=$Asset_id' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยัน\")'>
-		<img src='img/if_brush-pencil.png'  width='30'  height='30'></a></TD>";		
-		echo "<TD><a href='index.php?module=2&action=10&id=$Asset_id' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยัน\")'>
-		<img src='img/if_58_Cross.png'  width='30'  height='30'></a></TD>";
 		echo "<TD>$Asset_time</TD>";
 		echo "</TR>";
 	}
