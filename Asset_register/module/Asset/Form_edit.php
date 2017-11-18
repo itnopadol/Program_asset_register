@@ -8,6 +8,11 @@
 	<meta charset="utf-8" />
 	<title>Form Edit Asset</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript">
+function MM_popupMsg(msg) { //v1.0
+  alert(msg);
+}
+    </script>
 </head>
 <body class="blurBg-false" style="background-color:#EBEBEB">
 <?php
@@ -26,7 +31,7 @@
 	color:#34495E;max-width:420px;min-width:100px" method="post" action="Asset_update.php">
     <input type="hidden" name="Old_ID" value="<?php echo $Asset_id ?>">
     <input type="hidden" name="Cat_ID" value="<?php echo $Category_id ?>">
-    <div class="title"><h2>Form Edit Asset</h2></div>
+  <div class="title"><h2>Form Edit Asset</h2></div>
 	<div class="element-input"><label class="title"></label><div class="item-cont">
     	<input class="large" type="text" name="Asset_barcode" placeholder="Barcode" value="<?php echo $Asset_barcode ?>"/>
         
@@ -101,7 +106,7 @@
     	
 	</div></div>
 	<div class="submit">
-    	<input type="submit" value="Submit"/>
+    	<input type="submit" onClick="MM_popupMsg('บันทึกข้อมูลเรียบร้อยแล้วจ้า :3')" value="Submit"/>
 	</div>
     
 </form>
