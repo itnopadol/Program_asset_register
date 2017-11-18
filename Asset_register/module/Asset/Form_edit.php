@@ -16,7 +16,7 @@
 
 	list($Asset_id,$Asset_code ,$Asset_serial ,$Asset_name ,$mac_address,$computer_name
 	,$brand ,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
-	,$Category_id ,$Asset_photo ,$Asset_time,$detail)=mysqli_fetch_row($result);
+	,$Asset_Category,$Asset_photo ,$Asset_time,$detail)=mysqli_fetch_row($result);
 ?>
 <!-- Start Formoid form-->
 <link rel="stylesheet" href="../../CSS/formoid-solid-red.css" type="text/css" />
@@ -25,6 +25,7 @@
 	style="background-color:#FFFFFF;font-size:18px;font-family:'TH Sarabun New','Tw Cen MT',Arial,Helvetica,sans-serif;
 	color:#34495E;max-width:420px;min-width:100px" method="post" action="Asset_update.php">
     <input type="hidden" name="Old_ID" value="<?php echo $Asset_id ?>">
+    <input type="hidden" name="Cat_ID" value="<?php echo $Category_id ?>">
     <div class="title"><h2>Form Edit Asset</h2></div>
 	<div class="element-input"><label class="title"></label><div class="item-cont">
     	<input class="large" type="text" name="Asset_barcode" placeholder="Barcode" value="<?php echo $Asset_barcode ?>"/>
@@ -72,9 +73,9 @@
         
         </div></div>
 	<div class="element-select"><label class="title"><span class="required">*</span></label>
-    <div class="item-cont"><div class="large"><span><select name="Asset_Category" >
+    <div class="item-cont"><div class="large"><select name="Asset_Category" >
 		<?php
-				  $result=mysqli_query($con,"SELECT Category_id,Category_name FROM category") 
+				  $result=mysqli_query($con,"SELECT Category_id,Category_name FROM category ") 
 				  or die ("mysql error=>>".mysql_error($con));
 				  while(list($Category_id,$Category_name)=mysqli_fetch_row($result)){
 					  $select = $Category_id == $Asset_Category? "selected":"";
@@ -84,7 +85,7 @@
 				  mysqli_free_result($result);
 				  mysqli_close($con);
 				?>
-        </select><i></i>
+        </select>
         </div></div></div>
 	<div class="element-file">
         <label class="title"></label><div class="item-cont">

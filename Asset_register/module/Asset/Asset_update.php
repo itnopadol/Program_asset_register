@@ -20,7 +20,7 @@
 		//$char = str_shuffle("ABC");
 		$sum_name = date("dmyhis")."ABC";
 		$char = substr(str_shuffle($sum_name),0,10); //ตัดเหลือตัว 10
-		$student_photo = $char."_".$_FILES['Asset_photo']['name']; //ชื่อไฟล์
+		$asset_photo = $char."_".$_FILES['Asset_photo']['name']; //ชื่อไฟล์
 		$temp_file = $_FILES['Asset_photo']['tmp_name'];	//temp ไฟล์
 		copy($temp_file,"images/$asset_photo"); //copy ไฟล์ไปไว้ใน Folder img
 		$Update_photo = ",Asset_photo = '$asset_photo'";

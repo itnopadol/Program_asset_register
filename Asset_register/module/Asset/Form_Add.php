@@ -15,8 +15,9 @@
 <script type="text/javascript" src="../../JS/jquery.min.js"></script>
 <form enctype="multipart/form-data" class="formoid-solid-red" 
 	style="background-color:#FFFFFF;font-size:18px;font-family:'TH Sarabun New','Tw Cen MT',Arial,Helvetica,sans-serif;
-	color:#34495E;max-width:450px;min-width:150px" 
-	method="post"><div class="title"><h2>Form Asset</h2></div>
+	color:#34495E;max-width:450px;min-width:150px" method="post" action="insert.php">
+    
+    <div class="title"><h2>Form Asset</h2></div>
 	<div class="element-input"><label class="title"></label><div class="item-cont">
     	<input class="large" type="text" name="Asset_barcode" placeholder="Barcode"/ >
         <span class="icon-place"></span>
@@ -36,7 +37,7 @@
     	<input class="large" type="text" name="mac_address" placeholder="Mac Address"/><span class="icon-place"></span>
 	</div></div>
 	<div class="element-input"><label class="title"></label><div class="item-cont">
-    	<input class="large" type="text" name="computer_nam" placeholder="Computer name"/><span class="icon-place"></span>
+    	<input class="large" type="text" name="computer_name" placeholder="Computer name"/><span class="icon-place"></span>
 	</div></div>
 	<div class="element-input"><label class="title"></label><div class="item-cont">
     	<input class="large" type="text" name="brand" placeholder="รุ่น"/><span class="icon-place"></span></div></div>
@@ -50,17 +51,18 @@
 	<div class="element-input"><label class="title"></label><div class="item-cont">
 		<input class="large" type="text" name="Asset_price" placeholder="ราคา"/><span class="icon-place"></span></div></div>
 	<div class="element-select"><label class="title"><span class="required">*</span></label>
-    <div class="item-cont"><div class="large"><span><select name="Category_id" >
+    <div class="item-cont"><div class="large"><span><select name="Asset_Category" >
 		<?php
 				  $result=mysqli_query($con,"SELECT Category_id,Category_name FROM category") 
 				  or die ("mysql error=>>".mysql_error($con));
 				  while(list( $Category_id,$Category_name)=mysqli_fetch_row($result)){
 					  $select = $Category_id == $Category_name? "selected":"";
-				  echo "<option value='$Category_id' $select>$Category_name</option>";  
+				  echo "<option value=$Category_id>$Category_name</option>";  
 				  }
 				  
 				  mysqli_free_result($result);
 				  mysqli_close($con);
+				  
 				?>
         </select><i></i><span class="icon-place">
         </span></span></div></div></div>
@@ -74,6 +76,7 @@
         <textarea class="medium" name="detail" cols="20" rows="5" placeholder="หมายเหตุ"></textarea>
     	<span class="icon-place"></span>
 	</div></div>
+    
 	<div class="submit">
     	<input type="submit" value="Submit"/>
 	</div>
