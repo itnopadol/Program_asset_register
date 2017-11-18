@@ -32,7 +32,7 @@
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="">Nopadol - System Asset Regiter</a>
+      <a class="underlineHover" href="">Nopadol -Management System Asset Regiter</a>
     </div>
 
   </div>

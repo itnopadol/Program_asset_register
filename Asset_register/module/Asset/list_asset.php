@@ -8,6 +8,11 @@
 <meta charset="utf-8">
 <title>จัดการสินทรัพย์</title>
 <link href="../../CSS/list_asset.css" rel="stylesheet" type="text/css">
+<STYLE>
+A:link { color: rgb(54, 42, 68); text-decoration:none}
+A:visited {color: #091da6; text-decoration: none}
+A:hover {color: rgb(232, 76, 26)}
+</STYLE>
 </head>
 <style type="text/css">
 table tr th{
@@ -33,7 +38,7 @@ table tr th{
 	}
 	$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_log = 1 and (asset_id LIKE '%$keyword%' or
 	Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%'OR brand LIKE '%$keyword%'
-	OR Category_id LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_id LIMIT 10 ")
+	OR Asset_Category LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_id LIMIT 10 ")
 	or die ("MySQL =>".mysqli_error($con));
 	/*$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_log = 1 OR Asset_name  LIKE '%$keyword%' OR Asset_code
 	LIKE '%$keyword%'OR brand LIKE '%$keyword%' OR Category_id LIKE '%$keyword%' OR Asset_serial")
@@ -60,19 +65,19 @@ table tr th{
 	echo "<th>ลบ</th>";
 	while(list($Asset_id,$Asset_code ,$Asset_serial ,$Asset_name ,$mac_address,$computer_name
 	,$brand,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
-	,$Category_id ,$Asset_photo ,$Asset_time,$detail) = mysqli_fetch_row($result)){
+	,$Asset_Category ,$Asset_photo ,$Asset_time,$detail) = mysqli_fetch_row($result)){
 
 		echo "<tr>";
 		echo "<td align='center'>$Asset_id</td>";
 		echo "<td align='center'>$Asset_code</td>";
 		echo "<td align='center'>$Asset_serial</td>";
-		echo "<td align='center'><a href='assatt_detail.php?id=$Asset_id'>$Asset_name</td>";
+		echo "<td align='center'><a href='assatt_detail.php?id=$Asset_id' title='รายละเอียด!'>$Asset_name</td>";
 		echo "<td align='center'>$brand</td>";
-		echo "<td align='center'><a href='edit_form.php?Asset_id=$Asset_id'>
+		echo "<td class='boxEditcolor' align='center'><a href='Form_edit.php?Asset_id=$Asset_id'>
 		<img src='../../img/if_brush-pencil.png'  width='30'  height='30'></TD>";
-		echo "<td align='center'><a href='Delect_asset.php?Asset_id=$Asset_id'
+		echo "<td class='boxDelecolor' align='center'><a href='Delect_asset.php?Asset_id=$Asset_id'
 		onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'>
-		<img src='../../img/if_58_Cross.png'  width='30'  height='30'></TD>";
+		<img src='../../img/cancel.png'  width='30'  height='30'></TD>";
 
 		echo "</tr>";
 		$num++;//เพิ่มค่าตัวแปรนับแถว
@@ -83,6 +88,6 @@ table tr th{
 	mysqli_close($con); //ปิดฐานข้อมูล
 	}
 ?>
-<p align="center"><a href="menu.php">กลับหน้า Index</a> || <a href="add_asset.php">เพิ่มข้อมูลสินทรัพย์</a></p>
+<p align="center"><a href="menu.php">กลับหน้า Index</a> || <a href="Form_Add.php">เพิ่มข้อมูลสินทรัพย์</a></p>
 </body>
 </html>

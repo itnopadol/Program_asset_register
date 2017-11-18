@@ -46,7 +46,7 @@
 				  mysqli_close($con);
 				?>
                 </select></p>
-<p>รายละเอียด : <textarea name="	detail"  cols="30" rows="10"><?php echo $detail?></textarea></p><hr>
+<p>รายละเอียด : <textarea name="detail"  cols="30" rows="10"><?php echo $detail?></textarea></p><hr>
 <input type="submit" name="button" id="button" value="บันทึก">
 <input type="reset" name="button2" id="button2" value="ยกเลิก">
 </body>

@@ -204,23 +204,12 @@ fieldset {
               <input placeholder="Your Username" type="text" tabindex="1"  name="Username" required autofocus>
             </fieldset>
             <fieldset>
-              <input placeholder="Your Password" type="text" tabindex="2"  name="passwd" required>
+              <input placeholder="Your Password" type="password" tabindex="2"  name="passwd" required>
             </fieldset>
             <fieldset>
-              <input placeholder="Your name" type="text" tabindex="3"  name="name" required>
+              <input placeholder="Your Level" type="text" tabindex="3"  name="Level" required>
             </fieldset>
-            <fieldset>
-              <input placeholder="Your Last Name" type="text" tabindex="4"  name="lastname" required>
-            </fieldset>
-            <fieldset>
-              <textarea placeholder="Type your Address" tabindex="5" name="Address" required></textarea>
-            </fieldset>
-             <fieldset>
-              <input placeholder="Your Phone Number" type="tel" tabindex="6"  name="Phone" required>
-            </fieldset>
-             <fieldset>
-              <input placeholder="Your Position" type="text" tabindex="7"  name="position" required>
-            </fieldset>
+           
             <fieldset>
 				<button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
 				<button name="button" type="button" id="contact-button" 

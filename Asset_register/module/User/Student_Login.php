@@ -7,7 +7,7 @@
 <?php */?>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Admin Login</title>
+<title>Student Login</title>
 <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
 <link rel="stylesheet" href="../../CSS/body.css" type="text/css">
 </head>
@@ -18,7 +18,7 @@
 			<div class="smartphone-menu-trigger"></div>
     	<header class="avatar">
 			<img src="./img/if_supportmale_403020.png" />
-            <h2>Admin IT</h2>
+            <h2>Student IT</h2>
     		<!--<h2><?php echo $_SESSION['valid_user'] ?></h2>-->
   		</header>
 			<ul> 
@@ -28,6 +28,7 @@
     		<li tabindex="0" class="icon-asstotal"><span>จำนวนสินทรัพยทั้งหมด</span></li>
             <li tabindex="0" class="icon-user"><span>ลงทะเบียนผู้ใช้</span></li>
             <li tabindex="0" class="icon-report"><span>รายงานข้อมูลสินทรัพย์</span></li>
+            <li tabindex="0" class="icon-report"><a href="Logout.php"><span>ออกจากระบบ</span></a></li>
   			</ul>
 	</nav>
 </body>

@@ -11,6 +11,20 @@
 
 <body>
 <?php
+	if(empty($_FILES['Asset_photo']['name'])){
+		$asset_photo = "";
+		$Update_photo = "";
+	}
+	else{
+		//$time = date("dmyhis");	
+		//$char = str_shuffle("ABC");
+		$sum_name = date("dmyhis")."ABC";
+		$char = substr(str_shuffle($sum_name),0,10); //ตัดเหลือตัว 10
+		$student_photo = $char."_".$_FILES['Asset_photo']['name']; //ชื่อไฟล์
+		$temp_file = $_FILES['Asset_photo']['tmp_name'];	//temp ไฟล์
+		copy($temp_file,"images/$asset_photo"); //copy ไฟล์ไปไว้ใน Folder img
+		$Update_photo = ",Asset_photo = '$asset_photo'";
+	}
 	$sql = "UPDATE asset SET
 	Asset_code = '$_POST[Asset_code]'
 	,Asset_serial = '$_POST[Asset_serial]'
@@ -22,11 +36,15 @@
 	,Asset_company = '$_POST[Asset_company]'
 	,Asset_price = '$_POST[Asset_price]'
 	,Asset_barcode = '$_POST[Asset_barcode]'
-	,Category_id = '$_POST[Category_id]'
-	,Asset_photo = '$_POST[Asset_photo]'
+	,Asset_Category = '$_POST[Asset_Category]'
+	$Update_photo
+	,detail = '$_POST[detail]'
+	WHERE Asset_id = '$_POST[Old_ID]' ";
 	
-	WHERE Asset_id = '$_GET[Asset_id]'";
+	mysqli_query($con,$sql) or die(mysqli_error($con));
+	mysqli_close($con);
 
+	echo "<script>window.location='list_asset.php'</script>";
 
 ?>
 </body>

@@ -36,29 +36,29 @@ div.table-title {
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	animation: float 5s infinite;
 }
- 
+
 th {
-	color:#D5DDE5;
-	background:#1b1e24; 
-	border-bottom:4px solid #cc3300; /* เปลี่ยนสีขอบล่างของหัวตาราง */
-	border-right: 1px solid #ff0066; /* เปลี่ยนสีขอบขวาของหัวตาราง */
+	border-bottom:4px solid rgb(25, 140, 190); /* เปลี่ยนสีขอบล่างของหัวตาราง */
+	border-right: 1px solid rgb(14, 240, 240); /* เปลี่ยนสีขอบขวาของหัวตาราง */
 	font-size:22px;
 	font-weight: 100;
 	padding:20px;
 	text-align:left;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	vertical-align:middle;
+	color:#D5DDE5;
+	background:#1b1e24;
 }
 
 th:first-child {
   border-top-left-radius:5px;
 }
- 
+
 th:last-child {
   border-top-right-radius:5px;
   border-right:none;
 }
-  
+
 tr {
   border-top: 1px solid #C1C3D1;
   border-bottom-: 1px solid #C1C3D1;
@@ -67,13 +67,13 @@ tr {
   font-weight:normal;
   text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
 }
- 
+
 tr:hover td {
   background:#ff9999;
-  color:#FFFFFF;
+  color:rgb(255, 255, 255);
   border-top: 2px solid #ffff99;
 }
- 
+
 tr:first-child {
   border-top:none;
 }
@@ -81,33 +81,34 @@ tr:first-child {
 tr:last-child {
   border-bottom:none;
 }
- 
-tr:nth-child(odd) td {
-  background:#56c1ab; /* สีในตารางขั้นข้อ*/
-}
- 
-tr:nth-child(odd):hover td {
+
+/*tr:nth-child(odd) td {
+  background:rgb(100, 198, 231); /* สีในตารางขั้นข้อ
+ }
+
+/*tr:nth-child(odd):hover td {
   background:#006699;
-}
+}*/
 
 tr:last-child td:first-child {
   border-bottom-left-radius:3px;/* กำขนาดมุมของขอบ */
 }
- 
+
 tr:last-child td:last-child {
   border-bottom-right-radius:3px; /* กำขนาดมุมของขอบ */
 }
- 
+
 td {
   color:#000;
   background:#FFFFFF;
   padding:5px; /* กำหนดความกว้างตาราง */
   text-align:left;
   vertical-align:middle;
+  text-align:center;
   font-weight:300;
   font-size:22px; /* ขนาดตัวอักษรในตาราง */
   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-  border-right: 2px solid #ffff00; /* กำหนดขนาดเส้นหรือสีของขอบ.ซ้าย */
+  border-right: 2px solid rgb(14, 240, 240);; /* กำหนดขนาดเส้นหรือสีของขอบ.ซ้าย */
 }
 
 td:last-child {
@@ -137,4 +138,9 @@ td.text-center {
 td.text-right {
   text-align: right;
 }
-
+.boxDelecolor{
+	background-color:#FFC;
+}
+.boxEditcolor{
+	background-color:#FFC;
+}

@@ -16,7 +16,7 @@
 	$result=mysqli_query($con,"SELECT * FROM asset WHERE 
 	 Asset_id='$Asset_id'") or die("SQL Error=>".mysqli_error($con));
 
-	list($Asset_id,$Asset_code,$Asset_seria,$Asset_name,$mac_address,$computer_name,$brand,$Asset_date,$Asset_company,$Asset_price,$Asset_barcode,$Category_id,$Asset_photo,$Asset_time,$detail	)=mysqli_fetch_row($result);
+	list($Asset_id,$Asset_code,$Asset_seria,$Asset_name,$mac_address,$computer_name,$brand,$Asset_date,$Asset_company,$Asset_price,$Asset_barcode,$Asset_Category,$Asset_photo,$Asset_time,$detail	)=mysqli_fetch_row($result);
 
 
     echo"รหัสสินทรัพย์ : $Asset_id";
@@ -31,7 +31,7 @@
 	echo"ซื้อจาก : $Asset_company</p>";
 	echo"ราคา : $Asset_price</p>";
 	echo"Barcode: $Asset_barcode</p>";
-	echo"ประเภท : $Category_id</p>";
+	echo"ประเภท : $Asset_Category</p>";
 	echo"รายละเอียด : $detail</p>";
  	echo"บันทักข้อมูลเมื่อ : $Asset_time</p>";
 	echo"</hr>";
