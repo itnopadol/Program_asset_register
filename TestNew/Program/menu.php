@@ -14,8 +14,8 @@
 <ol>
   <li class="listcircle"><a href='list_asset.php'>จัดการสินทรัพย์ </a></li>
   <li class="listcircle"><a href='list_category.php'>จัดการหมวดหมู่สินทรัพย์</a></li>
-  <li class="listcircle">ตรวจสอบสถานะ</li>
-  <li class="listcircle">การรับเบิกวัสดุ</li>
+  <li class="listcircle"><a href='list_status.php'>ตรวจสอบสถานะ</a></li>
+  <li class="listcircle"><a href='menu_rent.php'>การรับเบิกวัสดุ</a></li>
   <li class="listcircle">จัดการ User ผู้ใช้งาน</li>
   <li class="listcircle">รายงานข้อมูลสินทรัพย์</li>
 </ol>

@@ -2,11 +2,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>จัดการสินทรัพย์</title>
+<title>ตรวจสอบสถานะสินทรัพย์</title>
 </head>
 
 <body>
-<h1 align='center'>จัดการสินทรัพย์</h1>
+<h1 align='center'>ตรวจสอบสถานะสินทรัพย์</h1>
 <form method ="post"  align='center'>
 	<input type ="search" name='keyword' size="50"> <input type="submit" value="ค้นหา">
 </form>
@@ -40,23 +40,33 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<th>Serial Number</th>";
 	echo "<th>ชื่อสินทรัพย์</th>";
 	echo "<th>รุ่น / ยี่ห้อ</th>";
-	echo "<th>แก้ไข</th>";
-	echo "<th>ลบ</th>";
+	echo "<th>สถานะการใช้งาน</th>";
+	echo "<th>บันทึก</th>";
+	echo "<th>จุดที่ใช้งาน</th>";
+	echo "<th>บันทึก</th>";
 	while(list($Asset_id,$Asset_code ,$Asset_serial ,$Asset_name ,$mac_address,$computer_name
-	,$brand ,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
-	,$Category,$Asset_photo ,$Asset_time,$detail) = mysqli_fetch_row($result)){
-		
-		$Category=mysqli_query($con,"SELECT Category_name FROM category  WHERE Category_id='$Category'")or die("SQL error2  ".mysqli_error($con));
-    list($Category)=mysqli_fetch_row($Category);
-		
+	,$brand,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
+	,$Category_id ,$Asset_photo ,$Asset_time,$detail,$status,$active_point) = mysqli_fetch_row($result)){
+	
+	$active_point=mysqli_query($con,"SELECT Active_name FROM active_point  WHERE Active_id='$active_point'")or die("SQL error2  ".mysqli_error($con));
+    list($active_point)=mysqli_fetch_row($active_point);
+	
 		echo "<tr>";
 		echo "<td align='center'>$Asset_id</td>";
 		echo "<td align='center'>$Asset_code</td>";
 		echo "<td align='center'>$Asset_serial</td>";
 		echo "<td align='center'><a href='assatt_detail.php?id=$Asset_id'>$Asset_name</td>";
 		echo "<td align='center'>$brand</td>";
-		echo "<td align='center'><a href='edit_form.php?Asset_id=$Asset_id'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></TD>";
-		echo "<td align='center'><a href='delete_asset.php?id=$Asset_id' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'><img src='../img/cancel.png'  width='30'  height='30'></TD>";
+		echo "<td align='center'><select name=$status>
+				<option value='val1'>พร้อมใช้งาน</option>.
+				<option value='val2'>ยืม</option>
+				<option value='val3'>เสีย</option>
+				<option value='val3'>รอซ่อม</option>
+				</select></td>";
+		
+		echo "<td align='center'><a href='update_status.php?Asset_id=$Asset_id'><img src='../img/flat.png'  width='30'  height='30'></TD>";
+		echo "<td align='center'>$active_point</td>";
+		echo "<td align='center'><a href='edit_status.php?Asset_id=$Asset_id'><img src='../img/flat.png'  width='30'  height='30'></TD>";
 		echo "</tr>";
 		$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
@@ -66,6 +76,6 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	mysqli_close($con); //ปิดฐานข้อมูล
 	}
 ?>
-<p align="center"><a href="menu.php">กลับหน้า Index</a> || <a href="add_asset.php">เพิ่มข้อมูลสินทรัพย์</a></p>
+<p align="center"><a href="menu.php">กลับหน้า Index</a></p>
 </body>
 </html>

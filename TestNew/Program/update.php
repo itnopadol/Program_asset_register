@@ -9,7 +9,24 @@
 include("../function/db_function.php");
 	$con=connect_db();
 	
-	$result="UPDATE asset SET Asset_id = '$_POST[Asset_id]',
+	if(empty($_FILES['Asset_price']['name'])){//ถ้าไฟล์รูปว่าง
+	$Asset_price="";
+	$Asset_price="";
+}
+else{
+	$time=date("dmyhis");
+	$sum_name=$time.("fefefefethyikeddw");
+	$char=substr(str_shuffle($sum_name),0,10);//ตัดตัวอักษร
+	$Asset_price=$char."_".$_FILES['Asset_price']['name'];
+	$Asset_price=$_FILES['Asset_price']['name'];//ชื่อไฟล์
+	$temp_file=$_FILES['Asset_price']['tmp_name']; 
+	copy($temp_file,"../img/$Asset_price");
+	$update_photo=",Asset_price='$Asset_price'";
+	
+}
+	
+	$result="UPDATE asset SET 
+	Asset_barcode='$_POST[Asset_barcode]',
 	Asset_code='$_POST[Asset_code]',
 	Asset_serial='$_POST[Asset_serial]',
 	Asset_name='$_POST[Asset_name]',
@@ -20,11 +37,11 @@ include("../function/db_function.php");
 	Asset_date='$_POST[Asset_date]',
 	Asset_company='$_POST[Asset_company]',
 	Asset_price='$_POST[Asset_price]',
-	Asset_barcode='$_POST[Asset_barcode]',
-	Category_id='$_POST[Category_id]',
+	Category='$_POST[Category]',
 	Asset_photo='$_POST[Asset_photo]',
-    detail = '$_POST[detail]' WHERE Asset_id= '$_POST[Asset_id]'";
-
+    detail ='$_POST[detail]' ,
+	$update_photo WHERE Asset_id= '$_POST[Asset_id]'";
+	
 	
 mysqli_query($con,	$result)or die ("edit".mysqli_error($con));
 mysqli_close($con);

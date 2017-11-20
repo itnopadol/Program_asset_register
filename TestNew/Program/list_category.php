@@ -22,9 +22,10 @@
 	$rows=mysqli_num_rows($result); // นับจำนวนแถว
 	echo "<h2 align='center'>ตารางแสดงรายชื่อหมวดหมู่ของสินทรัพย์</h2>";
 	echo "<table border=1 width=400px align=center>";
-			echo "<tr><th>รหัสหมวดหมู่</th><th>ชื่อหลักสูตร</th><th>แก้ไข</th><th>ลบ</th></tr>";
+			echo "<tr><th>รหัสหมวดหมู่</th><th>ชื่อหมวดหมู่สินทรัพย์</th><th>แก้ไข</th><th>ลบ</th></tr>";
 	while(list($id,$title)=mysqli_fetch_row($result)){
-		echo "<tr><td align='center'>$id</td><td align='center'>$title</td><td  align='center'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></td><td  align='center'><img src='../img/cancel.png'  width='30'  height='30'></td</tr>";
+		echo "<tr><td align='center'>$id</td><td align='center'>$title</td><td align='center'><a href='edit_category.php?Category_id=$id'><img src='../img/if_pencil_10550.png' width='30' height='30'></td>
+		<td  align='center'><img src='../img/cancel.png' width='30' height='30'></td></tr>";
 	}
 	echo"</table>";
 	mysqli_free_result($result);
