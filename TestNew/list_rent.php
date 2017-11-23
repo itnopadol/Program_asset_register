@@ -4,16 +4,19 @@
 <meta charset="utf-8">
 <title>รายการวัสดุ-อุปกรณ์</title>
 </head>
-
-<body>
-<h1 align='center'>รายการวัสดุ-อุปกรณ์</h1>
+<style>
+#midcentter{
+	text-align:center;	
+}
+</style>
+<body style="background-color:#EBEBEB">
+<h1 id="midcentter">รายการวัสดุ-อุปกรณ์</h1>
 <form method ="post"  align='center'>
 	<input type ="search" name='keyword' size="50"> <input type="submit" value="ค้นหา">
 </form>
 <?php
-include("../function/db_function.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
+	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
-	
 	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
 		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
 	}
@@ -21,19 +24,17 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 	
-	$result = mysqli_query($con, "SELECT * FROM rent WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%'OR brand ORDER BY rent_id ASC  ") or die ("MySQL =>".mysqli_error($con));	
-	
+	$result = mysqli_query($con, "SELECT * FROM rent WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%' 
+		OR brand ORDER BY rent_id ASC  ") or die ("MySQL =>".mysqli_error($con));	
 	$rows=mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
-		echo"<p>ไม่พบข้อมูลที่ครงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
+		echo"<p id='midcentter'>ไม่พบข้อมูลที่ครงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
 	}
 	else{
-		echo"<p align='center'>ชื่อรายการวัสดุ - อุปกรณ์มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $rows รายการ </p>";
+		echo"<p id='midcentter'>ชื่อรายการวัสดุ - อุปกรณ์มีตรงกับคำค้น \"<b>$keyword</b>\"
+			มีทั้งหมด $rows รายการ </p>";
 
-	//แสดงข้อมูล รหัสนักศึกษา คำนำหน้า ชื่อ นามสกุล ของนักศึกษาทุกคน
 	$num=1;//กำหนดตัวแปรเพื่อนับแถว
-	
 	echo "<table border = 1 align='center'>";
 	echo "<th>รหัสวัสดุ</th>";
 	echo "<th>รายการ</th>";
@@ -48,7 +49,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<th>ลบ</th>";
 	
 	while(list($rent_id,$name,$brand,$price,$stock,$acquire,$paying
-	,$balance) = mysqli_fetch_row($result)){ 
+		,$balance) = mysqli_fetch_row($result)){ 
 		
 	echo "<tr>";
 	echo "<td align='center'>$rent_id</td>";
@@ -59,9 +60,12 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<td align='center'>$acquire</td>";
 	echo "<td align='center'>$paying</td>";
 	echo "<td align='center'>$balance</td>";
-	echo "<td align='center'><a href='add_acquire.php?rent_id=$rent_id''><img src='../img/11.png'  width='30'  height='30'></TD>";
-	echo "<td align='center'><a href='edit_rent.php?rent_id=$rent_id'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></TD>";
-	echo "<td align='center'><a href='delete_asset.php?id=$rent_id' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'><img src='../img/cancel.png'  width='30'  height='30'></TD>";
+	echo "<td align='center'><a href='add_acquire.php?rent_id=$rent_id''>
+		<img src='img/if_Plus_206460.png' width='30'  height='30'></TD>";
+	echo "<td align='center'><a href='index.php?module=5&action=29&rent_id=$rent_id'>
+		<img src='img/if_pencil_10550.png'  width='30'  height='30'></TD>";
+	echo "<td align='center'><a href='index.php?module=5&action=34&id=$rent_id' onclick='return 
+		confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'><img src='img/cancel.png'  width='30'  height='30'></TD>";
 	echo "</tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
@@ -71,6 +75,6 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	mysqli_close($con); //ปิดฐานข้อมูล
 	}
 ?>
-<p align="center"><a href="menu.php">กลับหน้า Index</a> || <a href="add_rent.php">เพิ่มรายการุ</p>
+<p id="midcentter"><a href="index.php">กลับหน้า Index</a> || <a href="add_rent.php">เพิ่มรายการ</p>
 </body>
 </html>

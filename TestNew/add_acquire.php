@@ -6,7 +6,7 @@
 </head>
 <body>
 <?php
-	include("../function/db_function.php");
+	//include("../../Funtion/funtion.php");
 	$con=connect_db();
 	 
 	$result=mysqli_query($con,"SELECT * FROM rent WHERE 
@@ -16,7 +16,8 @@
 ?>
 
 <h2>ฟอร์มเพิ่มจำนวน</h2>
-<form method="post" action="insert_rent.php">
+<form method="post" action="index.php?module=5&action=30">
+
 <p>รหัสวัสดุ : <input type="text" name="rent_id" disabled="disabled"  value="<?php echo $rent_id ?>"></p>
 <p>รายการ: <input type="text" name="name" disabled="disabled" size=30 value="<?php echo $name ?>"></p>
 <p>รุ่น/ยี่ห้อ : <input type="text" name="brand" disabled="disabled" size=30 value="<?php echo $brand ?>"></p>

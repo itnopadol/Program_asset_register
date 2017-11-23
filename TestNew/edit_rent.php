@@ -7,7 +7,7 @@
 
 <body>
 <?php
-	include("../function/db_function.php");
+	//include("../../Funtion/funtion.php");
 	$con=connect_db();
 	 
 	$result=mysqli_query($con,"SELECT * FROM rent WHERE 
@@ -17,7 +17,8 @@
 ?>
 
 <h1>ฟอร์มแก้ไขรายการวัสดุ-อุปกรณ์</h1>
-<form action="update_rent.php" method="post" enctype="multipart/form-data">
+<form action="index.php?module=5&action=33" method="post" enctype="multipart/form-data">
+<input type="hidden" name="Old_id" value= "<?php echo $rent_id ?>">
 <p>รหัสวัสดุ : <input type="text" name="rent_id" disabled="disabled"  value="<?php echo $rent_id ?>"></p>
 <p>รายการ : <input type="text" name="name" size=30 value="<?php echo $name ?>"></p>
 <p>รุ่น/ยี่ห้อ : <input type="text" name="brand" size=30 value="<?php echo $brand ?>"></p>

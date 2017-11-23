@@ -6,7 +6,7 @@
 </head>
 <body>
 <?php 
-	include("../function/db_function.php");// include ไฟล์ที่เขียนฟังก์ชันไว้เข้ามาใช้งาน
+	//include("../../Funtion/funtion.php");// include ไฟล์ที่เขียนฟังก์ชันไว้เข้ามาใช้งาน
 	$con=connect_db();//เรียกใช้ฟงัก์ชั่นในการติดต่อฐานข้อมูล
 ?>
 <h2>ฟอร์มเพิ่มรายการ</h2>
