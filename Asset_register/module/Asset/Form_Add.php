@@ -1,5 +1,5 @@
 <?php 
-	include("../../Funtion/funtion.php");
+	//include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!DOCTYPE html>
@@ -11,11 +11,11 @@
 </head>
 <body class="blurBg-false" style="background-color:#EBEBEB">
 <!-- Start Formoid form-->
-<link rel="stylesheet" href="../../CSS/formoid-solid-red.css" type="text/css" />
-<script type="text/javascript" src="../../JS/jquery.min.js"></script>
+<link rel="stylesheet" href="CSS/formoid-solid-red.css" type="text/css" />
+<script type="text/javascript" src="JS/jquery.min.js"></script>
 <form enctype="multipart/form-data" class="formoid-solid-red" 
 	style="background-color:#FFFFFF;font-size:18px;font-family:'TH Sarabun New','Tw Cen MT',Arial,Helvetica,sans-serif;
-	color:#34495E;max-width:450px;min-width:150px" method="post" action="insert.php">
+	color:#34495E;max-width:450px;min-width:150px" method="post" action="index.php?module=2&action=7">
     
     <div class="title"><h2>Form Asset</h2></div>
 	<div class="element-input"><label class="title"></label><div class="item-cont">
@@ -82,7 +82,7 @@
 	</div>
     
 </form>
-<script type="text/javascript" src="../../JS/formoid-solid-red.js"></script>
+<script type="text/javascript" src="JS/formoid-solid-red.js"></script>
 <!-- Stop Formoid form-->
 </body>
 </html>

@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2017 at 03:40 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Nov 23, 2017 at 02:45 AM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `nopadol`
@@ -26,10 +28,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `active_point`
 --
 
-CREATE TABLE IF NOT EXISTS `active_point` (
-`Active_id` tinyint(3) unsigned zerofill NOT NULL,
+CREATE TABLE `active_point` (
+  `Active_id` tinyint(3) UNSIGNED ZEROFILL NOT NULL,
   `Active_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `active_point`
@@ -49,35 +51,41 @@ INSERT INTO `active_point` (`Active_id`, `Active_name`) VALUES
 -- Table structure for table `asset`
 --
 
-CREATE TABLE IF NOT EXISTS `asset` (
-`Asset_id` tinyint(4) unsigned zerofill NOT NULL,
+CREATE TABLE `asset` (
+  `Asset_id` tinyint(4) UNSIGNED ZEROFILL NOT NULL,
   `Asset_code` char(12) COLLATE utf8_unicode_ci NOT NULL,
   `Asset_serial` char(15) COLLATE utf8_unicode_ci NOT NULL,
   `Asset_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `mac_address` char(20) COLLATE utf8_unicode_ci NOT NULL,
   `computer_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `brand` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `Asset_receivr_amout` tinyint(2) NOT NULL,
   `Asset_date` date NOT NULL,
   `Asset_company` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `Asset_price` decimal(8,2) NOT NULL,
   `Asset_barcode` char(12) COLLATE utf8_unicode_ci NOT NULL,
-  `Category_id` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `Asset_Category` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `Asset_photo` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `Asset_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `detail` varchar(250) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `detail` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `Asset_status` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `active_point` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `Asset_log` int(1) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `asset`
 --
 
-INSERT INTO `asset` (`Asset_id`, `Asset_code`, `Asset_serial`, `Asset_name`, `mac_address`, `computer_name`, `brand`, `Asset_receivr_amout`, `Asset_date`, `Asset_company`, `Asset_price`, `Asset_barcode`, `Category_id`, `Asset_photo`, `Asset_time`, `detail`) VALUES
-(0001, '5500100', 'ETP780I79ISLO', 'คอมพิวเตอร์', '00-00-TH-12-88', 'what a ', 'Sumsung', 2, '2017-11-07', 'JIB', '35000.00', 'OIU901273547', '002', 'draw-23-128.png', '2017-11-09 09:04:26', ''),
-(0000, '1249411234', 'AAA780I79ISLO', 'คอมพิวเตอร์', 'A1-SQ-89-PP-99', 'thantip', 'X1', 3, '2017-11-02', 'บริษัท MMM', '30000.00', 'OIU901272222', '', 'if_printer_289614.png', '2017-11-13 05:53:37', ''),
-(0002, '5500122', 'POQ780I79ISLO', 'จอ', '00-00-88-12-12', 'Jason', 'lenovo', 5, '2017-11-07', 'บริษัทอินเกรสโอเอ(เชียงใหม่)จำกัด', '3500.00', 'OIU901273577', '001', '', '2017-11-09 09:04:12', ''),
-(0003, '35678990343', 'T3P02139485PE', 'โน๊ตบุ๊ค', '12-A0-TH-12-M7', 'TOY', 'acer', 2, '2017-11-13', 'MMM', '26000.00', 'PPP780I79ISL', 'โน้ตบุ๊ค', 'if_fax_531890.png', '2017-11-13 02:31:26', 'ซื้อมาใช้ได้เลย'),
-(0004, '1249411234', 'AAA780I79ISLO', 'คอมพิวเตอร์', 'A1-SQ-89-PP-99', 'thantip', 'X1', 3, '2017-11-02', 'บริษัท MMM', '30000.00', 'OIU901272222', 'เมนบอร์ด', '', '2017-11-13 03:00:20', '');
+INSERT INTO `asset` (`Asset_id`, `Asset_code`, `Asset_serial`, `Asset_name`, `mac_address`, `computer_name`, `brand`, `Asset_date`, `Asset_company`, `Asset_price`, `Asset_barcode`, `Asset_Category`, `Asset_photo`, `Asset_time`, `detail`, `Asset_status`, `active_point`, `Asset_log`) VALUES
+(0001, '5500100', 'ETP780I79ISLO', 'คอมพิวเตอร์', '00-00-TH-12-88', 'what a ', 'Sumsung', '0000-00-00', 'JIB', '35000.00', 'OIU901273547', '002', '7C3A3215B0_14274357.png', '2017-11-21 07:35:48', 'เอาใหม่ๆนะ จะได้ไหม\r\nลองเทสรูปปปป', '01', '004', 1),
+(0007, '5800327', 'US0023S307', 'เครื่องนำทางสู่อนาคต', '127.0.00.152', 'PANAMA', 'Susi', '0000-00-00', 'โดเรมอน', '999999.99', '123456789012', '007', '11117CA403_if_printer_289614.png', '2017-11-21 09:16:18', 'อุปกรณ์ที่จะทำให้คุณเดินทางไปสู่อนาคตได้\r\nเพียงแค่คุณ...หลับ', '03', '004', 1),
+(0002, '5500122', 'POQ780I79ISLO', 'จอ', '00-00-88-12-12', 'Jason', 'lenovo', '0000-00-00', 'บริษัทอินเกรสโอเอ(เชียงใหม่)จำกัด', '3500.00', 'OIU901273577', '001', '', '2017-11-23 01:25:18', '', '03', '003', 1),
+(0003, '35678990343', 'T3P02139485PE', 'โน๊ตบุ๊ค', '12-A0-TH-12-M7', 'TOY', 'acer', '0000-00-00', 'MMM', '26000.00', 'PPP780I79ISL', '005', '', '2017-11-21 08:09:50', 'ซื้อมาใช้ได้เลย', '04', '001', 1),
+(0004, '1249411234', 'AAA780I79ISLO', 'คอมพิวเตอร์', 'A1-SQ-89-PP-99', 'thantip', 'X1', '0000-00-00', 'บริษัท MMM', '30000.00', 'OIU901272222', '002', '851C1792BA_if_3_2694136.png', '2017-11-22 07:12:20', '', '03', '002', 1),
+(0006, '5800326', 'US00233307', 'เครื่อง Lenovo', 'none', 'none', 'Lenovo', '0000-00-00', 'กาดหลวง', '9999.00', '123456789012', '005', '51B4C5470A_if_6_2694143.png', '2017-11-22 07:13:18', 'ทดลองใส่เฉยๆ', '03', '002', 1),
+(0008, '5800145', 'ABCDEF12345', 'Barcode', '', '', 'Susi', '2017-11-01', 'กาดหลวง', '500.00', '123456789012', '006', '1A87B34014_home-128.png', '2017-11-21 09:16:06', '', '03', '005', 1),
+(0009, '0000007', 'ABCDEF12345x', 'แฮนไดร์', '127.0.00.152', 'PANAMA', 'Susi', '2017-10-31', 'กาดหลวง', '500.00', '12345678909', '006', '00111B29C7_P-1-36-128.png', '2017-11-22 07:13:26', 'ทดสอบการแอดลำดับที่ 9 ครั้งที่ 4', '01', '006', 1),
+(0010, '0000008', 'ZXCVBNM005OSLQ', 'IPhone X', '', '', 'Susi', '0000-00-00', 'กาดหลวง', '999999.99', '9876543210', '002', 'C794081312_magnifier-cheque-128.png', '2017-11-21 09:15:47', 'ทดสอบ Pop up', '01', '006', 1);
 
 -- --------------------------------------------------------
 
@@ -85,10 +93,10 @@ INSERT INTO `asset` (`Asset_id`, `Asset_code`, `Asset_serial`, `Asset_name`, `ma
 -- Table structure for table `category`
 --
 
-CREATE TABLE IF NOT EXISTS `category` (
-`Category_id` tinyint(3) unsigned zerofill NOT NULL,
+CREATE TABLE `category` (
+  `Category_id` tinyint(3) UNSIGNED ZEROFILL NOT NULL,
   `Category_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `category`
@@ -100,7 +108,8 @@ INSERT INTO `category` (`Category_id`, `Category_name`) VALUES
 (003, 'Handheld'),
 (004, 'All in One'),
 (005, 'Note Book'),
-(006, 'แรม');
+(007, 'Ram'),
+(006, 'Flash Drive');
 
 -- --------------------------------------------------------
 
@@ -108,7 +117,7 @@ INSERT INTO `category` (`Category_id`, `Category_name`) VALUES
 -- Table structure for table `employee`
 --
 
-CREATE TABLE IF NOT EXISTS `employee` (
+CREATE TABLE `employee` (
   `Emp_id` char(6) COLLATE utf8_unicode_ci NOT NULL,
   `Emp_code` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `Emp_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -125,7 +134,7 @@ INSERT INTO `employee` (`Emp_id`, `Emp_code`, `Emp_name`, `Emp_department`, `Emp
 ('N0002', 'P1213', 'กฤติยา กันทารักษ์', 'แผนกบัญชี', '0383635533'),
 ('N0003', 'E2121', 'พี่ใจดี', 'แผนกขายโครงการ', '0383735353'),
 ('N0004', 'T3333', 'พี่แตงโมคนสวย', 'แผนกการเงิน', '0986535355'),
-('N0005', 'YPEER', 'น้องบิ๊กเอ็ม', 'แผนก IT', '092726253');
+('N0005', 'YPEER', 'น้องบิ๊กเอ็ม', 'แผนก IT', '0841720778');
 
 -- --------------------------------------------------------
 
@@ -133,22 +142,32 @@ INSERT INTO `employee` (`Emp_id`, `Emp_code`, `Emp_name`, `Emp_department`, `Emp
 -- Table structure for table `rent`
 --
 
-CREATE TABLE IF NOT EXISTS `rent` (
-`Rent_id` tinyint(3) unsigned zerofill NOT NULL,
-  `Asset_id` tinyint(4) NOT NULL,
-  `Emp_id` char(6) COLLATE utf8_unicode_ci NOT NULL,
-  `Status_id` tinyint(2) NOT NULL,
-  `Active_id` tinyint(3) NOT NULL,
-  `Rent_count` tinyint(7) NOT NULL,
-  `rent_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `rent` (
+  `rent_id` tinyint(2) UNSIGNED ZEROFILL NOT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `brand` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `price` decimal(8,2) NOT NULL,
+  `stock` tinyint(1) NOT NULL,
+  `acquire` tinyint(1) NOT NULL,
+  `paying` int(1) NOT NULL,
+  `balance` tinyint(3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `rent`
 --
 
-INSERT INTO `rent` (`Rent_id`, `Asset_id`, `Emp_id`, `Status_id`, `Active_id`, `Rent_count`, `rent_time`) VALUES
-(001, 1, 'N0001', 1, 111, 2, '2017-11-07 04:02:25');
+INSERT INTO `rent` (`rent_id`, `name`, `brand`, `price`, `stock`, `acquire`, `paying`, `balance`) VALUES
+(01, 'คีบอร์ด', 'GenX01', '500.00', 2, 0, 0, 0),
+(02, 'สายแลน', 'amp', '150.00', 5, 0, 0, 0),
+(03, 'เม้าส์', ' Gaming G300S  ', '530.00', 2, 0, 0, 0),
+(04, 'Ram', 'GenX', '500.00', 2, 0, 0, 0),
+(05, 'Card', 'X1', '500.00', 2, 0, 0, 0),
+(13, 'Profile Screen 2', 'Susi', '200.00', 1, 3, 0, 0),
+(14, 'Profile Screen', 'Susi', '200.00', 1, 3, 0, 0),
+(15, '', '', '0.00', 0, 3, 0, 0),
+(16, '', '', '0.00', 0, 1, 0, 0),
+(17, '', '', '0.00', 0, 5, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -156,10 +175,10 @@ INSERT INTO `rent` (`Rent_id`, `Asset_id`, `Emp_id`, `Status_id`, `Active_id`, `
 -- Table structure for table `status`
 --
 
-CREATE TABLE IF NOT EXISTS `status` (
-`Status_id` tinyint(2) unsigned zerofill NOT NULL,
+CREATE TABLE `status` (
+  `Status_id` tinyint(2) UNSIGNED ZEROFILL NOT NULL,
   `Status_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `status`
@@ -177,7 +196,7 @@ INSERT INTO `status` (`Status_id`, `Status_name`) VALUES
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `Username` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Password` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `Level` varchar(20) COLLATE utf8_unicode_ci NOT NULL
@@ -348,43 +367,43 @@ INSERT INTO `user` (`Username`, `Password`, `Level`) VALUES
 -- Indexes for table `active_point`
 --
 ALTER TABLE `active_point`
- ADD PRIMARY KEY (`Active_id`);
+  ADD PRIMARY KEY (`Active_id`);
 
 --
 -- Indexes for table `asset`
 --
 ALTER TABLE `asset`
- ADD PRIMARY KEY (`Asset_id`);
+  ADD PRIMARY KEY (`Asset_id`);
 
 --
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
- ADD PRIMARY KEY (`Category_id`);
+  ADD PRIMARY KEY (`Category_id`);
 
 --
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
- ADD PRIMARY KEY (`Emp_id`);
+  ADD PRIMARY KEY (`Emp_id`);
 
 --
 -- Indexes for table `rent`
 --
 ALTER TABLE `rent`
- ADD PRIMARY KEY (`Rent_id`);
+  ADD PRIMARY KEY (`rent_id`);
 
 --
 -- Indexes for table `status`
 --
 ALTER TABLE `status`
- ADD PRIMARY KEY (`Status_id`);
+  ADD PRIMARY KEY (`Status_id`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
- ADD PRIMARY KEY (`Username`);
+  ADD PRIMARY KEY (`Username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -394,27 +413,33 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `active_point`
 --
 ALTER TABLE `active_point`
-MODIFY `Active_id` tinyint(3) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `Active_id` tinyint(3) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `asset`
 --
 ALTER TABLE `asset`
-MODIFY `Asset_id` tinyint(4) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `Asset_id` tinyint(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-MODIFY `Category_id` tinyint(3) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `Category_id` tinyint(3) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `rent`
 --
 ALTER TABLE `rent`
-MODIFY `Rent_id` tinyint(3) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `rent_id` tinyint(2) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-MODIFY `Status_id` tinyint(2) unsigned zerofill NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `Status_id` tinyint(2) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

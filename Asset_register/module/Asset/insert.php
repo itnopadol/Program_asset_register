@@ -1,5 +1,5 @@
 <?php 
-	include("../../Funtion/funtion.php");
+	//include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!doctype html>
@@ -44,7 +44,7 @@
 	 
 	mysqli_query($con, $sql) or die("Error =" .mysqli_error($con));
 	mysqli_close($con);
-	echo "<script>window.location='list_asset.php'</script>";
+	echo "<script>window.location='index.php?module=2&action=21' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยัน\")</script>";
 ?>
 </body>
 </html>

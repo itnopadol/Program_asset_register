@@ -1,5 +1,5 @@
 <?php 
-	include("../../Funtion/funtion.php");
+	//include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!DOCTYPE html>
@@ -24,11 +24,11 @@ function MM_popupMsg(msg) { //v1.0
 	,$Asset_Category,$Asset_photo ,$Asset_time,$detail)=mysqli_fetch_row($result);
 ?>
 <!-- Start Formoid form-->
-<link rel="stylesheet" href="../../CSS/formoid-solid-red.css" type="text/css" />
-<script type="text/javascript" src="../../JS/jquery.min.js"></script>
+<link rel="stylesheet" href="CSS/formoid-solid-red.css" type="text/css" />
+<script type="text/javascript" src="JS/jquery.min.js"></script>
 <form enctype="multipart/form-data" class="formoid-solid-red" 
 	style="background-color:#FFFFFF;font-size:18px;font-family:'TH Sarabun New','Tw Cen MT',Arial,Helvetica,sans-serif;
-	color:#34495E;max-width:420px;min-width:100px" method="post" action="Asset_update.php">
+	color:#34495E;max-width:420px;min-width:100px" method="post" action="index.php?module=2&action=13">
     <input type="hidden" name="Old_ID" value="<?php echo $Asset_id ?>">
     <input type="hidden" name="Cat_ID" value="<?php echo $Category_id ?>">
   <div class="title"><h2>Form Edit Asset</h2></div>
@@ -110,7 +110,7 @@ function MM_popupMsg(msg) { //v1.0
 	</div>
     
 </form>
-<script type="text/javascript" src="../../JS/formoid-solid-red.js"></script>
+<script type="text/javascript" src="JS/formoid-solid-red.js"></script>
 <!-- Stop Formoid form-->
 </body>
 </html>

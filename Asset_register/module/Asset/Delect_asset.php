@@ -1,5 +1,5 @@
 <?php 
-	include("../../Funtion/funtion.php");
+	//include("../../Funtion/funtion.php");
 	$con = connect_db(); //เรียกไฟล์
 	//$Asset_id = $_GET['id'];
 	
@@ -11,7 +11,7 @@
 		mysqli_query($con, $sql) or die("Error Delete" . mysqli_error($con));
 
 		echo "<script>alert('ลบข้อมูลเรียบร้อยแล้ว')</script>";
-		echo "<script>window.location='list_asset.php'</script>";
+		echo "<script>window.location='index.php?module=2&action=22'</script>";
 
 		mysqli_close($con);
 ?>

@@ -1,5 +1,5 @@
 <?php 
-	include("../../Funtion/funtion.php");
+	//include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -22,7 +22,7 @@
 		$char = substr(str_shuffle($sum_name),0,10); //ตัดเหลือตัว 10
 		$asset_photo = $char."_".$_FILES['Asset_photo']['name']; //ชื่อไฟล์
 		$temp_file = $_FILES['Asset_photo']['tmp_name'];	//temp ไฟล์
-		copy($temp_file,"images/$asset_photo"); //copy ไฟล์ไปไว้ใน Folder img
+		copy($temp_file,"img/$asset_photo"); //copy ไฟล์ไปไว้ใน Folder img
 		$Update_photo = ",Asset_photo = '$asset_photo'";
 	}
 	$sql = "UPDATE asset SET
@@ -43,8 +43,7 @@
 	
 	mysqli_query($con,$sql) or die(mysqli_error($con));
 	mysqli_close($con);
-
-	echo "<script>window.location='list_asset.php'</script>";
+	echo "<script>window.location='index.php?module=2&action=22'</script>";
 
 ?>
 </body>

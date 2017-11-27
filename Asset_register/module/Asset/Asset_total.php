@@ -42,16 +42,17 @@
 	echo "<TH>หมายเลขทะเบียน</TH>";
 	echo "<TH>Serial Number</TH>";
 	echo "<TH>ชื่อสินทรัพย์</TH>";
-	//echo "<TH>จำนวน</TH>";
-	echo "<TH>หน่วยนับ</TH>";
-	echo "<TH>วัน/เดือน/ปี</TH>";
-	echo "<TH>บริษัท</TH>";
-	echo "<TH>ราคา</TH>";
+	
+	echo "<TH>Computer</TH>";
+	echo "<TH>Bran</TH>";
+	echo "<TH>เวลาซื้อ</TH>";
+	echo "<TH>ซื้อจาก</TH>";
 	echo "<TH>ประเภท</TH>";
-	echo "<TH>ไฟล์รูปภาพ</TH>";
+	echo "<TH>ประเภท</TH>";
 	echo "<TH>แก้ไข</TH>";
 	echo "<TH>ลบ</TH>";
-	echo "<TH>เวลาแก้ไข</TH>";
+	echo "<TH>ไฟล์รูป</TH>";
+	
 	while(list($Asset_id , $Asset_code ,$Asset_serial ,$Asset_name ,$Asset_receivr_amout ,$Asset_unit ,$Asset_date ,$Asset_company,
 	$Asset_price,$Asset_barcode ,$Asset_category ,$Asset_photo ,$Asset_time) = mysqli_fetch_row($resulf)){
 	$sql2 = "SELECT Category_name FROM category WHERE Category_id = $Asset_category";
@@ -62,7 +63,7 @@
 		echo "<TD>$Asset_code</TD>";
 		echo "<TD>$Asset_serial</TD>";
 		echo "<TD><a href='index.php?module=2&action=15&id=$Asset_id'>$Asset_name</a></TD>";
-		//echo "<TD>$Asset_receivr_amout</TD>";
+		
 		echo "<TD>$Asset_unit</TD>";
 		echo "<TD>$Asset_date</TD>";
 		echo "<TD>$Asset_company</TD>";

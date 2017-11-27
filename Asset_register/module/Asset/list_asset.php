@@ -1,5 +1,5 @@
 <?php
-	include("../../Funtion/funtion.php");
+	//include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!doctype html>
@@ -21,9 +21,17 @@ table tr th{
 	text-align:left;
 	vertical-align:center;
 }
+#titletablelist{
+	border-radius: 5px;
+	box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 10px 30px 0 rgba(0,0,0,0.19);
+}
+#titletablelist2{
+	box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 10px 30px 0 rgba(0,0,0,0.19);
+}
 </style>
-<body>
-<h1 align='center'>จัดการสินทรัพย์</h1>
+<body id="makebody" style="background-color:#EBEBEB">
+<div class="">
+<h1 id="middlecenter">จัดการสินทรัพย์</h1>
 
 <form method ="post"  align='center'>
 	<input type ="search" name='keyword' size="50"> <input type="submit" value="ค้นหา">
@@ -37,47 +45,47 @@ table tr th{
 		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 	$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_log = 1 and (asset_id LIKE '%$keyword%' or
-	Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%'OR brand LIKE '%$keyword%'
-	OR Asset_Category LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_id LIMIT 10 ")
+		Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%'OR brand LIKE '%$keyword%'
+		OR Asset_Category LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_id LIMIT 10 ")
 	or die ("MySQL =>".mysqli_error($con));
 	/*$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_log = 1 OR Asset_name  LIKE '%$keyword%' OR Asset_code
 	LIKE '%$keyword%'OR brand LIKE '%$keyword%' OR Category_id LIKE '%$keyword%' OR Asset_serial")
 	or die ("MySQL =>".mysqli_error($con));*/
-
-	$rows=mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
+	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
-		echo"<p>ไม่พบข้อมูลที่ครงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
+		echo"<p id='middlecenter'>ไม่พบข้อมูลที่ตรงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
 	}
 	else{
-		echo"<p align='center'>จำนวนสินทรัพย์มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $rows รายการ </p>";
+		echo"<p id='middlecenter'>จำนวนสินทรัพย์ที่ตรงกับคำว่า \"<b>$keyword</b>\"
+			ทั้งหมด $rows รายการ </p>";
+	$num=1; //กำหนดตัวแปรเพื่อนับแถว
 
-	//แสดงข้อมูล รหัสนักศึกษา คำนำหน้า ชื่อ นามสกุล ของนักศึกษาทุกคน
-	$num=1;//กำหนดตัวแปรเพื่อนับแถว
-
-	echo "<table border = 1 align='center'>";
-	echo "<th>รหัสสินทรัพย์</th>";
-	echo "<th>หมายเลขทะเบียน</th>";
-	echo "<th>Serial Number</th>";
-	echo "<th>สินทรัพย์</th>";
-	echo "<th>ยี่ห้อ</th>";
-	echo "<th>แก้ไข</th>";
-	echo "<th>ลบ</th>";
+	echo "<table border = 1 align='center' id='titletablelist'>";
+	echo "<th id='titletablelist2'>รหัสสินทรัพย์</th>";
+	echo "<th id='titletablelist2'>หมายเลขทะเบียน</th>";
+	echo "<th id='titletablelist2'>Serial Number</th>";
+	echo "<th id='titletablelist2'>สินทรัพย์</th>";
+	echo "<th id='titletablelist2'>ยี่ห้อ</th>";
+	echo "<th id='titletablelist2'>แก้ไข</th>";
+	echo "<th id='titletablelist2'>ลบ</th>";
 	while(list($Asset_id,$Asset_code ,$Asset_serial ,$Asset_name ,$mac_address,$computer_name
-	,$brand,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
-	,$Asset_Category ,$Asset_photo ,$Asset_time,$detail) = mysqli_fetch_row($result)){
+		,$brand,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
+		,$Asset_Category ,$Asset_photo ,$Asset_time,$detail) = mysqli_fetch_row($result)){
 
-		echo "<tr>";
-		echo "<td align='center'>$Asset_id</td>";
-		echo "<td align='center'>$Asset_code</td>";
-		echo "<td align='center'>$Asset_serial</td>";
-		echo "<td align='center'><a href='assatt_detail.php?id=$Asset_id' title='รายละเอียด!'>$Asset_name</td>";
-		echo "<td align='center'>$brand</td>";
-		echo "<td class='boxEditcolor' align='center'><a href='Form_edit.php?Asset_id=$Asset_id'>
-		<img src='../../img/if_brush-pencil.png'  width='30'  height='30'></TD>";
-		echo "<td class='boxDelecolor' align='center'><a href='Delect_asset.php?Asset_id=$Asset_id'
-		onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'>
-		<img src='../../img/cancel.png'  width='30'  height='30'></TD>";
+		echo "<tr id='titletablelist2'>";
+		echo "<td align='center' id='titletablelist2'>$Asset_id</td>";
+		echo "<td align='center' id='titletablelist2'>$Asset_code</td>";
+		echo "<td align='center' id='titletablelist2'>$Asset_serial</td>";
+		echo "<td align='center' id='titletablelist2'>
+			<a href='index.php?module=2&action=25&id=$Asset_id' title='รายละเอียด!'>$Asset_name</td>";
+		echo "<td align='center' id='titletablelist2'>$brand</td>";
+		echo "<td class='boxEditcolor' align='center' id='titletablelist2'>
+			<a href='index.php?module=2&action=9&Asset_id=$Asset_id'>
+			<img src='img/if_brush-pencil.png'  width='30'  height='30'></TD>";
+		echo "<td class='boxDelecolor' align='center' id='titletablelist2'>
+			<a href='index.php?module=2&action=10&Asset_id=$Asset_id'
+			onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'>
+			<img src='img/cancel.png'  width='30'  height='30'></TD>";
 
 		echo "</tr>";
 		$num++;//เพิ่มค่าตัวแปรนับแถว
@@ -88,6 +96,7 @@ table tr th{
 	mysqli_close($con); //ปิดฐานข้อมูล
 	}
 ?>
-<p align="center"><a href="menu.php">กลับหน้า Index</a> || <a href="Form_Add.php">เพิ่มข้อมูลสินทรัพย์</a></p>
+<p id="middlecenter"><a href="index.php">กลับหน้า Index</a> || <a href="index.php?module=2&action=6">เพิ่มข้อมูลสินทรัพย์</a>
+</p>
 </body>
 </html>

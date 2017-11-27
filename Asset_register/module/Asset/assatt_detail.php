@@ -1,5 +1,5 @@
 <?php 
-	include("../../Funtion/funtion.php");
+	//include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!doctype html>
@@ -8,7 +8,12 @@
 <meta charset="utf-8">
 <title>แสดงรายละเอียดของสินทรัพย์</title>
 </head>
-
+<style>
+#XD{
+	color:#000;
+	background-color:#FFC;
+}
+</style>
 <body>
 <?php
 	
@@ -21,10 +26,12 @@
 	$result = mysqli_query($con ,"SELECT Category_name FROM category WHERE Category_id = '$Asset_Category' ")
 	or die("SQL Error2=>".mysqli_error($con)) ; //เขียนเริ่มจากขวาไปซ้าย
 	list($Asset_Category) = mysqli_fetch_row($result); //เขียนเริ่มจากขวาไปซ้าย
-	echo "<div align='center'>";
+	
+	echo "<div align='center'><table border='1'>";
+	echo "<TH id='XD'>";
     echo"รหัสสินทรัพย์ : $Asset_id";
-	$Asset_photo = empty($Asset_photo)?"default.jpg":$Asset_photo;
-	echo "<P><img src='images/$Asset_photo' style='width:350px;height:350px;'></P>";
+	$Asset_photo = empty($Asset_photo)?"proflie.png":$Asset_photo;
+	echo "<P><img src='img/$Asset_photo' style='width:350px;height:350px;'></P>";
 	echo"<P>เลขทะเบียนสินทรัพย์ : $Asset_code</p>";
 	echo"<P>Serial Number : $Asset_seria</p>";
 	echo"<P>ชื่อสินทรัพย์ : $Asset_name</p>";
@@ -37,10 +44,10 @@
 	echo"<P>Barcode: $Asset_barcode</p>";
 	echo"<P>ประเภท : $Asset_Category</p>";
 	echo"<P>รายละเอียด : $detail</p>";
- 	echo"<P>บันทักข้อมูลเมื่อ : $Asset_time</p>";
+ 	echo"<P>แก้ไขข้อมูลล่าสุดเมื่อ : $Asset_time</p>";
 	echo"</hr>";
-	echo "</div>";
-	
+	echo "</div></table>";
+	echo "</th>";
 	mysqli_free_result($result);
 	mysqli_close($con); //ปิดฐานข้อมูล
 ?>
