@@ -1,3 +1,7 @@
+<?php
+	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
+	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
+?>
 <!doctype html>
 <html>
 <head>
@@ -32,12 +36,11 @@
 <body style="background-color:#EBEBEB">
 <h1 align='center'>ตรวจสอบสถานะสินทรัพย์</h1>
 <form method ="post"  align='center' >
-	<input type ="search" name='keyword' size="50" id="titletable2"> 
+	<input type ="search" name='keyword' size="50" id="titletable2">
     <input type="submit" value="ค้นหา" id="titletable2">
 </form>
 <?php
-	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
-	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
+	
 	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
 		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
 	}
@@ -45,11 +48,11 @@
 		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 
-	$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_name  LIKE '%$keyword%' 
-		OR Asset_code LIKE '%$keyword%'OR brand LIKE '%$keyword%' OR Asset_serial LIKE '%$keyword%' 
-		OR asset_id LIKE '%$keyword%' OR active_point LIKE '%$keyword%' ORDER BY Asset_id ASC  ") 
+	$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_name  LIKE '%$keyword%'
+		OR Asset_code LIKE '%$keyword%'OR brand LIKE '%$keyword%' OR Asset_serial LIKE '%$keyword%'
+		OR asset_id LIKE '%$keyword%' OR active_point LIKE '%$keyword%' ORDER BY Asset_id ASC  ")
 	or die ("MySQL =>".mysqli_error($con));
-	
+
 	$rows=mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
 		echo"<p id='middlecenter'>ไม่พบข้อมูลที่ครงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
@@ -85,9 +88,10 @@
 		echo "<td align='center' id='titletable3'><a href='index.php?module=6&action=24&id=$Asset_id'>$Asset_name</a></td>";
 		echo "<td align='center' id='titletable3'>$brand</td>";
 		echo "<td align='center' id='titletable3'>";
+		/*----------------------------^------------------------------------*/
 		echo "<form action=\"index.php\">";
 		echo "<input type='hidden' name='Asset_id' value= '$Asset_id'> ";
-		echo "<input type='hidden' name='module' value= '6'> ";
+		echo "<input type='hidden' name='module' value= '6'> "; 
 		echo "<input type='hidden' name='action' value= '20'> ";
 		echo "<select name='Asset_status' id='titletable2'>";
 		while(list($Status_id,$Status_name)=mysqli_fetch_row($result2)){
@@ -104,60 +108,60 @@
 				<button type='submit' name='update' id='button1' value='บันทึก'>บันทึก</button></form></td>";
 		echo "<td align='center' id='titletable'>$active_point</td>";
 		
-		echo "<form action=\"index.php\">";
-		echo "";
+		echo "<form action=\"index.php\" method='get'>";
 		echo "<td id='titletable' align='center'>
 		<img src='img/P-1-36-128.png' width='40' height='40'
-		onClick=\"document.getElementById('id01').style.display='block'\" >";
-		echo "</a> ";
+		onClick=\"document.getElementById('id01').style.display='block'\">";
+		echo "<input type='hidden' name='Asset_id' value= '$Asset_id'> ";
+		echo "<input type='hidden' name='module' value= '6'> ";
+		echo "<input type='hidden' name='action' value= '21'> ";
 		//$rent_asset = $Asset_id;
-		echo "</td></form>";
-		
+		echo "</a></td></form>";
 		echo "</tr>";
 		$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
 	echo"</table>";
-	mysqli_free_result($result);//คืนค่าหน่วยความจำให้กับระบบ
-	mysqli_close($con); //ปิดฐานข้อมูล
+	
 	}
 ?>
 
 <img src="img/P-1-36-128.png" width="40" height="40" >
 <div id="id01" class="modal">
-		<form class="modal-content animate" action="index.php?module=5&action=32" name="Formrent_Asset">
-        <input  type="hidden" name="Asset_id" value="<?php echo $Asset_id ?>" />
+		<form class="modal-content animate" action="index.php?module=5&action=32" name="Formrent_Asset" target="if" 
+        method="post">
+        <?php /*?><input  type="hidden" name="Asset_id" value="<?php echo $New_id ?>" /><?php */?>
         <input type='hidden' name='module' value= '5'>
 		<input type='hidden' name='action' value= '32'>
+        
     	<div id="imgcontainer">
 		<span onclick="document.getElementById('id01').style.display='none' " class="closes" title="Close Modal">&times;</span>
 		<img src="img/if_user_accounts.png" >
 	</div>
     <div id="container" >
-        
-		<?php 
-			//$Asset_id = $_GET['Asset_pin'];
+		<?php
+			$Asset_id = $_GET['$Asset_id'];
 /*			echo "<script language=\"JavaScript\">";
 			echo "alert('ทดสอบค่าที่ส่งมา : ');";
 			echo "</script>";*/
 		?>
-        
         <P>No : <input type="text" name="Rent_id" disabled="disabled"/></P>
-		<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset" disabled value="<?php echo $Asset_id ?>" /></P>
+		<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset"  value="<?php echo $Asset_id ?>"/></P>
         <P>รหัสพนักงาน : <input type="text" name="Rent_emp" required></P>
         <P>จุดใช้งาน : <input type="text" name="Rent_active">
-        <?php /*?><P>จุดใช้งาน : <select name="Rent_active">
-        	<?php
-				  $result=mysqli_query($con,"SELECT Active_id,Active_name FROM active_point ") 
+        <P>วันที่ยืม : <input type="date" name="Rent_time" /></P>
+        <P>จุดใช้งาน : <select name="Rent_active">
+        	<?php /*?><?php
+				  $result = mysqli_query($con,"SELECT Active_id,Active_name FROM active_point")
 				  or die ("mysql error=>>".mysql_error($con));
 				  while(list($Active_id,$Active_name)=mysqli_fetch_row($result)){
-					  $select = $Active_id == $Rent_active? "selected":"";
-				  echo "<option value='$Active_id' $select>$Active_name</option>";  
+					  $select = $Active_id == $Active_name? "selected":"";
+				  echo "<option value=$Active_id>$Active_name</option>";
 				  }
+				  
 				  mysqli_free_result($result);
 				  mysqli_close($con);
-				?>
-        </select></P><?php */?>    
-        <P>วันที่ยืม : <input type="date" name="Rent_time" /></P>    
+				?><?php */?>
+        </select></P>
     </div>
     <div id="container" style="background-color:#f1f1f1">
 		<button type="submit">Add</button>
@@ -165,10 +169,14 @@
     </div>
 	</form>
 </div>
+<?php
+	mysqli_free_result($result);//คืนค่าหน่วยความจำให้กับระบบ
+	mysqli_close($con); //ปิดฐานข้อมูล
+?>
 <script>
 // Get the modal
-var modal = document.getElementById('id01');
 
+var modal = document.getElementById('id01');
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
