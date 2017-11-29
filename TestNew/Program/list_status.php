@@ -51,6 +51,8 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	$active_point=mysqli_query($con,"SELECT Active_name FROM active_point  WHERE Active_id='$active_point'")or die("SQL error2  ".mysqli_error($con));
     list($active_point)=mysqli_fetch_row($active_point);
 	
+
+	
 		echo "<tr>";
 		echo "<td align='center'>$Asset_id</td>";
 		echo "<td align='center'>$Asset_code</td>";
@@ -58,11 +60,10 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 		echo "<td align='center'><a href='assatt_detail.php?id=$Asset_id'>$Asset_name</td>";
 		echo "<td align='center'>$brand</td>";
 		echo "<td align='center'><select name=$status>
-				<option value='val1'>พร้อมใช้งาน</option>.
-				<option value='val2'>ยืม</option>
-				<option value='val3'>เสีย</option>
-				<option value='val3'>รอซ่อม</option>
-				</select></td>";
+		
+	</select>
+				  
+		</td>";
 		
 		echo "<td align='center'><a href='update_status.php?Asset_id=$Asset_id'><img src='../img/flat.png'  width='30'  height='30'></TD>";
 		echo "<td align='center'>$active_point</td>";

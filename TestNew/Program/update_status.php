@@ -11,7 +11,7 @@ include("../function/db_function.php");
 	
 	$result="UPDATE asset SET status = '$_POST[status]'";
 	
-mysqli_query($con,	$result)or die ("edit".mysqli_error($con));
+mysqli_query($con,	$result);
 mysqli_close($con);
 echo "<script>alert('แก้ไขข้อมูลเรียบร้อยแล้ว')</script>";
 echo "<script>window.location='list_status.php'</script>";
