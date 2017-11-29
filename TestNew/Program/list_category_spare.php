@@ -3,7 +3,7 @@
 	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
 ?>
 <h2 align="center">เพิ่มข้อมูลหมวดหมู่วัสดุ/อุปกรณ์</h2>
-<form action="add_category.php" method="POST">
+<form action="list_category_spare.php" method="POST">
 <p align="center"> เพิ่มข้อมูลหมวดหมู่วัสดุ/อุปกรณ์ : <input type="text" name="Category_name"  value="" size="30" required> 
 <input type="submit" name="insert"  value="เพิ่มข้อมูล" id="input1"/> 
 <input type="reset" name="reset"  value="ยกเลิก" id="input2"/></p>
@@ -13,7 +13,7 @@
 <?php
 	
 	if(!empty($_POST['Category_name'])){
-	$sql1= "INSERT INTO category (Category_id,Category_name) VALUES('$_POST[Category_name]')"; 
+	$sql1= "INSERT INTO category_spare (Category_id,Category_name) VALUES('$_POST[Category_name]')"; 
  //echo $sql1;
  mysqli_query($con,$sql1) or die ("error1==>".mysqli_error($con));
 	 }
