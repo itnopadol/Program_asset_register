@@ -6,7 +6,7 @@
 </head>
 <body>
 <form method="post" action="Add_rent.php" name="FormRent">
-<input  type="hidden" name="" value="" />
+<input  type="hidden" name="Rent_id" value="<?php echo $Rent_id ?>" />
 		<P>No : <input type="text" name="Rent_id" disabled="disabled"/></P>
 		<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset"></P>
         
