@@ -12,15 +12,15 @@
 	
 	$result = mysqli_query($con, "SELECT * FROM rent WHERE Rent_id ='$_GET[Rent_id]' ") 
 	or die(mysqli_error($con));
-	list($Rent_id) = mysqli_fetch_row($result);
-
+	list($Rent_id,$Rent_asset) = mysqli_fetch_row($result);
+		
 		$sql = "UPDATE rent SET Rent_log = 0 WHERE Rent_id ='$_GET[Rent_id]' ";
 		mysqli_query($con, $sql) or die("Error Delete" . mysqli_error($con));
 		
 		$sql2 = "UPDATE asset SET Asset_status = '01'
-		WHERE Asset_id = '$_GET[Rent_id]' ";
+		WHERE Asset_id = $Rent_asset ";
 		mysqli_query($con, $sql2) or die("Error Delete" . mysqli_error($con));
-
+		//echo $sql,$sql2;
 		echo "<script>alert('ลบข้อมูลเรียบร้อยแล้ว')</script>";
 		echo "<script>window.location='index.php?module=5&action=31'</script>";
 

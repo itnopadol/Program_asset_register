@@ -26,10 +26,17 @@
 	,'$_GET[Rent_active]'
 	,'$_GET[Rent_time]'
 	)";
-	
 	mysqli_query($con, $sql) or die("Error =" .mysqli_error($con));
+	
+	$sql2 = "UPDATE asset SET Asset_status = '04'
+	,active_point = '$_GET[Rent_active]'
+	WHERE Asset_id = '$_GET[Rent_asset]' ";
+	mysqli_query($con, $sql2) or die("Error Delete" . mysqli_error($con));
+	
+	
 	mysqli_close($con);
-	echo "<script>window.location='index.php?module=6&action=21'</script>";
+	echo "<script>window.location='index.php?module=5&action=31'</script>";
+	
     ?>
 </body>
 </html>
