@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<h1 align='center'>ประวัติรายรับการวัสดุ / อุปกรณ์</h1>
+<h1 align='center'>ประวัติรายการรับการวัสดุ / อุปกรณ์</h1>
 <form method ="post"  align='center'>
 	<input type ="search" name='keyword' size="50"> <input type="submit" value="ค้นหา">
 </form>
@@ -73,6 +73,6 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	mysqli_close($con); //ปิดฐานข้อมูล
 	}
 ?>
-<p align="center"><a href="menu_rent.php">กลับหน้า Index</a> || <a href="add_spare.php">เพิ่มรายการ</p>
+<p align="center"><a href="menu_rent.php">กลับหน้า Index</a></p>
 </body>
 </html>

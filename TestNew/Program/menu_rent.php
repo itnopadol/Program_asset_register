@@ -15,6 +15,7 @@
   <li class="listcircle"><a href='list_spare.php'>จัดการวัสดุ-อุปกรณ์</a></li>
   <li class="listcircle"><a href='take.php'>ประวัติรายการรับ</a></li>
   <li class="listcircle"><a href='lend.php'>รายการเบิก</a></li>
+  <li class="listcircle"><a href=''>ประวัติรายการเบิก</a></li>
   <li class="listcircle"><a href='list_category_spare.php'>จัดการหมวดหมู่</a></li>
   <li class="listcircle">รายงาน</a></li>
 

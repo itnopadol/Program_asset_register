@@ -35,7 +35,6 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	$num=1;//กำหนดตัวแปรเพื่อนับแถว
 	
 	echo "<table border = 1 align='center'>";
-	echo "<tr><th>เลือก</th>";
 	echo "<th>รหัสวัสดุ</th>";
 	echo "<th>รูปภาพ</th>";
 	echo "<th>รายการ</th>";
@@ -46,6 +45,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<th>จำนวนที่รับ</th>";
 	echo "<th>คงเหลือ</th>";
 	echo "<th>วัน/เดือน/ปี</th>";
+	echo "<th>เลือกรายการ</th>";
 
 	
 	
@@ -56,7 +56,6 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
     list($category)=mysqli_fetch_row($sql);
 	
 	echo "<tr>";
-	echo "<td align='center'><input type='checkbox' value='$id' ></td>";
 	echo "<td align='center'>$id</td>";
 	echo "<td align='center'><img src='../img/$photo'  width='50'  height='50'></td>";
 	echo "<td align='center'>$name</td>";
@@ -67,6 +66,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<td align='center'>$acquire</td>";
 	echo "<td align='center'>$stock</td>";
 	echo "<td align='center'>$time</td>";
+	echo "<td align='center'><a href='add_numspare.php?id=$id'><img src='../img/flat.png'  width='30'  height='30'></TD>";
 	echo "</tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
@@ -76,6 +76,6 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	mysqli_close($con); //ปิดฐานข้อมูล
 	}
 ?>
-<p align="center"><a href="menu_rent.php">กลับหน้า Index</a> || <a href="add_spare.php">เพิ่มรายการ</p>
+<p align="center"><a href="menu_rent.php">กลับหน้า Index</a></p>
 </body>
 </html>

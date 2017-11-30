@@ -56,6 +56,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
     list($category)=mysqli_fetch_row($sql);
 	
+	$balance = $acquire + $stock;
 	echo "<tr>";
 	echo "<td align='center'>$id</td>";
 	echo"<td align='center'><img src='../img/$photo'  width='50'  height='50'></td>";
@@ -65,7 +66,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<td align='center'>$category</td>";
 	echo "<td align='center'>$stock</td>";
 	echo "<td align='center'>$acquire</td>";
-	echo "<td align='center'>$stock</td>";
+	echo "<td align='center'>$balance</td>";
 	echo "<td align='center'>$time</td>";
 	echo "<td align='center'><a href='add_numspare.php?id=$id'><img src='../img/11.png'  width='30'  height='30'></TD>";
 	echo "<td align='center'><a href='edit_spare.php?id=$id'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></TD>";

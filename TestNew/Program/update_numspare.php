@@ -18,18 +18,11 @@ else{
 	
 }
 	
-		$sql="UPDATE spare_part SET 
-		name= '$_POST[name]',
-		brand= '$_POST[brand]',
-		category= '$_POST[category]',
-		price= '$_POST[price]',
-		stock= '$_POST[stock]'
-		$update_photo  WHERE id= '$_POST[NewID]'";
-	    
-
+	$sql="UPDATE spare_part SET acquire = '$_POST[acquire]' WHERE id= '$_POST[Newid]'";
+		
     mysqli_query($con,$sql)or die("ERROR1".mysqli_error($con));
 	mysqli_close($con);
-echo "<script>alert('แก้ไขข้อมูลเรียบร้อยแล้ว')</script>";
+echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว')</script>";
 echo "<script>window.location='list_spare.php'</script>";
 
 ?>
