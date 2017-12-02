@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,13 +19,14 @@
 	,'$_POST[Rent_active]'
 	,'$_POST[Rent_time]'
 	)";*/
-	$sql = "INSERT INTO rent (Rent_id,Rent_asset,Rent_emp,Rent_active,Rent_time) 
+	$sql = "INSERT INTO rent (Rent_id,Rent_asset,Rent_emp,Rent_active,Rent_time,Rent_ect) 
 	VALUES 
 	('',
 	'$_GET[Rent_asset]'
 	,'$_GET[Rent_emp]'
 	,'$_GET[Rent_active]'
 	,'$_GET[Rent_time]'
+	,'$_GET[Rent_ect]'
 	)";
 	mysqli_query($con, $sql) or die("Error =" .mysqli_error($con));
 	

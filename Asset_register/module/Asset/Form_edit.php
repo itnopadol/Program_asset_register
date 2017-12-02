@@ -1,20 +1,28 @@
-<?php 
-	//include("../../Funtion/funtion.php");
-	$con = connect_db();
+<?php
+	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
+	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
 ?>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="utf-8" />
-	<title>Form Edit Asset</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script type="text/javascript">
-function MM_popupMsg(msg) { //v1.0
-  alert(msg);
-}
-    </script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ทดสอบฟอร์มใหม่ New Form</title>
+<link href="css/smart-forms.css" rel="stylesheet" type="text/css">
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 </head>
-<body class="blurBg-false" style="background-color:#EBEBEB">
+<style type="text/css">
+@font-face { font-family: 'FontAwesome'; src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.eot?#iefix') 
+ format('embedded-opentype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.woff') 
+ format('woff'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.ttf') 
+ format('truetype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.svg#FontAwesome') 
+ format('svg'); 
+ font-weight: 
+ normal; 
+ font-style: normal; 
+ }
+ </style>
+<body>
 <?php
 	$result=mysqli_query($con,"SELECT * FROM asset WHERE 
 	Asset_id='$_GET[Asset_id]'")  or die("SQL Error=>".mysqli_error($con));
@@ -23,63 +31,95 @@ function MM_popupMsg(msg) { //v1.0
 	,$brand ,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
 	,$Asset_Category,$Asset_photo ,$Asset_time,$detail)=mysqli_fetch_row($result);
 ?>
-<!-- Start Formoid form-->
-<link rel="stylesheet" href="CSS/formoid-solid-red.css" type="text/css" />
-<script type="text/javascript" src="JS/jquery.min.js"></script>
-<form enctype="multipart/form-data" class="formoid-solid-red" 
-	style="background-color:#FFFFFF;font-size:18px;font-family:'TH Sarabun New','Tw Cen MT',Arial,Helvetica,sans-serif;
-	color:#34495E;max-width:420px;min-width:100px" method="post" action="index.php?module=2&action=13">
-    <input type="hidden" name="Old_ID" value="<?php echo $Asset_id ?>">
-    <input type="hidden" name="Cat_ID" value="<?php echo $Category_id ?>">
-  <div class="title"><h2>Form Edit Asset</h2></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont">
-    	<input class="large" type="text" name="Asset_barcode" placeholder="Barcode" value="<?php echo $Asset_barcode ?>"/>
-        
-	</div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont">
-    	<input class="large" type="text" name="Asset_code" placeholder="เลขทะเบียนสินทรัพย์" value="<?php echo $Asset_code ?>"/>
-        
-	</div></div>
-	<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont">
-    	<input class="large" type="text" name="Asset_serial" required placeholder="Serial Number" 
-        value="<?php echo $Asset_serial ?>"/>
-        
-    </div></div>
-	<div class="element-input"><label class="title"><span class="required">*</span></label><div class="item-cont">
-    	<input class="large" type="text" name="Asset_name" required placeholder="ชื่อสินทรัพย์" 
-        value="<?php echo $Asset_name ?>"/>
-        
-	</div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont">
-    	<input class="large" type="text" name="mac_address" placeholder="Mac Address" value="<?php echo $mac_address?>"/>
-        
-	</div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont">
-    	<input class="large" type="text" name="computer_name" placeholder="Computer name" 
-        value="<?php echo $computer_name ?>"/>
-        
-	</div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont">
-    	<input class="large" type="text" name="brand" placeholder="รุ่น" value="<?php echo $brand ?>"/>
-        
-        </div></div>
-	<div class="element-date"><label class="title"></label><div class="item-cont">
-    	<input class="large" data-format="yyyy-mm-dd" type="date" name="Asset_date" placeholder="Date" 
-        value="<?php echo $Asset_date ?>"/>
-       
-    </span></div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont">
-    	<input class="large" type="text" name="Asset_company" placeholder="ซื้อจาก" 
-        value="<?php echo $Asset_company ?>"/>
-        
-	</div></div>
-	<div class="element-input"><label class="title"></label><div class="item-cont">
-		<input class="large" type="text" name="Asset_price" placeholder="ราคา" value="<?php echo $Asset_price ?>"/>
-        
-        </div></div>
-	<div class="element-select"><label class="title"><span class="required">*</span></label>
-    <div class="item-cont"><div class="large"><select name="Asset_Category" >
-		<?php
+    <div class="smart-wrap">
+    <div class="smart-forms smart-container wrap-2">
+    <div class="form-header header-primary"><h4>
+    <i class="fa fa-pencil-square"></i>Edit Register Form</h4></div><!-- end .form-header section -->            
+		<form method="post" id="new_post" name="new_post"  action="index.php?module=2&action=13" class="wpcf7-form" 
+        enctype="mu ltipart/form-data">
+        <input type="hidden" name="Old_ID" value="<?php echo $Asset_id ?>">
+			<div class="form-body">
+					<div class="spacer-b30">
+					<div class="tagline"><span>Add Asset</span></div><!-- .tagline -->
+                        </div>
+					<div class="frm-row"><!-- Start .frm-row section --> 
+                        <div class="section colm colm6">
+						<label for="Barcode" class="field prepend-icon">
+							<input type="text" name="Asset_barcode" id="Barcode" class="gui-input" 
+                            value="<?php echo $Asset_barcode ?>"/>
+							<label for="Barcode" class="field-icon"></label>  
+						</label>
+                        </div><!-- end section -->                     
+					<div class="section colm colm6">
+                            <label for="Asset_code" class="field prepend-icon">
+                                <input type="text" name="Asset_code" id="Asset_code" class="gui-input" 
+                                value="<?php echo $Asset_code ?>"/>
+                                <label for="Asset_code" class="field-icon"></label>  
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section colm colm6">
+                            <label for="Serial Number" class="field prepend-icon">
+                                <input type="text" name="Asset_serial" id="Serial Number" class="gui-input" 
+                                value="<?php echo $Asset_serial ?>"/>
+                                <label for="Serial Number" class="field-icon"></label>  
+                            </label>
+						</div><!-- end section -->
+                        </div><!-- end .frm-row section -->   
+                        <div class="section colm colm6">
+                            <label for="Asset name" class="field prepend-icon">
+                                <input type="text" name="Asset_name" id="Asset name" class="gui-input" 
+                                value="<?php echo $Asset_name ?>"/>
+                                <label for="Asset name" class="field-icon"></label>  
+                            </label>
+						</div><!-- end section 1-->
+                        
+                        <div class="frm-row"><!-- Start .frm-row section -->
+                        <div class="section colm colm6">
+                            <label for="mac_address" class="field prepend-icon">
+                                <input type="text" name="mac_address" id="mac_address" class="gui-input" 
+                                value="<?php echo $mac_address?>"/>
+                                <label for="mac_address" class="field-icon"></label>  
+                            </label>
+						</div><!-- end section 2-->
+                        <div class="section colm colm6">
+                            <label for="computer_name" class="field prepend-icon">
+                                <input type="text" name="computer_name" id="computer_name" class="gui-input" 
+                                value="<?php echo $computer_name ?>"/>
+                                <label for="computer_name" class="field-icon"></label>  
+                            </label>
+						</div><!-- end section 3-->
+                        <div class="section colm colm6">
+                            <label for="Brand" class="field prepend-icon">
+                                <input type="text" name="brand" id="Brand" class="gui-input" value="<?php echo $brand ?>"/>
+                                <label for="Brand" class="field-icon"></label>  
+                            </label>
+						</div><!-- end section 4-->
+                        <div class="section colm colm6">
+                            <label for="date" class="field prepend-icon">
+                                <input type="date" name="Asset_date" id="date" class="gui-input" 
+                                data-format="yyyy-mm-dd" value="<?php echo $Asset_date ?>"/>
+                                <label for="date" class="field-icon"></label>  
+                            </label>
+						</div><!-- end section 5-->
+                        <div class="section colm colm6">
+                            <label for="company" class="field prepend-icon">
+                                <input type="text" name="Asset_company" id="company" class="gui-input" 
+                                value="<?php echo $Asset_company ?>"/>
+                                <label for="company" class="field-icon"></label>  
+                            </label>
+						</div><!-- end section 6-->
+                        <div class="section colm colm6">
+                            <label for="Price" class="field prepend-icon">
+                                <input type="text" name="Asset_price" id="Price" class="gui-input" 
+                                value="<?php echo $Asset_price ?>"/>
+                                <label for="Price" class="field-icon"></label>  
+                            </label>
+						</div><!-- end section 7-->
+                    </div><!-- end .frm-row section -->                                    
+                    <div class="section">
+						<label class="field select">
+							<select id="language" name="Asset_Category">
+                               <?php
 				  $result=mysqli_query($con,"SELECT Category_id,Category_name FROM category ") 
 				  or die ("mysql error=>>".mysql_error($con));
 				  while(list($Category_id,$Category_name)=mysqli_fetch_row($result)){
@@ -90,27 +130,36 @@ function MM_popupMsg(msg) { //v1.0
 				  mysqli_free_result($result);
 				  mysqli_close($con);
 				?>
-        </select>
-        </div></div></div>
-	<div class="element-file">
-        <label class="title"></label><div class="item-cont">
-        <label class="large" ><div class="button">Choose File</div>
-        <input type="file" class="file_input" name="Asset_photo" />
-    	<div class="file_text">รูปภาพ</div>
-        
-        </label>
-	</div></div>
-	<div class="element-textarea">
-        <label class="title"></label><div class="item-cont">
-        <textarea class="medium" name="detail" cols="20" rows="5" placeholder="หมายเหตุ"><?php echo $detail?></textarea>
-    	
-	</div></div>
-	<div class="submit">
-    	<input type="submit" onClick="MM_popupMsg('บันทึกข้อมูลเรียบร้อยแล้วจ้า :3')" value="Submit"/>
-	</div>
-    
-</form>
-<script type="text/javascript" src="JS/formoid-solid-red.js"></script>
-<!-- Stop Formoid form-->
+                            </select><i class="arrow double"></i> 
+                        </label>  
+                    </div><!-- end section -->                     
+                    <div class="section">
+                        <label for="Asset photo" class="field file">
+                            <span class="button btn-primary"> Choose File </span>
+                            <input type="file" class="gui-file" name="Asset_photo" id="Asset_photo"
+                            onChange="document.getElementById('uploader1').value = this.value;" >
+                            <input type="text" class="gui-input" id="uploader1" name="Asset_photo"
+                            placeholder="no file selected" readonly >
+                        </label>
+                    </div><!-- end  section UPLOAD-->
+                	<div class="section">
+                    	<label for="comment" class="field prepend-icon">
+                        	<textarea class="gui-textarea" id="detail" name="detail"><?php echo $detail?>
+                            </textarea>
+                            <label for="detail" class="field-icon"><i class="fa fa-comments"></i></label>
+                            <span class="input-hint"> 
+                            	<strong>หมายเหตุ:</strong> กรุณาใส่ข้อมูลรายละเอียดต่างๆไว้ กรณีป้องกันเหตุอื่นๆ...
+                            </span>   
+                        </label>
+                    </div><!-- end section -->
+                </div><!-- end .form-body section -->
+                <div class="form-footer" align="center">
+                	<button type="submit" class="button btn-primary"> Submit </button>
+                    <button type="reset" class="button"> Cancel </button>
+                </div><!-- end .form-footer section -->
+            </form>
+            
+        </div><!-- end .smart-forms section -->
+    </div><!-- end .smart-wrap section -->
 </body>
 </html>

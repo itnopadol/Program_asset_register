@@ -2,19 +2,15 @@
 	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>ตรวจสอบสถานะสินทรัพย์</title>
-    <!-- Bootstrap -->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ตรวจสอบสถานะสินทรัพย์</title>
+<link href="../../CSS/Test.css" rel="stylesheet" type="text/css">
 
-  </head>
-  <style>
+</head>
+<style>
 #middlecenter{
 	text-align:center;
 }
@@ -39,11 +35,11 @@
 }
 </style>
 <body style="background-color:#EBEBEB">
-    <div class='container'>
+<div class='container'>
 <h1 align='center'>ตรวจสอบสถานะสินทรัพย์</h1>
 <form method ="post"  align='center' >
 	<input type ="search" name='keyword' size="50" id="titletable2">
-    <input type="submit" value="ค้นหา" id="titletable2" class="btn btn-info">
+    <input type="submit" value="ค้นหา" id="titletable2">
 </form>
 <?php
 	
@@ -67,10 +63,8 @@
 		echo"<p id='middlecenter'>ชื่อรายการสินทรัพย์มีตรงกับคำค้น \"<b>$keyword</b>\"
 			มีทั้งหมด $rows รายการ </p>";
 	$num=1;//กำหนดตัวแปรเพื่อนับแถว
-	echo "<div class='row'>";
-	echo "<div class='col-xl-12'>";
+
 	echo "<table border = 1 align='center'>";
-	echo "<th id='titletable'></th>";
 	echo "<th id='titletable'>รหัสสินทรัพย์</th>";
 	echo "<th id='titletable'>หมายเลขทะเบียน</th>";
 	echo "<th id='titletable'>Serial Number</th>";
@@ -90,7 +84,6 @@
 	$result2 = mysqli_query($con,"SELECT Status_id,Status_name FROM status ")
 	or die ("mysql error=>>".mysql_error($con));
 		echo "<tr>";
-		echo "<td><input type='checkbox' name='As_id[]' id = 'As_id' value='$Asset_id'></td>";	
 		echo "<td align='center' id='titletable3'>$Asset_id</td>";
 		echo "<td align='center' id='titletable3'>$Asset_code</td>";
 		echo "<td align='center' id='titletable3'>$Asset_serial</td>";
@@ -102,7 +95,7 @@
 		echo "<input type='hidden' name='Asset_id' value= '$Asset_id'> ";
 		echo "<input type='hidden' name='module' value= '6'> "; 
 		echo "<input type='hidden' name='action' value= '20'> ";
-		echo "<select name='Asset_status' id='titletable2' class='custom-select-sm'>";
+		echo "<select name='Asset_status' id='titletable2'>";
 		while(list($Status_id,$Status_name)=mysqli_fetch_row($result2)){
 			if($Status_id == $Asset_status){
 				$select = "selected='selected=selected'";
@@ -114,57 +107,46 @@
 			echo "<option value='$Status_id'$select>$Status_name</option>";
 		}
 		echo "</select>&nbsp;&nbsp;
-				<button type='submit' name='update' id='button1' value='บันทึก' class='btn btn-primary btn-sm'>บันทึก
-				</button></form></td>";
+				<button type='submit' name='update' id='button1' value='บันทึก'>บันทึก</button></form></td>";
 		/*----------------------------v------------------------------------*/
 		echo "<td align='center' id='titletable'>$active_point</td>";
-		echo "<form action=\"index.php\" method='post'>";
-		/*echo "<input type='hidden' name='As_id' value= '$As_id'> ";*/
-		echo "<input type='hidden' name='module' value= '6'> ";
-		echo "<input type='hidden' name='action' value= '21'> ";
+
+		echo "<form action=\"index.php\" >";
 		echo "<td id='titletable' align='center'>
 		<img src='img/P-1-36-128.png' width='40' height='40'
-		onClick=\"document.getElementById('id01').style.display='block'\" id='As_id'>";
+		onClick=\"document.getElementById('id01').style.display='block'\">";
+		echo "<input type='hidden' name='Asset_id' value= '$Asset_id'> ";
+		echo "<input type='hidden' name='module' value= '6'> ";
+		echo "<input type='hidden' name='action' value= '21'> ";
 		//$rent_asset = $Asset_id;
-		
 		echo "</a></td></form>";
 		echo "</tr>";
-			echo "</div>";
-		echo "</div>";
 		$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
 	echo"</table>";
-	echo "</div>";
 	}
-	
 ?>
 </div>
 <div class='container'>
 <div id="id01" class="modal">
-		
-		<form class="modal-content animate" action="index.php?module=5&action=32" method="post">
-        <input  type="hidden" name="As_id" value="<?php echo $As_id ?>" />
+		<form class="modal-content animate" action="index.php?module=5&action=32">
+        <?php /*?><input  type="hidden" name="Asset_id" value="<?php echo $New_id ?>" /><?php */?>
         <input type='hidden' name='module' value= '5'>
 		<input type='hidden' name='action' value= '32'>
+        
     	<div id="imgcontainer">
 		<span onclick="document.getElementById('id01').style.display='none' " class="closes" title="Close Modal">&times;</span>
 		<img src="img/if_user_accounts.png" >
 	</div>
     <div id="container2" >
 		<?php
-		$rent = $_GET['id'];
-		echo $rent;
-		
-		if(!empty($_GET['id'])){
 			//$Asset_id = $_GET['$Asset_id'];
 			/*echo "<script language=\"JavaScript\">";
 			echo "alert('ทดสอบค่าที่ส่งมา : ');";
 			echo "</script>";*/
-			$sql = "SELECT Asset_id WHERE Asset_id = '$_GET[As_id]' ";
-		}
-		?>        
+		?>
         <P>No : <input type="text" name="Rent_id" disabled="disabled"/></P>
-		<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset" value="<?php $As_id ?>"></P>
+		<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset" /><?php $Asset_id ?></P>
         <P>รหัสพนักงาน : <input type="text" name="Rent_emp" required></P>
         <P>จุดใช้งาน : <input type="text" name="Rent_active"></P>
         <P>วันที่ยืม : <input type="date" name="Rent_time" /></P>
@@ -205,9 +187,7 @@ window.onclick = function(event) {
     }
 }
 </script>
-	<script src="../../js/jquery.min.js"></script>
-    <script src="../../JS/bootstrap.min.js"></script>
-<p id='middlecenter'><a href="index.php">กลับหน้า Index</a></p>    
-</div>    
-  </body>
+<p id='middlecenter'><a href="index.php">กลับหน้า Index</a></p>
+</div>
+</body>
 </html>

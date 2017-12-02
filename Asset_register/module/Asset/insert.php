@@ -22,9 +22,11 @@
 		//$time = date("dmyhis");	
 		//$char = str_shuffle("ABC");
 	}
+	$Asset_status = "01";
+	
 	$sql="INSERT INTO asset (Asset_id,Asset_code ,Asset_serial ,Asset_name ,mac_address,computer_name
 	,brand ,Asset_date ,Asset_company ,Asset_price,Asset_barcode
-	,Asset_Category,Asset_photo ,Asset_time,detail)
+	,Asset_Category,Asset_photo,detail,Asset_status)
 	 
 	VALUES('',
 	'$_POST[Asset_code]',
@@ -39,9 +41,10 @@
 	'$_POST[Asset_barcode]',
 	'$_POST[Asset_Category]',
 	'$asset_photo',
-	'',
-	'$_POST[detail]') ";
-	 
+	'$_POST[detail]',
+	$Asset_status
+	) ";
+	//echo $sql;
 	mysqli_query($con, $sql) or die("Error =" .mysqli_error($con));
 	mysqli_close($con);
 	echo "<script>window.location='index.php?module=2&action=21' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยัน\")</script>";

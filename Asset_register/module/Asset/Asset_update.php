@@ -11,6 +11,8 @@
 
 <body>
 <?php
+	//$photo = $_POST['Asset_photo'];
+	//echo $photo;
 	if(empty($_FILES['Asset_photo']['name'])){
 		$asset_photo = "";
 		$Update_photo = "";
@@ -25,6 +27,7 @@
 		copy($temp_file,"img/$asset_photo"); //copy ไฟล์ไปไว้ใน Folder img
 		$Update_photo = ",Asset_photo = '$asset_photo'";
 	}
+	
 	$sql = "UPDATE asset SET
 	Asset_code = '$_POST[Asset_code]'
 	,Asset_serial = '$_POST[Asset_serial]'
@@ -41,6 +44,7 @@
 	,detail = '$_POST[detail]'
 	WHERE Asset_id = '$_POST[Old_ID]' ";
 	
+	//echo $sql;
 	mysqli_query($con,$sql) or die(mysqli_error($con));
 	mysqli_close($con);
 	echo "<script>window.location='index.php?module=2&action=22'</script>";
