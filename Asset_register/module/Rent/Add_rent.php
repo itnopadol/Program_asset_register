@@ -11,30 +11,24 @@
 	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db();
 	
-	/*$sql = "INSERT INTO rent (Rent_id,Rent_asset,Rent_emp,Rent_active,Rent_time) 
-	VALUES 
-	('',
-	'$_POST[Rent_asset]'
-	,'$_POST[Rent_emp]'
-	,'$_POST[Rent_active]'
-	,'$_POST[Rent_time]'
-	)";*/
 	$sql = "INSERT INTO rent (Rent_id,Rent_asset,Rent_emp,Rent_active,Rent_time,Rent_ect) 
 	VALUES 
 	('',
-	'$_GET[Rent_asset]'
-	,'$_GET[Rent_emp]'
-	,'$_GET[Rent_active]'
-	,'$_GET[Rent_time]'
-	,'$_GET[Rent_ect]'
+	'$_POST[id_asset]'
+	,'$_POST[Rent_emp]'
+	,'$_POST[Rent_active]'
+	,'$_POST[Rent_time]'
+	,'$_POST[Rent_ect]'
 	)";
 	mysqli_query($con, $sql) or die("Error =" .mysqli_error($con));
 	
 	$sql2 = "UPDATE asset SET Asset_status = '04'
-	,active_point = '$_GET[Rent_active]'
-	WHERE Asset_id = '$_GET[Rent_asset]' ";
+	,active_point = '$_POST[Rent_active]'
+	WHERE Asset_id = '$_POST[id_asset]' ";
 	mysqli_query($con, $sql2) or die("Error Delete" . mysqli_error($con));
-	
+	/*echo $sql;
+	echo "<br>";
+	echo $sql2;*/
 	
 	mysqli_close($con);
 	echo "<script>window.location='index.php?module=5&action=31'</script>";

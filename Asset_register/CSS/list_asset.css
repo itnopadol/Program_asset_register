@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-body {
+#makebody { /*แก้ไขส่วน Body*/
 	font-family: "TH Sarabun New", "Tw Cen MT";
 	font-size: 18px;
 	font-weight: 400;
@@ -22,7 +22,6 @@ div.table-title {
 	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 	text-transform:uppercase;
 }
-
 /*** Table Styles **/
 .table-fill {
 	background: white;
@@ -46,8 +45,8 @@ th {
 	text-align:left;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 	vertical-align:middle;
-	color:#D5DDE5;
-	background:#1b1e24;
+	color:#FFFFF0;
+	background:#24b9f0;
 }
 
 th:first-child {
@@ -100,7 +99,7 @@ tr:last-child td:last-child {
 
 td {
   color:#000;
-  background:#FFFFFF;
+  background:#fef4cc;
   padding:5px; /* กำหนดความกว้างตาราง */
   text-align:left;
   vertical-align:middle;
@@ -143,4 +142,20 @@ td.text-right {
 }
 .boxEditcolor{
 	background-color:#FFC;
+}
+#middlecenter{
+	text-align:center
+}
+table tr th{
+	background:#337ab7;
+	color:white;
+	text-align:left;
+	vertical-align:center;
+}
+#titletablelist{
+	border-radius: 5px;
+	box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 10px 30px 0 rgba(0,0,0,0.19);
+}
+#titletablelist2{
+	box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 10px 30px 0 rgba(0,0,0,0.19);
 }

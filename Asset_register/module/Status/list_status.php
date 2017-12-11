@@ -39,7 +39,7 @@
 }
 </style>
 <body style="background-color:#EBEBEB">
-    <div class='container'>
+<div class='container'>
 <h1 align='center'>ตรวจสอบสถานะสินทรัพย์</h1>
 <form method ="post"  align='center' >
 	<input type ="search" name='keyword' size="50" id="titletable2">
@@ -70,14 +70,14 @@
 	echo "<div class='row'>";
 	echo "<div class='col-xl-12'>";
 	echo "<table border = 1 align='center'>";
-	echo "<th id='titletable'></th>";
+	/*echo "<th id='titletable'></th>";*/
 	echo "<th id='titletable'>รหัสสินทรัพย์</th>";
 	echo "<th id='titletable'>หมายเลขทะเบียน</th>";
 	echo "<th id='titletable'>Serial Number</th>";
 	echo "<th id='titletable'>ชื่อสินทรัพย์</th>";
 	echo "<th id='titletable'>รุ่น / ยี่ห้อ</th>";
 	echo "<th id='titletable'>สถานะการใช้งาน</th>";
-	echo "<th id='titletable'>จุดใช้งาน</th>";
+	echo "<th id='titletable'>จุดใช้งาน[ล่าสุด]</th>";
 	echo "<th id='titletable'>เบิกสินทรัพย์</th>";
 	while(list($Asset_id,$Asset_code ,$Asset_serial ,$Asset_name ,$mac_address,$computer_name
 		,$brand,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
@@ -90,7 +90,7 @@
 	$result2 = mysqli_query($con,"SELECT Status_id,Status_name FROM status ")
 	or die ("mysql error=>>".mysql_error($con));
 		echo "<tr>";
-		echo "<td><input type='checkbox' name='As_id[]' id = 'As_id' value='$Asset_id'></td>";	
+		/*echo "<td><input type='checkbox' name='As_id[]' id = 'As_id' value='$Asset_id'></td>";	*/
 		echo "<td align='center' id='titletable3'>$Asset_id</td>";
 		echo "<td align='center' id='titletable3'>$Asset_code</td>";
 		echo "<td align='center' id='titletable3'>$Asset_serial</td>";
@@ -118,15 +118,16 @@
 				</button></form></td>";
 		/*----------------------------v------------------------------------*/
 		echo "<td align='center' id='titletable'>$active_point</td>";
+		/*----------------------------^------------------------------------*/
 		echo "<form action=\"index.php\" method='post'>";
-		/*echo "<input type='hidden' name='As_id' value= '$As_id'> ";*/
+		/*echo "<input type='hidden' name='As_id' value= '$As_id'> ";
 		echo "<input type='hidden' name='module' value= '6'> ";
-		echo "<input type='hidden' name='action' value= '21'> ";
+		echo "<input type='hidden' name='action' value= '21'> ";*/
+		/*echo "<a href='#' class='edit-customer' data-id='$c[Rent_id]' 
+		data-rent_asset='$c[Rent_asset] '>";*/
 		echo "<td id='titletable' align='center'>
 		<img src='img/P-1-36-128.png' width='40' height='40'
-		onClick=\"document.getElementById('id01').style.display='block'\" id='As_id'>";
-		//$rent_asset = $Asset_id;
-		
+		onClick=\"openModal('".$Asset_id."', '".$Asset_code."')\">";
 		echo "</a></td></form>";
 		echo "</tr>";
 			echo "</div>";
@@ -134,40 +135,47 @@
 		$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
 	echo"</table>";
+	echo "<nav aria-label=\"Page navigation\">";
+	echo "<ul class=\"pagination\">";
+    echo "<li>";
+	echo "<a href='#' aria-label=\"Previous\">";
+	echo "<span aria-hidden='true'>&laquo;</span>";
+	echo "</a>";
+	echo "</li>";
+	echo "<li><a href='#'>1</a></li>";
+	echo "<li><a href='#'>2</a></li>";
+	echo "<li><a href='#'>3</a></li>";
+	echo "<li><a href='#'>4</a></li>";
+	echo "<li><a href='#'>5</a></li>";
+    echo "<li>";
+	echo "<a href='#' aria-label=\"Next\">";
+	echo "<span aria-hidden=\"true\">&raquo;</span>";
+	echo "</a>";
+    echo "</li>";
+	echo "</ul>";
+	echo "</nav>";
 	echo "</div>";
 	}
 	
 ?>
 </div>
 <div class='container'>
-<div id="id01" class="modal">
-		
-		<form class="modal-content animate" action="index.php?module=5&action=32" method="post">
-        <input  type="hidden" name="As_id" value="<?php echo $As_id ?>" />
+<div id="id01" class="modal">		
+		<form class="modal-content animate" action="index.php?module=5&action=32" method="post" name="FormRent">
+        <!--<input  type="hidden" name="As_id" value="" />
         <input type='hidden' name='module' value= '5'>
-		<input type='hidden' name='action' value= '32'>
+		<input type='hidden' name='action' value= '32'>-->
     	<div id="imgcontainer">
 		<span onclick="document.getElementById('id01').style.display='none' " class="closes" title="Close Modal">&times;</span>
 		<img src="img/if_user_accounts.png" >
 	</div>
     <div id="container2" >
-		<?php
-		$rent = $_GET['id'];
-		echo $rent;
-		
-		if(!empty($_GET['id'])){
-			//$Asset_id = $_GET['$Asset_id'];
-			/*echo "<script language=\"JavaScript\">";
-			echo "alert('ทดสอบค่าที่ส่งมา : ');";
-			echo "</script>";*/
-			$sql = "SELECT Asset_id WHERE Asset_id = '$_GET[As_id]' ";
-		}
-		?>        
-        <P>No : <input type="text" name="Rent_id" disabled="disabled"/></P>
-		<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset" value="<?php $As_id ?>"></P>
+      	<input type="hidden" name="Rent_id" >
+        <P>No : <input type="text" name="id_asset" id="id_asset" readonly></P>
+		<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset" id="Rent_assets" readonly></P>
         <P>รหัสพนักงาน : <input type="text" name="Rent_emp" required></P>
-        <P>จุดใช้งาน : <input type="text" name="Rent_active"></P>
-        <P>วันที่ยืม : <input type="date" name="Rent_time" /></P>
+        <P>จุดใช้งาน : <input type="text" name="Rent_active" required></P>
+        <P>วันที่ยืม : <input type="date" name="Rent_time" required></P>
         <P>*หมายเหตุ : <textarea name="Rent_ect" ></textarea></P>
        <?php /*?><P>จุดใช้งาน : <select name="Rent_active">
         	<?php
@@ -177,7 +185,6 @@
 					  $select = $Active_id == $Active_name? "selected":"";
 				  echo "<option value=$Active_id>$Active_name</option>";
 				  }
-				  
 				  mysqli_free_result($result);
 				  mysqli_close($con);
 				?>
@@ -195,14 +202,12 @@
 ?>
 
 <script>
-// Get the modal
-
-var modal = document.getElementById('id01');
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
+function openModal(Asset_id, Asset_code) {
+	document.getElementById('id01').style.display='block';
+	document.getElementById('id_asset').value = Asset_id;
+	document.getElementById('Rent_assets').value = Asset_code;
+	//document.getElementsByName('Rent_assets')[0].value = asset_code;
+	
 }
 </script>
 	<script src="../../js/jquery.min.js"></script>

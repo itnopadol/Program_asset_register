@@ -20,7 +20,8 @@
 		$sql2 = "UPDATE asset SET Asset_status = '01'
 		WHERE Asset_id = $Rent_asset ";
 		mysqli_query($con, $sql2) or die("Error Delete" . mysqli_error($con));
-		//echo $sql,$sql2;
+		//echo $sql ."<br>". $sql2;
+		
 		echo "<script>alert('ลบข้อมูลเรียบร้อยแล้ว')</script>";
 		echo "<script>window.location='index.php?module=5&action=31'</script>";
 
