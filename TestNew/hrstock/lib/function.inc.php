@@ -1,0 +1,154 @@
+<?php
+function rsquery($sql="")
+{
+	mysql_query("SET NAMES utf8");
+	$rs=mysql_query($sql);
+	if($rs){
+		return $rs;
+	}
+}
+function _avatar($picname){
+	$img="<img src=\"images/avata/";
+	if($picname==""){
+		$img.="default.jpg \"/>";
+	}else{
+		$chk="images/avata/".$picname;
+		$q = (file_exists($chk));
+		if($q){
+			$img.=$picname."\"/>";
+		}else{
+			$img.="default.jpg \"/>";
+		}
+	}
+	return $img;
+}
+function redirect($link)
+{
+	$rec="<script>window.location.href='$link';</scipt>";
+	return $rec;
+}
+
+function thaidate($vardate="") { 
+	$_month_name = array("01"=>"มกราคม",  "02"=>"กุมภาพันธ์",  "03"=>"มีนาคม",  
+    "04"=>"เมษายน",  "05"=>"พฤษภาคม",  "06"=>"มิถุนายน",  
+    "07"=>"กรกฎาคม",  "08"=>"สิงหาคม",  "09"=>"กันยายน",  
+    "10"=>"ตุลาคม", "11"=>"พฤศจิกายน",  "12"=>"ธันวาคม");
+	/*
+	$yy =substr($vardate,0,4);
+	$mm =substr($vardate,5,2);
+	$dd =substr($vardate,8,2);
+	*/
+	$yy=substr($vardate,0,4);
+	$mm=substr($vardate,5,2);
+	$dd=substr($vardate,8,2);
+
+	$yy += 543;
+	if ($yy==543){
+		$dateT = "-";
+	}else{
+		$dateT=$dd ." ".$_month_name[$mm]."  ".$yy;
+	 }
+  return $dateT;
+} 
+
+function thaidate2($vardate="") { 
+	$_month_name = array("01"=>"มกราคม",  "02"=>"กุมภาพันธ์",  "03"=>"มีนาคม",  
+    "04"=>"เมษายน",  "05"=>"พฤษภาคม",  "06"=>"มิถุนายน",  
+    "07"=>"กรกฎาคม",  "08"=>"สิงหาคม",  "09"=>"กันยายน",  
+    "10"=>"ตุลาคม", "11"=>"พฤศจิกายน",  "12"=>"ธันวาคม");
+	/*
+	$yy =substr($vardate,0,4);
+	$mm =substr($vardate,5,2);
+	$dd =substr($vardate,8,2);
+	*/
+	$yy=substr($vardate,0,4);
+	$mm=substr($vardate,5,2);
+	$dd=substr($vardate,8,2);
+
+	$yy += 543;
+	if ($yy==543){
+		$dateT = "-";
+	}else{
+		$dateT=$dd ." ".$_month_name[$mm]."  ".$yy;
+	 }
+  return $dateT;
+} 
+
+
+function delCart(&$arr, $value){
+	if(count($arr)==0){
+		$arr=array();
+	}
+	$keys = array_keys($arr, $value);
+	foreach ($keys as $key) unset ($arr[$key]);
+}
+
+function existsCart(&$arr, $value) {
+	if(count($arr)==0){
+		$arr=array();
+	}
+	$keys = array_keys($arr, $value);
+	foreach ($keys as $key) return true;
+}
+
+
+$timedate=date("Y-m-d");
+$timeserver=date("H:i");
+function chkSess(){
+	if(!isset($_SESSION['iduser'])){
+		echo"<p>PLEASE LOGIN</p>";
+		exit();
+	}
+}
+function monththai($mdate){
+	$_month_name = array("01"=>"มกราคม",  "02"=>"กุมภาพันธ์",  "03"=>"มีนาคม",  
+    "04"=>"เมษายน",  "05"=>"พฤษภาคม",  "06"=>"มิถุนายน",  
+    "07"=>"กรกฎาคม",  "08"=>"สิงหาคม",  "09"=>"กันยายน",  
+    "10"=>"ตุลาคม", "11"=>"พฤศจิกายน",  "12"=>"ธันวาคม");
+	$mthai=$_month_name[$mdate];
+	return $mthai;
+}
+function getbrowser(){
+$agent = $_SERVER['HTTP_USER_AGENT'];
+if(eregi("Netcaptor", $agent)){ $browser = "Netcaptor";
+} elseif(eregi("(opera) ([0-9]{1,2}.[0-9]{1,3}){0,1}", $agent, $ver) || eregi("(opera/)([0-9]{1,2}.[0-9]{1,3}){0,1}", $agent, $ver)){ $browser = "Opera $ver[2]";
+} elseif(eregi("(konqueror)/([0-9]{1,2}.[0-9]{1,3})", $agent, $ver)){ $browser = "Konqueror $ver[2]";
+} elseif(eregi("(lynx)/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})", $agent, $ver)){ $browser = "Lynx $ver[2]";
+} elseif(eregi("(msie) ([0-9]{1,2}.[0-9]{1,3})", $agent, $ver)){ $browser = "IE$ver[2]";
+} elseif(eregi("Links", $agent)){ $browser = "Lynx";
+} elseif(eregi("(Firebird/)([0-9]{1,2}.[0-9]{1,3}){0,1}", $agent, $ver)){ $browser = "Firebird $ver[2]";
+} elseif(eregi("(Firefox/)([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})", $agent, $ver)){ $browser = "FireFox";
+} elseif(eregi("Mozilla/5",$agent)){$browser = "Netscape 5";
+} elseif(eregi("Gecko", $agent)){ $browser = "Mozilla";
+} elseif(eregi("Safari",$agent)){ $browser = "OS-X Safari";
+} elseif(eregi("(netscape6)/(6.[0-9]{1,3})", $agent, $ver)){ $browser = "Netscape $ver[2]";
+} elseif(eregi("(Mozilla)/([0-9]{1,2}.[0-9]{1,3})", $agent, $ver)){ $browser = "Netscape $ver[2]";
+} elseif(eregi("Galeon", $agent)){ $browser = "Galeon";
+} elseif(eregi("(lynx)/([0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2})", $agent, $ver) ){$browser = "Lynx $ver[2]";
+} elseif(eregi("Avant Browser", $agent)){ $browser = "Avant";
+} elseif(eregi("(omniweb/)([0-9]{1,2}.[0-9]{1,3})", $agent, $ver) ){$browser = "OmniWeb $ver[2]";
+} elseif(eregi("ZyBorg|WebCrawler|Slurp|Googlebot|MuscatFerret|ia_archiver", $agent)){ $browser = "Web indexing robot";
+} elseif(eregi("(webtv/)([0-9]{1,2}.[0-9]{1,3})", $agent, $ver) ){$browser = "WebTV $ver[2]";
+} else {$browser = "Unknown";}
+return $browser;
+}
+
+  	
+
+function TimeDiff($Timestart,$Timeend){
+	$mk_data=mktime(date("H",strtotime($Timestart)),date("i",strtotime($Timestart)),date("s",strtotime($Timestart)),date("m",strtotime($Timestart)),date("d",strtotime($Timestart)),date("Y",strtotime($Timestart)));
+	$mk_data2=mktime(date("H",strtotime($Timeend)),date("i",strtotime($Timeend)),date("s",strtotime($Timeend)),date("m",strtotime($Timeend)),date("d",strtotime($Timeend)),date("Y",strtotime($Timeend)));
+
+	$mk_data3=($mk_data2-$mk_data);
+	$days=intval($mk_data3/86400);
+	$remain=$mk_data3%86400;
+	$hours=intval($remain/3600);
+	$remain=$remain%3600;
+	$mins=intval($remain/60);
+	$secs=$remain%60;
+
+	return $days."&nbsp;วัน&nbsp;".$hours."&nbsp;ชั่วโมง&nbsp;".$mins."&nbsp;นาที&nbsp;".$secs."&nbsp;วินาที";
+}
+
+
+?>

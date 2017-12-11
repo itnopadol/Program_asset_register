@@ -1,0 +1,49 @@
+<?php
+if(!isset($_SESSION['iduser'])){
+	echo"<p>PLEASE LOG IN</p>";
+}else{
+	if(isset($_GET['iuser'])){
+		$sqlsave="INSERT INTO stock_tb_module(iduser) Value('".$_SESSION['iduser']."')";
+		mysql_query("SET NAMES utf8");
+		$rssave=mysql_query($sqlsave);
+		if($rssave){
+			echo"<p>ส่งเรื่องเพื่อขอใช้บริการโมดูลนี้เรียบร้อยแล้วครับ</p>";
+			echo"<meta http-equiv=\"refresh\" content=\"1;url=index.php\"/>";
+			exit();
+		}else{
+			echo mysql_error();
+			exit();
+		}
+	}else{
+		$sql="Select * From stock_tb_module Where iduser='".$_SESSION['iduser']."'";
+		mysql_query("SET NAMS utf8");
+		$rs=mysql_query($sql);
+		if(mysql_num_rows($rs)==0 && $_SESSION['status']<>"01"){
+			echo"<p>คุณยังไม่ได้รับสิทธิื์ให้เข้าใช้งานในโมดูลนี้</p>";
+			echo"<p>หากคุณต้องการขอใช้บริการ&nbsp;กรุณา&nbsp;<b><a href=\"index.php?option=hrstock&iuser=1\" class=\"cout2\">กดที่นี่</a></b>&nbsp;เพื่อขอใช้บริการครับ</p>";
+		}else{
+			$frow=mysql_fetch_array($rs);
+			if($frow['typeuser']=="" && $_SESSION['status']<>"01"){
+				echo"<p>คุณยังไม่ได้รับสิทธิื์อนุมัติให้เข้าใช้งานในโมดูลนี้จากผู้ดูแลระบบ</p>";
+			}else{				
+				$bk=date("ymdHis").$_SESSION['iduser'];
+				echo"<h3>:: ประกาศแจ้งให้ทราบ ::</h3>";
+				echo"<ul>";
+				echo"<li>เวลาทำรายการขอเบิกวัสดุสำนักงานคือ <b><u>จันทร์ - เสาร์ เวลา 8.00น. - 11.00น. หากเลยวันที่กำหนดจะนำไปทำรายการในวันทำการถัดไป</u></b></li>";
+				echo"<li>เวลาเบิกของ <b><u>จันทร์ - เสาร์ เวลา 13.00น. - 14.00น.</u></b></li>";
+				echo"<li>หากท่านต้องการ <b><u>เบิกของนอกเวลา</u> กรุณาติดต่อได้ที่เบอร์ 1419 คุณรุ่งนภา(รุ่ง)</b></li>";
+				echo"<li>ในการเบิกอุปกรณ์ทุกครั้ง กรุณาจดหมายเลขการขอเบิกทุกครั้ง เมื่อมาทำการเบิกของ</li>";
+				echo"<li>โปรดรักษาเวลาในการเบิกของด้วยค่ะ</li>";
+				echo"</ul>";
+				echo"<p>ขอบคุณค่ะ</p>";
+				echo"<br /><br />";
+				echo"<center>";
+				echo"<input id=\"chk\" type=\"checkbox\" onclick=\"fnSwitch();\" />ข้าพเจ้าอ่านและตกลงตามเงื่อนไขแล้ว<br /><br />";
+				echo"<input class=\"btadmin\" disabled=\"false\" id=\"btConfirm\" type=\"button\" value=\"ขอเบิกอุปกรณ์\" onclick=\"javascript:window.location.href='index.php?option=hrstock&com_stock=begstock&bk=".$bk."';\"/>";
+				echo"</center>";
+			}
+		}
+	}
+}
+
+?>

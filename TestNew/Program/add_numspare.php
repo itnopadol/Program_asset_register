@@ -13,7 +13,7 @@
 	$result=mysqli_query($con,"SELECT * FROM spare_part WHERE 
 	id='$_GET[id]'")  or die("SQL Error=>".mysqli_error($con));
 
-	list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$balance,$time) = mysqli_fetch_row($result);
+	list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$Pay,$balance,$time) = mysqli_fetch_row($result);
 	
 	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
 	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
@@ -49,3 +49,5 @@
 <input type="reset" name="button2" id="button2" value="ยกเลิก">
 </body>
 </html>
+
+

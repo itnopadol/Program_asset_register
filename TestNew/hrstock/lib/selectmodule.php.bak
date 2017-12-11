@@ -1,0 +1,64 @@
+<?php
+$op=$_GET['option'];
+switch($op){
+	case edocument:
+		include"modules/e_document/index.php";
+		break;
+	case eoffice:
+		include"modules/e_office/index.php";
+		break;
+	case qalab:
+		$page="modules/qa_lab/index.php";
+		if(!isset($_SESSION['nameuser'])){
+			include $page;
+			break;
+		}else{
+			include $page;
+			echo"<script language=\"javascript\">";
+			echo"callmenu();";
+			echo"</script>";
+			break;
+		}
+	case itservice:
+		include"modules/it_service/index.php";
+		break;
+	case hrstock:
+		include"modules/hr_stock/index.php";
+		break;
+	case myself:
+		include"modules/it_service/bemyself.php";
+		break;
+	case register:
+		include"modules/register/register.php";
+		break;
+	case editaccount:
+		include"modules/register/editaccount.php";
+		break;
+	case administrator:
+		include"modules/administrator/index.php";
+		break;
+	case news:
+		if($_GET['type']=="configuser"){
+			include"modules/news/configuser.php";
+			break;
+		}elseif($_GET['type']=="confignews"){
+			include"modules/news/confignews.php";
+			break;
+		}elseif($_GET['type']=="addnews"){
+			include"modules/news/addnews.php";
+			break;
+		}elseif($_GET['type']=="main"){
+			include"modules/news/main.php";
+			break;
+		}elseif($_GET['type']=="viewnews"){
+			include"modules/news/viewnews.php";
+			break;
+		}
+	case bus:
+			include"modules/bus/index.php";
+			break;
+	default:
+		include"main.php";
+		break;
+}
+?>

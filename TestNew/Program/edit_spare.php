@@ -13,7 +13,7 @@
 	$result=mysqli_query($con,"SELECT * FROM spare_part WHERE 
 	id='$_GET[id]'")  or die("SQL Error=>".mysqli_error($con));
 
-	list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$balance,$time) = mysqli_fetch_row($result);
+	list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$Pay,$balance,$time) = mysqli_fetch_row($result);
 	
 ?>
 
@@ -36,8 +36,9 @@
    ?>
    </select>
 <p>ราคา :  <input type="text" name="price" value="<?php echo $price ?>"></p>
-<p>Stock :  <input type="text" name="stock" value="<?php echo $stock ?>"></p>
-<p>วัน/เดือน/ปี  :  <input type="text" name="time"   disabled="disabled" value="<?php echo $time ?>"></p><hr>
+<p> ยอดยกมา :  <input type="text" name="stock" value="<?php echo $stock ?>"></p>
+<p>วัน/เดือน/ปี  :  <input type="text" name="time" disabled="disabled" value="<?php echo $time ?>"></p><hr>
+
 
 <input type="submit" name="button" id="button" value="ตกลง">
 <input type="reset" name="button2" id="button2" value="ยกเลิก">

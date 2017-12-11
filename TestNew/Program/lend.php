@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<h1 align='center'>รายการวัสดุ / อุปกรณ์</h1>
+<h1 align='center'>ประวัติรายการเบิกการวัสดุ / อุปกรณ์</h1>
 <form method ="post"  align='center'>
 	<input type ="search" name='keyword' size="50"> <input type="submit" value="ค้นหา">
 </form>
@@ -35,17 +35,16 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	$num=1;//กำหนดตัวแปรเพื่อนับแถว
 	
 	echo "<table border = 1 align='center'>";
+	echo "<th>รหัสใบเบิก</th>";
+	echo "<th>ชื่อผู้ขอเบิก</th>";
 	echo "<th>รหัสวัสดุ</th>";
 	echo "<th>รูปภาพ</th>";
 	echo "<th>รายการ</th>";
 	echo "<th>รุ่น / ยี่ห้อ</th>";
 	echo "<th>ราคาซื้อ</th>";
 	echo "<th>ประเภท</th>";
-	echo "<th>จำนวน stock</th>";
-	echo "<th>จำนวนที่รับ</th>";
-	echo "<th>คงเหลือ</th>";
-	echo "<th>วัน/เดือน/ปี</th>";
-	echo "<th>เลือกรายการ</th>";
+	echo "<th>จำนวนที่เบิก</th>";
+    echo "<th>วันที่เบิก</th>";
 
 	
 	
@@ -55,18 +54,20 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
     list($category)=mysqli_fetch_row($sql);
 	
+	$balance = $acquire + $stock;
+	
 	echo "<tr>";
-	echo "<td align='center'>$id</td>";
-	echo "<td align='center'><img src='../img/$photo'  width='50'  height='50'></td>";
-	echo "<td align='center'>$name</td>";
-	echo "<td align='center'>$brand</td>";
-	echo "<td align='center'>$price</td>";
-	echo "<td align='center'>$category</td>";
-	echo "<td align='center'>$stock</td>";
-	echo "<td align='center'>$acquire</td>";
-	echo "<td align='center'>$stock</td>";
-	echo "<td align='center'>$time</td>";
-	echo "<td align='center'><a href='add_numspare.php?id=$id'><img src='../img/flat.png'  width='30'  height='30'></TD>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	echo "<td align='center'></td>";
+	
 	echo "</tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}

@@ -21,7 +21,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 	
-	$result = mysqli_query($con, "SELECT * FROM spare_part WHERE  name  LIKE '%$keyword%' OR category LIKE '%$keyword%'OR brand ORDER BY id ASC  ") or die ("MySQL =>".mysqli_error($con));	
+	$result = mysqli_query($con, "SELECT * FROM take WHERE  take_name  LIKE '%$keyword%' OR take_category LIKE '%$keyword%'OR take_brand ORDER BY take_id ASC  ") or die ("MySQL =>".mysqli_error($con));	
 	
 	$rows=mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
@@ -35,39 +35,35 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	$num=1;//กำหนดตัวแปรเพื่อนับแถว
 	
 	echo "<table border = 1 align='center'>";
+	echo "<th>เลขที่</th>";
 	echo "<th>รหัสวัสดุ</th>";
-	echo "<th>รูปภาพ</th>";
 	echo "<th>รายการ</th>";
 	echo "<th>รุ่น / ยี่ห้อ</th>";
 	echo "<th>ราคาซื้อ</th>";
 	echo "<th>ประเภท</th>";
 	echo "<th>จำนวนที่รับ</th>";
 	echo "<th>วัน/เดือน/ปี</th>";
-	echo "<th>แก้ไข</th>";
-	echo "<th>ลบ</th>";
+
 	
 	
-	while(list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$balance,$time) = mysqli_fetch_row($result)){ 
+	while(list($take_id,$id_inventory,$take_name,$take_brand,$take_pice,$take_category,$take_acquire,$take_time) = mysqli_fetch_row($result)){ 
 	
-	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
-	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
-    list($category)=mysqli_fetch_row($sql);
+	
 	
 	echo "<tr>";
-	echo "<td align='center'>$id</td>";
-	echo"<td align='center'><img src='../img/$photo'  width='50'  height='50'></td>";
-	echo "<td align='center'>$name</td>";
-	echo "<td align='center'>$brand</td>";
-	echo "<td align='center'>$price</td>";
-	echo "<td align='center'>$category</td>";;
-	echo "<td align='center'>$acquire</td>";
-	echo "<td align='center'>$time</td>";
-	echo "<td align='center'><a href='edit_spare.php?id=$id'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></TD>";
-	echo "<td align='center'><a href='delete_asset.php?id=$id' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'><img src='../img/cancel.png'  width='30'  height='30'></TD>";
+	echo "<td align='center'>$take_id</td>";
+	echo "<td align='center'>$id_inventory</td>";
+	echo" <td align='center'>$take_name</td>";
+	echo "<td align='center'>$take_brand</td>";
+	echo "<td align='center'>$take_pice</td>";
+	echo "<td align='center'>$take_category</td>";
+	echo "<td align='center'>$take_acquire</td>";
+	echo "<td align='center'>$take_time</td>";
 	echo "</tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
 	echo"</table>";
+	
 	
 	mysqli_free_result($result);//คืนค่าหน่วยความจำให้กับระบบ
 	mysqli_close($con); //ปิดฐานข้อมูล

@@ -41,16 +41,17 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<th>รุ่น / ยี่ห้อ</th>";
 	echo "<th>ราคาซื้อ</th>";
 	echo "<th>ประเภท</th>";
-	echo "<th>จำนวน stock</th>";
-	echo "<th>จำนวนที่รับ</th>";
+	echo "<th>ยอดยกมา</th>";
+	echo "<th>จำนวนรับ</th>";
+	echo "<th>จำนวนจ่าย</th>";
 	echo "<th>คงเหลือ</th>";
 	echo "<th>วัน/เดือน/ปี</th>";
-	echo "<th>เพิ่มจำนวนรับ</th>";
+	echo "<th>เพิ่มจำนวน</th>";
 	echo "<th>แก้ไข</th>";
 	echo "<th>ลบ</th>";
 	
 	
-	while(list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$balance,$time) = mysqli_fetch_row($result)){ 
+	while(list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$Pay,$balance,$time) = mysqli_fetch_row($result)){ 
 	
 	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
 	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
@@ -66,11 +67,12 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<td align='center'>$category</td>";
 	echo "<td align='center'>$stock</td>";
 	echo "<td align='center'>$acquire</td>";
+	echo "<td align='center'>$Pay</td>";
 	echo "<td align='center'>$balance</td>";
 	echo "<td align='center'>$time</td>";
 	echo "<td align='center'><a href='add_numspare.php?id=$id'><img src='../img/11.png'  width='30'  height='30'></TD>";
 	echo "<td align='center'><a href='edit_spare.php?id=$id'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></TD>";
-	echo "<td align='center'><a href='delete_asset.php?id=$id' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'><img src='../img/cancel.png'  width='30'  height='30'></TD>";
+	echo "<td align='center'><a href='delete_spare.php?id=$id'><img src='../img/cancel.png'  width='30'  height='30'></TD>";
 	echo "</tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
