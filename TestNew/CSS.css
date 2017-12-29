@@ -4,7 +4,7 @@
 	margin:5px;
 }
 #Textbody{
-	font-size:18px;
+	font-size:16.5px;
 	font-family:"TH Sarabun New", "Tw Cen MT";	
 }
 table {
@@ -17,6 +17,9 @@ table {
 #taleft{
 	text-align:left;
 }
-#table02{
+#padtatwo{
 		padding:20;
+}
+.tacenter{
+	text-align:center;
 }

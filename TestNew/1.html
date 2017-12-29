@@ -49,6 +49,13 @@
     	<span class="pull-right">&nbsp;</span>
     </div>
     <!----ปิด Div หัวส่วนที่0---->
+    <!----Div---->
+        <div class="text-center">
+        <span class="pull-left">&nbsp;</span>
+        <span>&nbsp;</span>
+        <span class="pull-right">&nbsp;</span>
+        </div>
+    <!----ปิด Div---->
     <!----Div หัวส่วนที่1---->
         <div class="text-center">
         <span class="pull-left">&nbsp;</span>
@@ -60,49 +67,47 @@
         <div class="text-center">
         	<span class="pull-left">&nbsp;</span>
         	<span>&nbsp;</span>
-        	<span class="pull-right">เลขที่ใบแจ้งหนี้ <input type="text" id="part2" size="10"></span>
+        	<span class="pull-right">เลขที่ใบแจ้งหนี้ <strong id="inv2"></strong></span>
         </div>
     <!----ปิด Div หัวส่วนที่2---->
-    <!---- Div หัวส่วนที่3---->
+    <!---- Div หัวส่วนที่3----> 
         <div class="text-center">
         	<span class="pull-left">&nbsp;</span>
         	<span>&nbsp;</span>
-        	<span class="pull-right">เลขประจำตัวผู้เสียภาษี <input type="text" size="10"></span>
+        	<span class="pull-right">เลขประจำตัวผู้เสียภาษี <strong id="tax2"></strong></span>
         </div>
     <!----ปิด Div หัวส่วนที่3---->
     
     <!---- Div หัวส่วนที่4---->
-	<div class="text-center">
+	<div class="text-center" >
         <span class="pull-right">
                 <tr>
-                    <th align="left">วันที่ครบกำหนด : <input type="text" name="date" size="10"></th>
+                    <th align="left">วันที่ครบกำหนด : <strong id="dat1"> </strong></th>
                 </tr>
 		</table></span>
 		<span class="pull-right">
                 <tr>
-                    <th align="left">วันที่สรุป <input type="text" name="date2" size="10"></th>
+                    <th align="left">วันที่สรุป : <strong id="dat2"> </strong>&nbsp;&nbsp;</th>
                 </tr>
 		</table></span>
 	</div>
     <!----ปิด Div หัวส่วนที่4---->
-    <BR>
+    
     <div>
     	<table style="size:500px;">
     		<tr>
-				<th align="left" id="table02">เรื่อง  แจ้งยอดบัญชีถึงกำหนดชำระ<br>
-                    เรียน ผู้จัดการ/คุณ............................................. <br>  	
-                    ที่อยู่.................................................................  <br>  
-                    เบอร์โทรลูกค้า..................................................<br>
+				<th align="left" id="padtatwo">เรื่อง  แจ้งยอดบัญชีถึงกำหนดชำระ<br>
+                    เรียน ผู้จัดการ/คุณ <strong id="deb"></strong><br>  	
+                    ที่อยู่ <strong id="add"></strong>  <br>  
+                    เบอร์โทรลูกค้า <strong id="phone"></strong><br>
                     </p></th>
 			</tr>
 		</table>
     </div>
+    &nbsp;
     <div><span>
-    <table width="70%" cellspacing="1" bgcolor="#CCCCCC" align="center" border="1">
+    <table width="70%" cellspacing="1" bgcolor="#CCCCCC" align="center" border="1" >
     	<caption>ทางบริษัทฯใคร่ขอความกรุณาท่านโปรดชำระเงินค่าสินค้าและบริการ ตามรายการใบกำกับข้างล่างนี้</caption>
-    	<col align="center"></col>
-    	<col align="left"></col>
-    	<col align="right"></col> 
 	<thead>
   		<tr>
             <th width="5%" bgcolor="#FFFFFF">No</th>
@@ -135,14 +140,14 @@
 		</div>
         <div align="center">
         <!---รูป--->
-        <img src="bank.PNG" width="200" height="130" >
+        <img src="bank.PNG" width="200" height="150" >
         </div>
         <div align="center">
         <ul>
 			<span>เมื่อมีการโอนเงินให้กับบริษัทฯ ขอความกรุณาแจ้ง/ส่งรายละเอียดการชำระให้ทาง E-mail: cd@nopadol.com ,Line: 081-8837619 ,Fax: 053-244111
             </span><br>
-            <span>หมายเหตุ ท่านยังคงมีบัญชีเก่าที่ได้แจ้งหนี้ไปแล้ว และยังไม่ได้ชำระหนี้</span>
 		</ul>
+         <strong>หมายเหตุ</strong> <span>ท่านยังคงมีบัญชีเก่าที่ได้แจ้งหนี้ไปแล้ว และยังไม่ได้ชำระหนี้</span>
 		</div>
         <div>
     	<table width="70%" cellspacing="1" bgcolor="#CCCCCC" align="center" border="1" >
@@ -169,8 +174,8 @@
 		</table>
         </div>
     <div align="center">
-	<span>บริษัทฯ ต้องขออภัยมา ณ ที่นี้ด้วย หากท่านชำระยอดคงค้างเรียบร้อยแล้ว</P>
-    <table align="center" id="tablecolor">
+	<span>บริษัทฯ ต้องขออภัยมา ณ ที่นี้ด้วย หากท่านชำระยอดคงค้างเรียบร้อยแล้ว</span>
+    <table align="center" id="tablecolor" class="tacenter">
         	<th>ติดต่อแผนกสินเชื่อ</th> 
             <th align="left">โทร(053)2403777 ต่อ 500,511,512,โทรสาร (053)244111</th>   	
         <tr>
@@ -178,18 +183,39 @@
         <td>โทร081-8837619 คุณธนยศ,คุณเบญจวรรณ โทร.081-6710875 คุณณัฏฐ์ชยาภรณ์ โทร.081-6815780 คุณวิไลวรรณ</td>
         </tr>
 	</table>
-    </span>
+    </div>
     <input type="submit" name="Submit" value=" PRINT " onClick="javascript:this.style.display='none';window.print()">
     <script>
-	var invoice,i, x; //เลขใบแจ้งหนี้
+	
+	var invoice , x; //เลขใบแจ้งหนี้
 	var Taxpayer, T; //เลขประจำตัวผู้เสียภาษี
 	var Datesum ,DT; //วันที่สรุป
-	var Dateset ,DT; //วันที่ครบกำหนด
+	var Dateset ,DS; //วันที่ครบกำหนด
+	var Debtor , N; //ชื่อลูกหนี้
+	var address , AD; //ที่อยู่ของลูกหนี้
+	var phone , TEL; //เบอร์ติดต่อ
 	
-	invoice = {"name" : "เลขใบแจ้งหนี้"};
+	invoice = {"name" : "เลขใบแจ้งหนี้มานีมานะ"};
+	Taxpayer = {"name" : "115011121314"};
+	Datesum = {"name" : "00:00:0000"};
+	Dateset = {"name" : "00:00:0000"};
+	Debtor  = {"name" : "ลูกค้า"};
+	address = {"name" : "อยู่ที่ไหน"};
+	phone = {"name" : "0800000000"};
 	x = invoice.name;
-	document.getElementById("part2").innerHTML = x;
-	
+	T = Taxpayer.name;
+	DT = Datesum.name;
+	DS = Dateset.name;
+	N = Debtor.name;
+	AD = address.name;
+	TEL = phone.name;
+	document.getElementById("inv2").innerHTML = x;
+	document.getElementById("tax2").innerHTML = T;
+	document.getElementById("dat1").innerHTML = DT;
+	document.getElementById("dat2").innerHTML = DS;
+	document.getElementById("deb").innerHTML = N;
+	document.getElementById("add").innerHTML = AD;
+	document.getElementById("phone").innerHTML = TEL;
 	</script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
