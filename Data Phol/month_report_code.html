@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>M_re</title>
+</head>
+
+<body>
+<p>&lt;?php</p>
+<p>require(&quot;connect_db.php&quot;);</p>
+<p>echo &quot;&lt;p align='center'&gt;สรุปยอดขายประจำเดือน&lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;table align='center' border=1&gt;&lt;tr&gt;&lt;th&gt;ลำดับ&lt;/th&gt;&lt;th&gt;เดือน&lt;/th&gt;&lt;th&gt;ยอดขาย&lt;/th&gt;&lt;/tr&gt;&quot;;</p>
+<p>for($i=01;$i&lt;13;$i++){<br />
+  $rs=mysql_query(&quot;SELECT order_date,SUM(total_paid) FROM list_orders WHERE month(order_date)=$i&quot;)or die(mysql_error());<br />
+  list($order_date,$total_paid)=mysql_fetch_row($rs);<br />
+  echo&quot;&lt;tr&gt;&lt;td&gt;$i&lt;/td&gt;&lt;td&gt;&quot;;<br />
+  if($i==01){<br />
+  echo &quot;มกราคม&quot;;<br />
+  }elseif($i==02){<br />
+  echo &quot;กุมภาพันธ์&quot;;<br />
+  }elseif($i==03){<br />
+  echo &quot;มีนาคม&quot;;<br />
+  }elseif($i==04){<br />
+  echo &quot;เมษายน&quot;;<br />
+  }elseif($i==05){<br />
+  echo &quot;พฤษภาคม&quot;;<br />
+  }elseif($i==06){<br />
+  echo &quot;มิถุนายน&quot;;<br />
+  }elseif($i==07){<br />
+  echo &quot;กรกฎาคม&quot;;<br />
+  }elseif($i==8){<br />
+  echo &quot;สิงหาคม&quot;;<br />
+  }elseif($i==9){<br />
+  echo &quot;กันยายน&quot;;<br />
+  }elseif($i==10){<br />
+  echo &quot;ตุลาคม&quot;;<br />
+  }elseif($i==11){<br />
+  echo &quot;พฤศจิกายน&quot;;<br />
+  }elseif($i==12){<br />
+  echo &quot;ธันวาคม&quot;;<br />
+  }<br />
+  echo&quot;&lt;/td&gt;&lt;td align='right'&gt;$total_paid&lt;/td&gt;&lt;/tr&gt;&quot;;<br />
+</p>
+<p>}echo &quot;&lt;/table&gt;&quot;;<br />
+  echo &quot;&lt;a href='report.php'&gt;ย้อนกลับ&lt;/a&gt;&quot;;</p>
+<p>mysql_close();<br />
+  ?&gt;</p>
+</body>
+</html>

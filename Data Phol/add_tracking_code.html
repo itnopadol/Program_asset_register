@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ad_tr</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  require(&quot;connect_db.php&quot;);</p>
+<p>&nbsp;</p>
+<p>$up=&quot;UPDATE list_orders SET tracking_id='$_POST[tracking_id]',order_status='4'  WHERE order_id='$_POST[order_id]'&quot;;<br />
+  mysql_query($up)or die(mysql_error());<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='order_list_admin.php'&lt;/script&gt;&quot;;<br />
+  mysql_close();<br />
+  ?&gt;<br />
+</p>
+</body>
+</html>

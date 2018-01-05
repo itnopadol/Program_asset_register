@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  require(&quot;connect_db.php&quot;);<br />
+</p>
+<p>$order=&quot;SELECT * FROM list_orders WHERE order_member='$_SESSION[login_name]'&quot;;<br />
+  $rs=mysql_query($order)or die(mysql_error());<br />
+  echo &quot;&lt;h2 align='center'&gt;ผู้ใช้ :&quot;,$_SESSION['login_name'],&quot;&lt;/h2&gt;&quot;;<br />
+  echo &quot;&lt;form action='transfer_form.php' method='GET'&gt;&quot;;<br />
+  echo &quot;&lt;table border='1' align='center' width=70%&gt;&quot;;<br />
+  echo &quot;&lt;tr align='center'&gt;&lt;th&gt;รหัสสินค้า&lt;/th&gt;&lt;th&gt;รหัสผู้ซื้อ&lt;/th&gt;&lt;th&gt;วันที่สั่งซื้อ: วัน/เดือน/ปี&lt;/th&gt;&lt;th&gt;สถานะ&lt;/th&gt;&lt;th&gt;หมายเหตุ&lt;/th&gt;&lt;/tr&gt;&quot;;<br />
+  while(list($order_id,$order_date,$order_member,$order_status,$total_paid,$tracking_id)=mysql_fetch_row($rs)){<br />
+  if($order_status==1){<br />
+  $link=&quot;&lt;a href='transfer_form.php?id=$order_id'&gt;&lt;font color='red'&gt;[แจ้งโอนเงิน]&lt;/font&gt;&lt;/a&gt;&quot;;<br />
+  }elseif($order_status==4){<br />
+  $link=&quot;&lt;font color='blue'&gt;TrackingID:$tracking_id&lt;/font&gt;&quot;;<br />
+  }else{<br />
+  $link=&quot;-&quot;;<br />
+  }</p>
+<p>&nbsp;</p>
+<p> echo &quot;&lt;tr align='center'&gt;&lt;td&gt;&lt;a href='order_detail.php?id=$order_id'&gt;$order_id&lt;/a&gt;&lt;/td&gt;&lt;td&gt;$order_member&lt;/td&gt;&lt;td&gt;$order_date&lt;/td&gt;&quot;;<br />
+  <br />
+  $os=&quot;SELECT * FROM order_status WHERE status_id=(SELECT order_status FROM list_orders WHERE order_id='$order_id')&quot;;<br />
+  $os1=mysql_query($os)or die(mysql_error());<br />
+  list($staust_id,$status_title)=mysql_fetch_row($os1);<br />
+  echo &quot;&lt;td&gt;$status_title&lt;/td&gt;&quot;;</p>
+<p>echo &quot;&lt;td &gt;$link&lt;/td&gt;&lt;/tr&gt;&quot;;<br />
+</p>
+<p> }</p>
+<p>echo &quot;&lt;/table&gt;&lt;/form&gt;&quot;;<br />
+  echo &quot;&lt;p align='center'&gt;&lt;a href='list_book.php'&gt;&lt;input type='button' name='back' value='เลือกหนังสือ'&gt;&lt;/a&gt;&lt;/p&gt;&quot;;<br />
+  mysql_free_result($rs);<br />
+  mysql_close();<br />
+  ?&gt;</p>
+</body>
+</html>

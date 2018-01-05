@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  require(&quot;connect_db.php&quot;);<br />
+</p>
+<p>$order=&quot;SELECT * FROM list_orders &quot;;<br />
+  $rs=mysql_query($order)or die(mysql_error());</p>
+<p>echo &quot;&lt;h2 align='center'&gt;ผู้ใช้ :&quot;,$_SESSION['login_name'],&quot;&lt;/h2&gt;&quot;;<br />
+  echo &quot;&lt;table border='1' align='center' width=70%&gt;&quot;;<br />
+  echo &quot;&lt;tr align='center'&gt;&lt;th&gt;รหัสสินค้า&lt;/th&gt;&lt;th&gt;รหัสผู้ซื้อ&lt;/th&gt;&lt;th&gt;วันที่สั่งซื้อ: วัน/เดือน/ปี&lt;/th&gt;&lt;th&gt;สถานะ&lt;/th&gt;&lt;th&gt;หมายเหตุ&lt;/th&gt;&lt;/tr&gt;&quot;;</p>
+<p>while(list($order_id,$order_date,$order_member,$order_status,$total_paid,$tracking_id)=mysql_fetch_row($rs)){<br />
+  if($order_status==2){<br />
+  $link=&quot;&lt;a href='transfer_detail.php?name=$order_member&amp;id=$order_id'&gt;&lt;font color='green'&gt;ตรวจสอบ&lt;/font&gt;&lt;/a&gt;&quot;;<br />
+  }elseif($order_status==3){<br />
+  $link=&quot;&lt;form action='add_tracking.php' method='post'&gt;<br />
+  &lt;input type='hidden' value='$order_id' name='order_id'&gt;<br />
+  &lt;input type='text' name='tracking_id' size='20'&gt;<br />
+  &lt;input type='submit' value='Tracking'&gt;&lt;/form&gt;&quot;;<br />
+  }elseif($order_status==4){<br />
+  $link=&quot;&lt;font color='blue'&gt;- TrackingID:$tracking_id&lt;/font&gt;&lt;br&gt;-&lt;a href='bil.php?name=$order_member&amp;order_id=$order_id'&gt;ใบเสร็จ&lt;/a&gt;&quot;;<br />
+  }elseif($order_status==5){<br />
+  $link=&quot;&lt;font color='red'&gt;#Error&lt;/font&gt;&quot;;<br />
+  }else{$link=&quot;-&quot;;}</p>
+<p>&nbsp;</p>
+<p> echo &quot;&lt;tr align='center'&gt;&lt;td&gt;&lt;a href='order_detail.php?order_id=$order_id'&gt;$order_id&lt;/a&gt;&lt;/td&gt;&lt;td&gt;$order_member&lt;/td&gt;&lt;td&gt;$order_date&lt;/td&gt;&quot;;<br />
+  $os=&quot;SELECT * FROM order_status &quot;;<br />
+  $os1=mysql_query($os)or die(mysql_error()); <br />
+  echo &quot;&lt;td align='left'&gt;&lt;form action='update_status.php' method='get'&gt;&quot;;<br />
+  echo &quot;&lt;input type='hidden' value='$order_id' name='order_id'&gt;&quot;;<br />
+  echo &quot;&lt;select name='status_id'&gt;&quot;;</p>
+<p>while(list($status_id,$status_title)=mysql_fetch_row($os1)){<br />
+  if($order_status==$status_id){<br />
+  $selected=&quot;selected='selected=selected'&quot;;<br />
+  }else{<br />
+  $selected=&quot;&quot;;<br />
+  }<br />
+  <br />
+  echo &quot;&lt;option value='$status_id' $selected&gt;$status_title&lt;/option&gt;&quot;;<br />
+  }</p>
+<p>echo &quot;&lt;/select&gt;&amp;nbsp;&amp;nbsp;&lt;input type='submit' name='update' value='เปลี่ยนสถานะ'&gt;&lt;/form&gt;&lt;/td&gt;&quot;;</p>
+<p>echo &quot;&lt;td &gt;$link&lt;/td&gt;&lt;/tr&gt;&quot;;<br />
+</p>
+<p>}</p>
+<p>echo &quot;&lt;/table&gt;&quot;;</p>
+<p>&nbsp;</p>
+<p>mysql_free_result($rs);<br />
+  mysql_close();<br />
+  ?&gt;</p>
+</body>
+</html>

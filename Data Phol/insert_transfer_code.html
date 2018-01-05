@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>in_transfer</title>
+</head>
+
+<body>
+<p>&lt;?php <br />
+  require('connect_db.php');<br />
+  $order_id=$_POST['id'];<br />
+  $trans_date=$_POST['transfer_date'];<br />
+  $trans_time=$_POST['h'].&quot;:&quot;.$_POST['m'].&quot;:&quot;.$_POST['s'];<br />
+  $transfer_date=&quot;$trans_date $trans_time&quot;;</p>
+<p>if(!empty($_FILES['transfer_slip']['name'])){<br />
+  $slip_file=$_FILES['transfer_slip']['name'];<br />
+  $slip_tmp=$_FILES['transfer_slip']['tmp_name'];<br />
+  copy($slip_tmp,&quot;slips/$slip_file&quot;);<br />
+  }else{<br />
+  $slip_file=&quot;&quot;;<br />
+  }<br />
+  $sql1=&quot;INSERT INTO transfer VALUES ('$order_id','$transfer_date','$_POST[bank]','$slip_file','$_POST[total_paid]')&quot;;<br />
+  mysql_query($sql1)or die(mysql_error());<br />
+  <br />
+  $sql2=&quot;UPDATE list_orders SET order_status=2 WHERE order_id='$order_id'&quot;;<br />
+  mysql_query($sql2)or die(mysql_error());</p>
+<p>echo &quot;&lt;script language='javascript'&gt;window.location='order_list.php'&lt;/script&gt;&quot;;<br />
+  ?&gt;</p>
+</body>
+</html>

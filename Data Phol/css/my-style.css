@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* CSS Document */
+#header,#footer{
+	text-align:center;
+	width:100%;
+
+	}
+	#contrainner{
+margin:0 auto;
+padding:50px 10px 50px 10px;
+	}
+	function printDiv(contrainner) { 
+var printContents = document.getElementById(contrainner).innerHTML; 
+var originalContents = document.body.innerHTML; 
+
+document.body.innerHTML = printContents; 
+window.print(); 
+
+document.body.innerHTML = originalContents; 
+} 
+

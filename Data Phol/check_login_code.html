@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  require(&quot;connect_db.php&quot;);<br />
+  echo &quot;&lt;meta charset='utf-8' /&gt;&quot;;<br />
+  $user_form=$_POST['username'];<br />
+  $pwd_form=$_POST['passwd'];<br />
+  if(empty($user_form)or empty($pwd_form)){<br />
+  echo &quot;กรุณากลับไปกรอก username และ password ให้ครบ &lt;a href='login_form.php'&gt; Login&lt;/a&gt;&quot;;<br />
+  }else{<br />
+  <br />
+  <br />
+  //ดึงค่าจากฐานข้อมูล<br />
+  $ur=&quot;SELECT username,passwd,type FROM users WHERE username='$user_form' and passwd='$pwd_form'&quot;;<br />
+  //echo &quot;$ur&quot;;<br />
+  $result=mysql_query($ur) or die(mysql_error());<br />
+  list($user_db,$pwd_db,$type_db)=mysql_fetch_row($result);<br />
+  //select ข้อมูลจากตาราง user ที่ username และ password ตรงกับข้อมูลที่กรอกส่งมาจากฟอร์ม</p>
+<p>if($user_form=$user_db and $pwd_form=$pwd_db){<br />
+  $_SESSION['login_result']=&quot;pass&quot;;<br />
+  $_SESSION['login_name']=$user_db;<br />
+  $_SESSION['login_type']=$type_db;<br />
+  if($type_db==1){<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='list_book.php'&lt;/script&gt;&quot;;<br />
+  }else if($type_db==2){<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='manage_book.php'&lt;/script&gt;&quot;;<br />
+  }else if($type_db==3){<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='list_book.php'&lt;/script&gt;&quot;;<br />
+  }else{<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='login_form.php'&lt;/script&gt;&quot;;<br />
+  }<br />
+  }<br />
+  else{ <br />
+  echo &quot;username และ password ไม่ถูก!! กรุณากลับไปกรอกใหม่   &lt;a href='login_form.php'&gt; Login&lt;/a&gt;&quot;;<br />
+  $_SESSION['login_result']=&quot;fail&quot;;<br />
+  }<br />
+  }<br />
+  ?&gt;</p>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>like_re</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  require(&quot;connect_db.php&quot;);<br />
+  echo &quot;&lt;h1 align='center'&gt;รายงานหนังสือที่มียอด LIKE มากที่สุด 10 อันดับ&lt;/h1&gt;&quot;;<br />
+  echo &quot;&lt;table border=1 align='center'&gt;&lt;tr bgcolor='#cccccc'&gt;&lt;th&gt;ลำดับ&lt;/th&gt;&lt;th&gt;ชื่อหนังสือ&lt;/th&gt;&lt;th&gt;สำนักพิมพ์&lt;/th&gt;&lt;th&gt;จำนวน LIKE&lt;/th&gt;&quot;;<br />
+  $od=mysql_query(&quot;SELECT book_id,COUNT(username) FROM likes GROUP BY book_id ORDER BY COUNT(username) DESC LIMIT 0,10&quot;);<br />
+  $i=1;<br />
+  while(list($book_id,$username)=mysql_fetch_row($od)){<br />
+  $bk=mysql_query(&quot;SELECT book_id,book_title,book_pub FROM books WHERE book_id=$book_id&quot;);<br />
+  while(list($book_id,$book_title,$book_pub)=mysql_fetch_row($bk)){<br />
+  $pu=mysql_query(&quot;SELECT * FROM publishing WHERE pub_id=$book_pub&quot;);<br />
+  while(list($pub_id,$pub_name)=mysql_fetch_row($pu)){<br />
+  echo &quot;&lt;tr&gt;&lt;td align='center'&gt;$i&lt;/td&gt;&lt;td&gt;$book_title&lt;/td&gt;&lt;td&gt;$pub_name&lt;/td&gt;&lt;td align='center'&gt;$username&lt;/td&gt;&lt;/tr&gt;&quot;;<br />
+  }<br />
+  }<br />
+  $i++;<br />
+  }<br />
+  echo &quot;&lt;/table&gt;&lt;a href='report.php'&gt;ย้อนกลับ&lt;/a&gt;&quot;;</p>
+<p>mysql_close();<br />
+  ?&gt;</p>
+</body>
+</html>

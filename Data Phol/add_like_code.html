@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>addlike_code</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  require(&quot;connect_db.php&quot;);</p>
+<p>$sql = mysql_query(&quot;SELECT * FROM likes WHERE book_id='$_GET[id]' AND username='$_SESSION[login_name]'&quot;);<br />
+  $num = mysql_num_rows($sql);<br />
+  if($num==1){<br />
+  echo &quot;&lt;script type='text/javascript'&gt;<br />
+  alert (\&quot;คุณเคย โหลวดแล้ว?\&quot;)<br />
+  window.location='book_detail.php?id=$_GET[id]'<br />
+  &lt;/script&gt;&quot;;<br />
+  }<br />
+  if($num==0){<br />
+  mysql_query(&quot;INSERT INTO likes VALUES('$_GET[id]','$_SESSION[login_name]')&quot;);<br />
+  $like = mysql_query(&quot;SELECT book_id FROM likes WHERE book_id='$_GET[id]'&quot;);<br />
+  $amount = mysql_num_rows($like);<br />
+  mysql_query(&quot;UPDATE books SET likes='$amount' WHERE book_id='$_GET[id]'&quot;);<br />
+  }<br />
+  echo &quot;&lt;script&gt;window.location='book_detail.php?id=$_GET[id]'&lt;/script&gt;&quot;;<br />
+  ?&gt;</p>
+</body>
+</html>

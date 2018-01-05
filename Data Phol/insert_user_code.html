@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>insert usercode</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  require(&quot;connect_db.php&quot;);<br />
+</p>
+<p>$us=&quot;INSERT INTO users VALUES ('$_POST[username]','$_POST[passwd]','$_POST[fullname]','$_POST[lastname]','$_POST[address]','$_POST[phone]','$_POST[email]','$_POST[type]')&quot;;</p>
+<p>mysql_query($us) or die(mysql_error());</p>
+<p>mysql_close();</p>
+<p>echo &quot;&lt;script language='javascript'&gt;window.location='login_form.php'&lt;/script&gt;&quot;<br />
+  ?&gt;<br />
+</p>
+</body>
+</html>

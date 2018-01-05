@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  if($_POST['button']==&quot;กลับไปเลือกสินค้า&quot;){<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='list_book.php'&lt;/script&gt;&quot;;<br />
+  }<br />
+  elseif($_POST['button']==&quot;ยกเลิกสินค้า&quot;){<br />
+  if(!empty($_POST['cancel_id'])){////ถ้ามีการเลือก checkbox<br />
+  $cancel_id=$_POST['cancel_id'];<br />
+  $cnt=count($_SESSION['sbook_id']);<br />
+  $tbook_id=array();<br />
+  $tbook_title=array();<br />
+  $tbook_sprice=array();<br />
+  $tbook_amount=array();<br />
+  for($i=0;$i&lt;$cnt;$i++){<br />
+  if(!in_array($_SESSION['sbook_id'][$i],$cancel_id)){<br />
+  $tbook_id[]=$_SESSION['sbook_id'][$i];<br />
+  $tbook_title[]=$_SESSION['sbook_title'][$i];<br />
+  $tbook_sprice[]=$_SESSION['sbook_sprice'][$i];<br />
+  $tbook_amount[]=$_SESSION['sbook_amount'][$i];<br />
+  }<br />
+  }<br />
+  $_SESSION['sbook_id']=$tbook_id;<br />
+  $_SESSION['sbook_title']=$tbook_title;<br />
+  $_SESSION['sbook_sprice']=$tbook_sprice;<br />
+  $_SESSION['sbook_amount']=$tbook_amount;<br />
+  }<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='show_cart.php'&lt;/script&gt;&quot;;<br />
+  }elseif($_POST['button']==&quot;คำนวนราคาใหม่&quot;){<br />
+  $_SESSION['sbook_amount']=$_POST['book_amount'];<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='show_cart.php'&lt;/script&gt;&quot;;<br />
+  }<br />
+  if($_POST['button']==&quot;ยืนยันการสั่งซื้อ&quot;){<br />
+  require('connect_db.php');<br />
+  $order_date=date(&quot;Y-m-d&quot;);<br />
+  $total_price=$_POST['total_paid'];<br />
+  $sql1=&quot;INSERT INTO list_orders VALUES('','$order_date','$_SESSION[login_name]','','$total_price','')&quot;;<br />
+  mysql_query($sql1)or die(mysql_error());</p>
+<p>$sbook_id=$_SESSION['sbook_id'];<br />
+  $sbook_amount=$_SESSION['sbook_amount'];<br />
+  $sbook_title=$_SESSION['sbook_title'];<br />
+  $sbook_sprice=$_SESSION['sbook_sprice'];<br />
+  $sql2=&quot;INSERT INTO order_detail VALUES((SELECT MAX(order_id) FROM list_orders),'$sbook_id[0]','$sbook_amount[0]')&quot;;<br />
+  $cnt=count($_SESSION['sbook_id']);<br />
+  if($cnt&gt;1){<br />
+  for($i=1;$i&lt;$cnt;$i++){<br />
+  $sql2.=&quot;,((SELECT MAX(order_id) FROM list_orders),'$sbook_id[$i]','$sbook_amount[$i]')&quot;;<br />
+  }<br />
+  }<br />
+  mysql_query($sql2)or die(mysql_error());<br />
+  mysql_close();<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='transfer_form.php'&lt;/script&gt;&quot;;<br />
+  }<br />
+  ?&gt;</p>
+</body>
+</html>

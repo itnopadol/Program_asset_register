@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>tr_de</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  require('connect_db.php');<br />
+  $order_id=$_GET['id'];<br />
+  $or=&quot;SELECT order_id,total_paid FROM list_orders WHERE order_id='$order_id'&quot;;<br />
+  $us=&quot;SELECT username,fullname,lastname,address,phone,email FROM users WHERE username='$_SESSION[login_name]'&quot;;<br />
+  $bak=&quot;SELECT bank_id,bank_name FROM bank &quot;;<br />
+  $bak1=mysql_query($bak)or die(mysql_error());<br />
+  $or1=mysql_query($or)or die(mysql_error());<br />
+  $us1=mysql_query($us)or die(mysql_error());<br />
+  list($order_id,$total_paid)=mysql_fetch_row($or1);<br />
+  list($username,$fullname,$lastname,$address,$phone,$email)=mysql_fetch_row($us1);</p>
+<p>?&gt;<br />
+  &lt;html&gt;<br />
+  &lt;head&gt;<br />
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;jquery/jquery-ui.css&quot;&gt;<br />
+  &lt;script src=&quot;jquery/external/jquery/jquery.js&quot;&gt;&lt;/script&gt;<br />
+  &lt;script src=&quot;jquery/jquery-ui.js&quot;&gt;&lt;/script&gt;</p>
+<p>&lt;script&gt;<br />
+  $(function() {<br />
+  $( &quot;#datepicker&quot; ).datepicker({dateFormat: 'yy-mm-dd'});<br />
+  });<br />
+  &lt;/script&gt;</p>
+<p>&lt;title&gt;การโอนเงิน&lt;/title&gt;</p>
+<p>&lt;/head&gt;<br />
+  &lt;body&gt;<br />
+  &lt;?php $order_id=$_GET['id']; ?&gt;<br />
+  &lt;form action=&quot;insert_transfer.php&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;<br />
+  &lt;h1&gt;ฟอร์มแจ้งการโอนเงิน&lt;/h1&gt;<br />
+  &lt;p&gt;- รหัสการสั่งซื้อ: &lt;?php echo $order_id ?&gt;&lt;/p&gt;<br />
+  &lt;p&gt;- ชื่อ นามสกุล : &lt;?php echo &quot;$fullname &amp;nbsp;&amp;nbsp;&amp;nbsp; $lastname&quot;; ?&gt;&lt;/p&gt;<br />
+  &lt;p&gt;- ที่อยู่ : &lt;?php echo &quot;$address&quot;; ?&gt;&lt;/p&gt;<br />
+  &lt;p&gt;- เบอร์โทร : &lt;?php echo &quot;$phone&quot;; ?&gt;&lt;/p&gt;<br />
+  &lt;p&gt;- E-mail : &lt;?php echo &quot;$email&quot;; ?&gt;&lt;/p&gt;<br />
+  &lt;a href=&quot;edit_user.php&quot;&gt;แก้ไขข้อมูล&lt;/a&gt;<br />
+  &lt;hr&gt;<br />
+  &lt;input type=&quot;hidden&quot; name=&quot;id&quot; value=&quot;&lt;?php echo $order_id ?&gt;&quot;&gt;<br />
+  &lt;p&gt;- วันที่โอนเงิน : &lt;input type=&quot;text&quot; id=&quot;datepicker&quot; name=&quot;transfer_date&quot;/&gt;&lt;/p&gt;<br />
+  &lt;p&gt;- เวลาที่โอน : &lt;input type=&quot;text&quot; size=&quot;5&quot; name=&quot;h&quot;&gt; : &lt;input type=&quot;text&quot; size=&quot;5&quot; name=&quot;m&quot;&gt; : &lt;input type=&quot;text&quot; size=&quot;5&quot; name=&quot;s&quot;&gt; #ชั่วโมง : นาที : วินาที &lt;/p&gt;<br />
+  &lt;p&gt;- ธนาคารที่โอนเงิน<br />
+  &lt;?php while(list($bank_id,$bank_name)=mysql_fetch_row($bak1)){<br />
+  echo &quot;&lt;p&gt;&lt;input type='radio' name='bank' value=$bank_name&gt; $bank_name&lt;/p&gt;&quot;;<br />
+  }<br />
+  ?&gt;<br />
+  &lt;p&gt;- จำนวนเงินที่โอน : &lt;input type=&quot;text&quot; name=&quot;total_paid&quot; value=&quot;&lt;?php echo $total_paid ?&gt;&quot;&gt;&lt;/p&gt;<br />
+  &lt;p&gt; - สลิปโอนเงิน : &lt;input type=&quot;file&quot; name=&quot;transfer_slip&quot; &gt; (ใส่หรือไม่ใส่ก็ได้)&lt;/p&gt;<br />
+  &lt;p&gt;&lt;input type=&quot;submit&quot; name=&quot;sent&quot; value=&quot;ส่งข้อมูล&quot;&gt;&lt;/p&gt;<br />
+  &lt;/form&gt;<br />
+  &lt;?php mysql_close(); ?&gt;<br />
+  &lt;/body&gt;<br />
+  &lt;/html&gt;</p>
+</body>
+</html>

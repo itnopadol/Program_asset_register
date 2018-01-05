@@ -1,0 +1,241 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>แสดงรายการหนังสือทั้งหมด</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  if(empty($_SESSION['login_type']) or $_SESSION['login_type']!=2  ){<br />
+  echo &quot;&lt;script language='javascript'&gt;window.location='login_form.php'&lt;/script&gt;&quot;;<br />
+  }<br />
+  ?&gt;<br />
+  &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;<br />
+  &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;<br />
+  &lt;head&gt;<br />
+  &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;<br />
+  &lt;title&gt;แสดงรายการหนังสือทั้งหมด&lt;/title&gt;<br />
+  &lt;/head&gt;<br />
+  &lt;body&gt;<br />
+  &lt;p align=&quot;right&quot;&gt;ยินดีต้อนรับ &lt;?php echo $_SESSION['login_name']?&gt; เข้าสู่ระบบ &lt;/p&gt;<br />
+  &lt;p align=&quot;right&quot;&gt;&lt;a href=&quot;logout.php&quot;&gt;ออกจากระบบ&lt;/a&gt;&lt;/p&gt;<br />
+  &lt;p align=&quot;right&quot;&gt;&lt;a href=&quot;manage_user.php&quot;&gt;&lt;input type=&quot;button&quot; value=&quot;manage_user&quot; /&gt;&lt;/a&gt;<br />
+  &lt;a href=&quot;order_list_admin.php&quot;&gt;&lt;input type=&quot;button&quot; value=&quot;รายการขาย&quot; /&gt;&lt;/a&gt;<br />
+  &lt;hr /&gt;<br />
+  &lt;h1 align=&quot;center&quot;&gt;แสดงรายการหนังสือในร้าน&lt;/h1&gt;<br />
+  <br />
+  &lt;?php <br />
+  require(&quot;connect_db.php&quot;);<br />
+</p>
+<p> //=========================== SEARCH ================================<br />
+  echo &quot;&lt;div style='text-align:center;padding:20px'&gt;&quot;;<br />
+  echo &quot;&lt;form method='get'&gt;&quot;;<br />
+  echo &quot;&lt;img src='images/search.JPG' width=150&gt;&quot;;<br />
+  echo &quot;&lt;br align='center'&gt;&lt;input type='text' name='search' size='50' &gt;&lt;/br&gt;&quot;;<br />
+  echo &quot;&lt;p align='center'&gt;&lt;input type='radio' name='fieldname' value='book_title'  &gt;ชื่อหนังสือ&quot;;<br />
+  echo &quot;&lt;input type='radio' name='fieldname' value='book_writer'  &gt;ชื่อผู้แต่ง&quot;;<br />
+  echo &quot;&lt;input type='radio' name='fieldname' value='book_pub' &gt;ชื่อสำนักพิมพ์&quot;;<br />
+  echo &quot;&lt;input type='radio' name='fieldname' value='book_cate' &gt;หมวดหมู่&lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;p align='center'&gt;&lt;input type='submit' value='ค้นหา'&gt;&lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;/form&gt;&lt;/div&gt;&quot;; <br />
+  <br />
+</p>
+<p> if(empty($_GET['search'])){<br />
+  $keyword=&quot;&quot;;<br />
+  $kw=$keyword;<br />
+  }else{<br />
+  $keyword=$_GET['search'];<br />
+  $kw=$keyword;<br />
+  }<br />
+  if(empty($_GET['fieldname'])){<br />
+  $fieldname=0;<br />
+  }else{<br />
+  $fieldname=$_GET['fieldname'];<br />
+  }<br />
+  <br />
+  <br />
+  /////////////////////////////////**********************///////////////////////////////////////////////<br />
+  if($fieldname == &quot;book_pub&quot;){<br />
+  <br />
+  $rs=mysql_query(&quot;SELECT * FROM publishing WHERE pub_name LIKE '%$keyword%'&quot;)or die(mysql_error());<br />
+  <br />
+  list($pub_id,$pub_name)=mysql_fetch_row($rs);<br />
+  $keyword = $pub_id;</p>
+<p>}</p>
+<p>if($fieldname == &quot;book_cate&quot;){<br />
+  $rs=mysql_query(&quot;SELECT * FROM categories WHERE cate_name LIKE '%$keyword%'&quot;)or die(mysql_error());<br />
+  <br />
+  list($cate_id,$cate_name)=mysql_fetch_row($rs);<br />
+  $keyword = $cate_id;<br />
+  <br />
+  }<br />
+  ///////////////////////////////////////////////////////////////////////////////<br />
+</p>
+<p> $rs=mysql_query(&quot;SELECT book_id FROM books WHERE $fieldname LIKE '%$keyword%'&quot;)or die (mysql_error());<br />
+  $rows=mysql_num_rows($rs);<br />
+  $rows1page=15;<br />
+  $pages=ceil($rows/$rows1page);<br />
+  echo &quot;&lt;p align='center'&gt;&lt;b&gt;จำนวน $rows รายการ&lt;/b&gt;&lt;/p&gt;&quot;;<br />
+  if(empty($_GET['search'])){<br />
+  echo &quot;&quot;;<br />
+  }else{<br />
+  echo &quot;&lt;p align='center'&gt;&lt;b&gt;พบคำที่ตรงกับคำว่า '$kw'  &lt;/b&gt;&lt;/p&gt;&quot;;<br />
+  }<br />
+  if(empty($_GET['page'])){<br />
+  $page_id=1; <br />
+  $start_row=0;<br />
+  }else{<br />
+  $page_id=$_GET['page'];<br />
+  $start_row=($rows1page*$page_id)-$rows1page;<br />
+  }<br />
+  <br />
+</p>
+<p>&nbsp;</p>
+<p> <br />
+  $title=&quot;SELECT book_id,book_title,book_sprice FROM books WHERE   $fieldname LIKE '%$keyword%'  LIMIT $start_row,$rows1page &quot;;<br />
+  <br />
+  $result=mysql_query($title) or die(mysql_error());</p>
+<p> </p>
+<p> <br />
+  // เรียงค่าจาก มากไปน้อย ORDER BY book_id DESC<br />
+  // ส่งค่ากลับออกมาเป็น index array $data=mysql_fetch_row($result);<br />
+  // ส่งค่ากลับออกมาเป็น Associative array $data=mysql_fetch_assoc($result);<br />
+  // ส่งค่ากลับออกมา 2 ค่า $data=mysql_fetch_array($result);<br />
+  //$data=mysql_fetch_array($result);<br />
+  //$data=mysql_fetch_row($result);<br />
+  //$data=mysql_fetch_assoc($result);<br />
+  /////////////////////////////////////////////////////////<br />
+  if(empty($_GET['all'])){<br />
+  $chk1=&quot;&quot;;<br />
+  $chk=&quot;&lt;a href='manage_book.php?all=1'&gt;เลือกทั้งหมด&lt;/a&gt;&quot;;</p>
+<p>}elseif($_GET['all']==1){<br />
+  $chk1=&quot;checked='checked'&quot;;<br />
+  $chk=&quot;&lt;a href='manage_book.php?all=0'&gt;ยกเลิกทั้งหมด&lt;/a&gt;&quot;;</p>
+<p>}</p>
+<p>///////////////////////////////////////////////////////<br />
+  <br />
+  echo &quot;&lt;form method='POST' action='delete_book.php' &gt;&quot;;<br />
+  echo &quot;&lt;table border=1 width=80% align='center' &gt;&quot;;<br />
+  echo &quot;&lt;tr bgcolor='#CCCCCC'&gt;&lt;th&gt;$chk&lt;/th&gt;&lt;th&gt;รหัสหนังสือ&lt;/th&gt;&lt;th&gt;ชื่อหนังสือ&lt;/th&gt;&lt;th&gt;ราคาพิเศษ&lt;/th&gt;&lt;th&gt;แก้ไข&lt;/th&gt;&lt;th&gt;ลบข้อมูล&lt;/th&gt;&lt;/tr&gt;&quot;;<br />
+  while(list($book_id,$book_title,$book_sprice)=mysql_fetch_row($result)){<br />
+  echo &quot;&lt;tr&gt;&lt;td align='center'&gt;&lt;input type='checkbox' name='book_id[]' value='$book_id' $chk1&gt;&lt;/td&gt;&lt;td align='center'&gt;$book_id&lt;/td&gt;&lt;td&gt;&lt;a href='book_detail.php?id=$book_id'&gt;$book_title&lt;/a&gt;&lt;/td&gt;&lt;td align='right'&gt;$book_sprice&lt;/td&gt;&lt;td align='center'&gt;&lt;a href='edit_from.php?id=$book_id'&gt;แก้ไข&lt;/a&gt;&lt;/td&gt;&lt;td align='center'&gt;&lt;a href='delete_book.php?id=$book_id' onclick=\&quot;return confirm('คุณแน่ใจว่าจะลบข้อมูลหนังสือเล่มนี้')\&quot;&gt;ลบ&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&quot;;<br />
+  <br />
+  } <br />
+  echo &quot;&lt;/table&gt;&quot;;</p>
+<p> $page_af=$page_id-1;<br />
+  $page_be=$page_id+1;<br />
+  <br />
+  <br />
+  <br />
+  if($rows&lt;$rows1page){<br />
+  echo &quot;&lt;p align='center'&gt;<br />
+  &lt;span style='background-color:#b3b5b3'&gt;<br />
+  &lt;span style='border-bottom: 5px solid #fff'&gt;<br />
+  &lt;span style='border-top: 5px solid #fff'&gt;<br />
+  &lt;span style='border-left: 5px solid #fff'&gt;<br />
+  &lt;span style='border-right: 5px solid #fff'&gt;<br />
+  &lt;b&gt;&amp;nbsp;หน้า $page_id จากทั้งหมด $pages หน้า ::&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&quot;;<br />
+  }elseif($page_id&lt;=1){<br />
+  echo &quot;&lt;p align='center'&gt;<br />
+  &lt;span style='background-color:#b3b5b3'&gt;<br />
+  &lt;span style='border-bottom: 5px solid #fff'&gt;<br />
+  &lt;span style='border-top: 5px solid #fff'&gt;<br />
+  &lt;span style='border-left: 5px solid #fff'&gt;<br />
+  &lt;span style='border-right: 5px solid #fff'&gt;<br />
+  &lt;b&gt;&amp;nbsp;หน้า $page_id จากทั้งหมด $pages หน้า ::&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&quot;;<br />
+  }else{<br />
+  echo &quot;&lt;style&gt;<br />
+  A{text-decoration:none}<br />
+  &lt;/style&gt;&lt;p align='center'&gt;<br />
+  &lt;span style='background-color:#b3b5b3'&gt;<br />
+  &lt;span style='border-bottom: 5px solid #fff'&gt;<br />
+  &lt;span style='border-top: 5px solid #fff'&gt;<br />
+  &lt;span style='border-left: 5px solid #fff'&gt;<br />
+  &lt;span style='border-right: 5px solid #fff'&gt;<br />
+  &lt;font color='black' size=4&gt;&lt;b&gt;&amp;nbsp;หน้า $page_id จากทั้งหมด $pages หน้า&amp;nbsp; ::&lt;/font&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;<br />
+  &lt;style&gt;<br />
+  A{text-decoration:none}<br />
+  A:hover{background-color:#2f9c19}<br />
+  &lt;/style&gt;<br />
+  &lt;span style='background-color:#cdcdcd'&gt;<br />
+  &lt;span style='border-bottom: 5px solid #fff'&gt;<br />
+  &lt;span style='border-top: 5px solid #fff'&gt;<br />
+  &lt;span style='border-left: 5px solid #fff'&gt;<br />
+  &lt;span style='border-right: 0.5px solid #fff'&gt;<br />
+  &lt;a href='manage_book.php?page=1&amp;search=$keyword&amp;fieldname=$fieldname'&gt;<br />
+  &lt;font color='#000' pointsize=11&gt;&lt;strong&gt;&lt;&lt;&lt;/font&gt;&lt;/a&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;<br />
+  &lt;style&gt;<br />
+  A{text-decoration:none}<br />
+  A:hover{background-color:#2f9c19}<br />
+  &lt;/style&gt;<br />
+  &lt;span style='background-color:#f0f0f0'&gt;<br />
+  &lt;span style='border-bottom: 5px solid #fff'&gt;<br />
+  &lt;span style='border-top: 5px solid #fff'&gt;<br />
+  &lt;span style='border-left: 5px solid #fff'&gt;<br />
+  &lt;span style='border-right: 0.5px solid #fff'&gt;<br />
+  &lt;a href='manage_book.php?page=$page_af&amp;search=$keyword&amp;fieldname=$fieldname' &gt; <br />
+  &lt;font color='#000' pointsize=11&gt;&lt;strong&gt;&lt;&lt;/b&gt;&lt;/strong&gt;&lt;/a&gt;&lt;/span&gt;&quot;;<br />
+  }<br />
+  for($i=1;$i&lt;=$pages;$i++){<br />
+  if($page_id==$i){<br />
+  echo &quot;&lt;strong&gt;&lt;font color='red' size=+2&gt;[$i]&lt;/font&gt;&lt;/strong&gt;&quot;;<br />
+  }else{<br />
+  echo &quot;&lt;style&gt;<br />
+  A{text-decoration:none}<br />
+  A:hover{background-color:#2f9c19}<br />
+  &lt;/style&gt;<br />
+  &lt;span style='background-color:#f0f0f0'&gt;<br />
+  &lt;span style='border-bottom: 5px solid #fff'&gt;<br />
+  &lt;span style='border-top: 5px solid #fff'&gt;<br />
+  &lt;span style='border-left: 5px solid #fff'&gt;<br />
+  &lt;span style='border-right: 0.5px solid #fff'&gt;<br />
+  <br />
+  &lt;a href='manage_book.php?page=$i&amp;search=$keyword&amp;fieldname=$fieldname'&gt;&lt;font color='#000000'&gt;[$i]&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&quot;;<br />
+  }<br />
+  }<br />
+  <br />
+  if($page_id==$pages){<br />
+  echo &quot;&quot;;<br />
+  }else{<br />
+  echo &quot;&lt;style&gt;<br />
+  A{text-decoration:none}<br />
+  A:hover{background-color:#2f9c19}<br />
+  &lt;/style&gt;<br />
+  &lt;span style='background-color:#f0f0f0'&gt;<br />
+  &lt;span style='border-bottom: 5px solid #fff'&gt;<br />
+  &lt;span style='border-top: 5px solid #fff'&gt;<br />
+  &lt;span style='border-left: 5px solid #fff'&gt;<br />
+  &lt;span style='border-right: 0.5px solid #fff'&gt;<br />
+  &lt;a href='manage_book.php?page=$page_be&amp;search=$keyword&amp;fieldname=$fieldname' &gt;<br />
+  &lt;font color='#000' pointsize=11&gt;&lt;strong&gt; &gt;&lt;/strong&gt;&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&amp;nbsp;<br />
+  &lt;style&gt;<br />
+  A{text-decoration:none}<br />
+  A:hover{background-color:#2f9c19}<br />
+  &lt;/style&gt;<br />
+  &lt;span style='background-color:#cdcdcd'&gt;<br />
+  &lt;span style='border-bottom: 5px solid #fff'&gt;<br />
+  &lt;span style='border-top: 5px solid #fff'&gt;<br />
+  &lt;span style='border-left: 5px solid #fff'&gt;<br />
+  &lt;span style='border-right: 0.5px solid #fff'&gt;<br />
+  &lt;a href='manage_book.php?page=$pages&amp;search=$keyword&amp;fieldname=$fieldname' &gt; <br />
+  &lt;font color='#000' pointsize=11&gt;&lt;b&gt;&gt;&gt;&lt;/b&gt;&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&quot;;<br />
+  echo &quot;&lt;hr /&gt;&quot;;<br />
+  echo &quot;&lt;p align='center'&gt;&lt;input type='submit' value='ลบหนังสือ' onclick=\&quot;return confirm('คุณต้องการลบรายการที่เลือกใช่หรือไม่')\&quot;&gt;&amp;nbsp;<br />
+  &lt;a href='book_from.php'&gt;&lt;input type='button' value='เพิ่มหนังสือ'&gt;&lt;/a&gt; &lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;/form&gt;&quot;;<br />
+  }<br />
+  <br />
+</p>
+<p> <br />
+  mysql_free_result($result);<br />
+  mysql_close();</p>
+<p>?&gt;<br />
+  &lt;/h1&gt;</p>
+<p>&nbsp;</p>
+<p>&lt;/body&gt;<br />
+  &lt;/html&gt;</p>
+</body>
+</html>

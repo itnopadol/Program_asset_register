@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  if(empty($_SESSION['sbook_id'])){//ตรวจสอบว่ามี session ว่างหรือไม่<br />
+  $_SESSION['sbook_id']=array();//กำหนดให้ SESSION เป็น array<br />
+  }<br />
+  ///ตรวจสอบว่า id ที่ส่งมาซ้ำกับที่มีใน session หรือไม่<br />
+  require(&quot;connect_db.php&quot;);<br />
+  <br />
+  $rs=mysql_query(&quot;SELECT book_title,book_sprice  FROM books WHERE book_id='$_GET[id]'&quot;) or die(mysql_error());<br />
+  list($book_title,$book_sprice)=mysql_fetch_row($rs);<br />
+  if(!in_array($_GET['id'],$_SESSION['sbook_id'])){<br />
+  $_SESSION['sbook_id'][]=$_GET['id'];<br />
+  $_SESSION['sbook_title'][]=$book_title;<br />
+  $_SESSION['sbook_sprice'][]=$book_sprice;<br />
+  $_SESSION['sbook_amount'][]=1;<br />
+  }</p>
+<p>echo &quot;&lt;script language='javascript'&gt;window.location='show_cart.php'&lt;/script&gt;&quot;;<br />
+  mysql_result($rs);<br />
+  mysql_close();<br />
+  ?&gt;</p>
+</body>
+</html>

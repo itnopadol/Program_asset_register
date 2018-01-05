@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p>&lt;?php</p>
+<p>require(&quot;connect_db.php&quot;);<br />
+  <br />
+  $rs=mysql_query(&quot;SELECT*FROM books WHERE book_id='$_GET[id]'&quot;) or die(mysql_error());<br />
+  list($book_id,$book_title,$book_writer,$book_price,$book_sprice,$book_pub,$book_detail,$book_cover,$book_cate,  $book_stock,$book_time)=mysql_fetch_row($rs);<br />
+  <br />
+  $rs=mysql_query(&quot;SELECT pub_name FROM publishing WHERE pub_id='$book_pub'&quot;)or die(mysql_error());<br />
+  list($pub_name)=mysql_fetch_row($rs); <br />
+  <br />
+  $rs=mysql_query(&quot;SELECT cate_name FROM categories WHERE cate_id='$book_cate'&quot;)or die(mysql_error());<br />
+  list($cate_name)=mysql_fetch_row($rs);<br />
+  ?&gt;<br />
+  &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;<br />
+  &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;<br />
+  &lt;head&gt;<br />
+  &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;<br />
+  &lt;title&gt;&lt;?php echo &quot;รายละเอียดหนังสือ : $book_title&quot;?&gt;&lt;/title&gt;<br />
+  &lt;/head&gt;</p>
+<p>&lt;body&gt;</p>
+<p>&lt;?php<br />
+  echo &quot;&lt;table border='0' align='center'&gt;&lt;tr&gt;&lt;td&gt;&quot;;<br />
+  echo &quot;&lt;center&gt;&lt;h1&gt;$book_title&lt;/h1&gt;&lt;/center&gt;&quot;;<br />
+  echo &quot;&lt;center&gt;&lt;img src='images/$book_cover' alt='$book_title' title='$book_title'&gt;&lt;/center&gt;&quot;;<br />
+  echo &quot;&lt;p&gt; &lt;table border=0 width=500&gt;&lt;tr&gt;&lt;td&gt;&lt;b&gt;รายละเอียด :&lt;/b&gt; $book_detail&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;p&gt;ราคาปกติ : &lt;strike&gt;$book_price&lt;/strike&gt;บาท&lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;p&gt;ราคาพิเศษ : &lt;font color='red'&gt;$book_sprice&lt;/font&gt; บาท &lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;p&gt;บริษัท : $pub_name&lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;p&gt;ผู้แต่ง : $book_writer&lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;p&gt;ประเภทหนังสือ : $cate_name&lt;/p&gt;&quot;;<br />
+  echo &quot;&lt;p&gt;เวลา : $book_time&lt;/p&gt;&quot;;<br />
+  <br />
+  echo &quot;&lt;p&gt; สถานะ : &lt;strong&gt;&quot;,$book_store = 1 ? 'สินค้าพร้อมจำหน่าย' : 'สินค้าหมด',&quot;&lt;/strong&gt;&lt;/p&gt;&lt;/tr&gt;&lt;/td&gt;&lt;/table&gt;&quot;;<br />
+  ?&gt;<br />
+  &lt;hr /&gt;<br />
+  &lt;p&gt;&lt;a href=&quot;list_book.php&quot;&gt;กลับไป&lt;/a&gt;&lt;/p&gt;<br />
+  &lt;/body&gt;<br />
+  &lt;/html&gt;</p>
+</body>
+</html>

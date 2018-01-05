@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>or_de</title>
+</head>
+
+<body>
+<p>&lt;?php<br />
+  session_start();<br />
+  require(&quot;connect_db.php&quot;);</p>
+<p>echo &quot;&lt;h1 align='center'&gt;รายการขายสินค้า&lt;/h1&gt;&quot;;<br />
+  $order_id=$_GET['order_id'];<br />
+  $order=&quot;SELECT * FROM list_orders WHERE order_id=$order_id&quot;;<br />
+  $rs=mysql_query($order)or die(mysql_error());<br />
+  echo &quot;&lt;table border='1' align='center'&gt;&quot;;</p>
+<p>echo &quot;&lt;tr bgcolor='#CCCCCC'&gt;&lt;th&gt;รหัสสินค้า&lt;/th&gt;&lt;th&gt;รหัสหนังสือ&lt;/th&gt;&lt;th&gt;ชื่อหนังสือ&lt;/th&gt;&lt;th&gt;ราคา/บาท&lt;/th&gt;&lt;th&gt;วัน/เดือน/ปี&lt;/th&gt;&lt;th&gt;จำนวนสินค้า&lt;/th&gt;&lt;/tr&gt;&quot;;<br />
+  while(list($order_id,$order_date,$order_member)=mysql_fetch_row($rs)){<br />
+  $order2=&quot;SELECT * FROM order_detail WHERE order_id=$order_id &quot;;<br />
+  $rs2=mysql_query($order2);<br />
+  while(list($order_id,$book_id,$book_amount)=mysql_fetch_row($rs2)){<br />
+  $bk=&quot;SELECT book_title,book_sprice FROM books WHERE book_id=$book_id&quot;;<br />
+  $bk1=mysql_query($bk);</p>
+<p> while(list($book_title,$book_sprice)=mysql_fetch_row($bk1)){<br />
+  <br />
+  echo &quot;&lt;tr&gt;&lt;td&gt;$order_id&lt;/td&gt;&lt;td&gt;$book_id&lt;/td&gt;&lt;td&gt;$book_title&lt;/td&gt;&lt;td&gt;$book_sprice&lt;/td&gt;&lt;td&gt;$order_date&lt;/td&gt;&lt;td align='right'&gt;$book_amount&lt;/td&gt;&lt;/tr&gt;&quot;;<br />
+</p>
+<p> }<br />
+  }<br />
+  }<br />
+  echo &quot;&lt;/table&gt;&quot;;<br />
+  echo &quot;&lt;p align='center'&gt;&lt;a href='manage_book.php'&gt;&lt;input type='button' name='back' value='ย้อนกลับ'&gt;&lt;/a&gt;&lt;/p&gt;&quot;;<br />
+  mysql_free_result($rs);<br />
+  mysql_close();<br />
+  ?&gt;</p>
+</body>
+</html>
