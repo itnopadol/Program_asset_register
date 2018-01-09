@@ -8,7 +8,9 @@ $ItemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 if(isset($_SESSION['Qty'])){
 	$myQty = 0;
 	foreach ($_SESSION['Qty'] as $myItem) {
-	$myQty = (int)$myQty + (int)$myItem;
+	if($myItem!=''){
+			$myQty =$myQty + $myItem;
+		}
   }
 }
 else {
@@ -20,13 +22,17 @@ else {
 			$itemIDs = $itemIDs . $ItemID . " , ";
 	}
 	/*----------------------------------------------------------*/
+	
 		$inputItem = trim($itemIDs, ",");
 		$inputItem = explode(",", $itemIDs);
-		$inputItem = trim($inputItem[1]);	
+		$inputItem = trim($inputItem[0]);
+		//echo var_dump($_SESSION['cart'])."<br>".count($_SESSION['cart'])."<hr>";
+		$cnt_list = $_SESSION['cart'];
 		$sql = "SELECT * FROM spare_part WHERE id = '$inputItem'";
+		// $sql = "SELECT * FROM spare_part";
 		$myQuery = mysqli_query($con,$sql) or die ("Error =>".mysqli_error($con));
-	/*----------------------------------------------------------*/
 		$myCount = mysqli_num_rows($myQuery);
+	/*----------------------------------------------------------*/
 		}else{
 			$myCount = 0;
 		}
@@ -50,7 +56,7 @@ else {
     <![endif]-->
     <style>
 	#centertable{
-		text-align:center;	
+		text-align:center;
 	}
 	</style>
 </head>
@@ -66,7 +72,7 @@ else {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Spare Parts System</a>
+                <a class="navbar-brand" href="index_sp.php">Spare Parts System</a>
                 </div>
                 <div class="navbar-collapse collapse">
                 	<ul class="nav navbar-nav">
@@ -85,8 +91,8 @@ else {
 		if($myCount == 0){
 			echo "<div class=\"alert alert-warning\">ยังไม่มีรายการวัสดุ</div>";
 		}else{
-			?>
-            <form action="updatecart.php" method="post" name="fromupdate">
+			?>  
+            <?php /*?><form action="updatecart.php" method="post" name="fromupdate">
             <div align="center" id="centertable">
             	<table class="table table-striped table-bordered" >
                 	<thead>
@@ -103,38 +109,40 @@ else {
                      </thead>
                      <tbody>
                      	<?php
-							$total_matter = 0;
-							$num = 0;
+							$total_matter = 0; //
+							$num = 0; //รับจำนวนที่กรอก
 							//mysqli_data_seek($myQuery,0);
-							while ($myResult = mysqli_fetch_assoc($myQuery)){
+							//while (list($id ,$name ,$brand,$photo) = mysqli_fetch_row($myQuery))
+ .
+							while ($myResult = mysqli_fetch_assoc($myQuery))
+							{
 								$key = array_search($myResult['id'],$_SESSION['cart']);
 								$total_matter = $total_matter + ($myResult['stock'] * $_SESSION['Qty'][$key]);
 						 ?>
                                 <tr>
-                                	<td><img src="img/<?php echo $myResult['photo']; ?>"></td>
+                                	<td><img src="../../img/<?php echo $myResult['photo']; ?>"></td>
                                     <td><?php echo $myResult['id'] ?></td>
                                     <td><?php echo $myResult['name'] ?></td>
                                     <td><?php echo $myResult['brand'] ?></td>
-                                    <td>
-                                    	<input type="text" name="Qty[<?php echo $num; ?>]" value="<?php echo $_SESSION['Qty'][$key]; ?>" 
+                                    <td> <!---textbox จำนวน--->
+                                    	<input type="text" name="Qty[<?php echo $num; ?>]" value="<?php echo $_SESSION['Qty'][$key]; ?>"
                                         class="form-control" style="width:60px;text-align:center;">
                                         <input type="hidden" name="arr_key_<?php echo $num; ?>" value="<?php echo $key; ?>">
                                     </td>
-                                    <td><?php echo $myResult['stock']; ?></td>
-                                    <td><?php echo $_SESSION['Qty'][$key]; ?></td>
+                                    <td><?php echo $myResult['stock']; ?></td> <!---โชว์จำนวนต๊อก--->
+                                    <td><?php echo $_SESSION['Qty'][$key]; ?></td> <!---โชว์จำนวนที่ทำการยืม *ค่ามาจาก Key--->
                                     <td>
                                     <a class="btn btn-danger btn-lg" href="removecart.php?ItemID=<?php echo $myResult['id']; ?>" role="button">
                                     <span></span>ลบทิ้ง</a>
                                     </td>
                                 </tr>
-                                </div>
                                 <?php
 								$num++;
 							}
 							?>
                             <tr>
                             <td colspan="8" style="text-align: right;">
-                                    <h4>จำนวนที่ยืมวัสดุ-อุปกรณ์ รวมทั้งหมด <?php echo $_SESSION['Qty'][$key]; ?> ชิ้น</h4>
+                                    <h4>จำนวนที่ยืมวัสดุ-อุปกรณ์ รวมทั้งหมด <?php echo $_SESSION['Qty'][$key];  echo "/".count($myQuery); ?> ชิ้น</h4>
                                 </td>
                             </tr>
                             <tr>
@@ -145,14 +153,89 @@ else {
                             </tr>
                         </tbody>
                     </table>
-</form>
-<?php
-}
-?>
+                    </div>
+</form><?php */?>
+<hr>
+<form action="updatecart.php" method="post" name="fromupdate">
+<div align="center" id="centertable">
+<table class="table table-striped table-bordered">
+	<?php
+	if(isset($_SESSION['Qty'])){
+		$myQty = 0;
+		foreach ($_SESSION['Qty'] as $myItem) {
+			if($myItem!=''){
+				$myQty =$myQty + $myItem;
+			}
+  		}
+	}
+	else{
+		$myQty = 0;
+	}
+	$total_matter = 0; //จำนวนทั้งหมด
+	$num = 0; //รับจำนวนที่กรอก
+		foreach($cnt_list as $rows) {
+			$sql = "SELECT * FROM spare_part WHERE id = '$rows'";
+			$myQuery = mysqli_query($con,$sql) or die ("Error =>".mysqli_error($con));
+			foreach($myQuery as $item) {
+				$key = array_search($item['id'],$_SESSION['cart']);
+				$total_matter = $_SESSION['Qty'][$key] ;
+				//$total_matter + ($item['stock'] * $_SESSION['Qty'][$key]);
+	?>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th id="centertable">รหัสสินค้า</th>
+            <th id="centertable">ชื่อสินค้า</th>
+            <th id="centertable">รายละเอียด</th>
+            <th id="centertable">จำนวน</th>
+            <th id="centertable">จำนวนคงเหลือ</th>
+            <th id="centertable">จำนวนที่ยืม</th>
+            <th>&nbsp;</th>
+            </tr>
+	</thead>
+    <tbody>
+    	<tr>
+			<td><img src="../../img/<?php echo $item['photo']; ?>"></td>
+			<td><?php echo $item['id'] ?></td>
+			<td><?php echo $item['name'] ?></td>
+			<td><?php echo $item['brand'] ?></td>
+			<td> <!---textbox จำนวน--->
+				<input type="text" name="Qty[<?php echo $num; ?>]" value="<?php echo $_SESSION['Qty'][$key]; ?>"
+				class="form-control" style="width:60px;text-align:center;">
+				<input type="hidden" name="arr_key_<?php echo $num; ?>" value="<?php echo $key; ?>">
+			</td>
+			<td><?php echo $item['stock']; ?></td> <!---โชว์จำนวนต๊อก--->
+			<td><?php echo $total_matter; ?></td> <!---โชว์จำนวนที่ทำการยืม *ค่ามาจาก Key--->
+            <td>
+				<a class="btn btn-danger btn-lg" href="removecart.php?ItemID=<?php echo $item['id']; ?>" role="button">
+				<span></span>ลบทิ้ง</a>
+			</td>
+        <?php  
+			} 
+			$num++;
+		}
+		
+		 ?>
+			<tr>
+				<td colspan="8" style="text-align: right;">
+					<h4>จำนวนที่ยืมวัสดุ-อุปกรณ์ รายการทั้งหมด <?php echo $num; ?> รายการ</h4>
+                    <h4>รวมทั้งหมด <?php echo $total_matter ; ?> ชิ้น</h4>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="8" style="text-align: right;">
+				<button type="submit" class="btn btn-info btn-lg">คำนวณจำนวนใหม่</button>
+				<a href="Sp_rent.php" type="button" class="btn btn-primary btn-lg">ทำใบเบิกวัสดุ-อุปกรณ์</a>
+				</td>
+			</tr>
+	</tbody>                     
+	</table>
+        </div>
+        </form>
+        <?php
+		}
+		?>
 	</div> <!-- /container -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="../../js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../../JS/bootstrap.min.js"></script>
+    
   </body>
 </html>

@@ -4,18 +4,18 @@ include("../../Funtion/Funtion.php");
 $con = connect_db();
 
 $result = mysqli_query($con,"SELECT * FROM spare_part") or die ("Error =>".mysqli_error($con));
-
 $action = isset($_GET['a'])? $_GET['a']: "";
 $ItemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+// echo var_dump($_SESSION['Qty']);
 if(isset($_SESSION['Qty'])){
 	$myQty = 0;
 	foreach ($_SESSION['Qty'] as $myItem) {
-	$myQty = (int)$myQty + (int)$myItem;
-	//echo $myQty ."<br>". $myItem;
-  }
-}
-else {
-  $myQty = 0;
+		if($myItem!=''){
+			$myQty =$myQty + $myItem;
+		}	
+  	}
+}else{
+	$myQty = 0;
 }
 ?>
 <!DOCTYPE html>
@@ -25,10 +25,9 @@ else {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link href="../../CSS/bootstrapv3.1.1.min.css" rel="stylesheet" >
     <title>Test ทดสอบการเพิ่มข้อมูล</title>
-
     <!-- Bootstrap -->
-    <link href="../../CSS/bootstrapv3.1.1.min.css" rel="stylesheet">
     <link href="../../CSS/nava.css" rel="stylesheet" type="text/css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +43,6 @@ else {
   </head>
   <body>
     <div class="container">
-
       <!-- Static navbar -->
             <div class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
@@ -55,7 +53,7 @@ else {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-						<a class="navbar-brand" href="#">Spare Parts System</a>
+						<a class="navbar-brand" href="index_sp.php">Spare Parts System</a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
@@ -105,7 +103,6 @@ else {
 			<td id="centertable"><?php echo $myResult['name']; ?></td>
 			<td id="centertable"><?php echo $myResult['brand']; ?></td>
 			<td id="centertable"><?php echo $myResult['stock']; ?></td>
-			<?php /*?><td><?php echo number_format($myResult['stock'],2); ?></td><?php */?>
 			<td >
 				<a class="btn btn-primary btn-lg" href="updatecart.php?ItemID=<?php echo $myResult['id']; ?>" role="button">
 				<span></span>เลือกรายการ</a>
