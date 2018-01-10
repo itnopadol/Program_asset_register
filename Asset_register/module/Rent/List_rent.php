@@ -30,7 +30,6 @@
 	}
 	
 	$result = mysqli_query($con,"SELECT * FROM rent WHERE Rent_log = 1") or die ("Error =>".mysqli_error($con));
-	
 	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	
 	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา

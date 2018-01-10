@@ -196,16 +196,27 @@ else {
     <tbody>
     	<tr>
 			<td><img src="../../img/<?php echo $item['photo']; ?>"></td>
-			<td><?php echo $item['id'] ?></td>
-			<td><?php echo $item['name'] ?></td>
-			<td><?php echo $item['brand'] ?></td>
+			<td><?php echo $item['id'] ?>
+            	<input type="hidden" name="articles[]" value="<?php echo $item['id'];?>">
+            </td>
+			<td><?php echo $item['name'] ?>
+            	<input type="hidden" name="articles2[]" value="<?php echo $item['name'];?>">
+            </td>
+			<td><?php echo $item['brand'] ?>
+            	<input type="hidden" name="articles3[]" value="<?php echo $item['brand'];?>">
+            </td>
 			<td> <!---textbox จำนวน--->
 				<input type="text" name="Qty[<?php echo $num; ?>]" value="<?php echo $_SESSION['Qty'][$key]; ?>"
 				class="form-control" style="width:60px;text-align:center;">
+                <input type="hidden" name="articles4[]" value="<?php echo $_SESSION['Qty'][$key];?>">
 				<input type="hidden" name="arr_key_<?php echo $num; ?>" value="<?php echo $key; ?>">
 			</td>
-			<td><?php echo $item['stock']; ?></td> <!---โชว์จำนวนต๊อก--->
-			<td><?php echo $total_matter; ?></td> <!---โชว์จำนวนที่ทำการยืม *ค่ามาจาก Key--->
+			<td><?php echo $item['stock']; ?>
+            	<?php /*?><input type="hidden" name="articles[]" value="<?php echo $item['stock'];?>"><?php */?>
+            </td> <!---โชว์จำนวนต๊อก--->
+			<td><?php echo $total_matter; ?>
+            	<?php /*?><input type="hidden" name="articles[]" value="<?php echo $total_matter;?>"><?php */?>
+            </td> <!---โชว์จำนวนที่ทำการยืม *ค่ามาจาก Key--->
             <td>
 				<a class="btn btn-danger btn-lg" href="removecart.php?ItemID=<?php echo $item['id']; ?>" role="button">
 				<span></span>ลบทิ้ง</a>

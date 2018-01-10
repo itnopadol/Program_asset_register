@@ -99,10 +99,18 @@ if(isset($_SESSION['Qty'])){
       ?>
 		<tr>
 			<td id="centertable"><img src="../../img/<?php echo $myResult['photo']; ?>" border="0"></td>
-			<td id="centertable"><?php echo $myResult['id']; ?></td>
-			<td id="centertable"><?php echo $myResult['name']; ?></td>
-			<td id="centertable"><?php echo $myResult['brand']; ?></td>
-			<td id="centertable"><?php echo $myResult['stock']; ?></td>
+			<td id="centertable"><?php echo $myResult['id']; ?>
+            	<input type="hidden" name="articles[]" value="<?php echo $item['id'];?>">
+            </td>
+			<td id="centertable"><?php echo $myResult['name']; ?>
+            	<input type="hidden" name="articles2[]" value="<?php echo $item['name'];?>">
+            </td>
+			<td id="centertable"><?php echo $myResult['brand']; ?>
+            	<input type="hidden" name="articles3[]" value="<?php echo $item['brand'];?>">
+            </td>
+			<td id="centertable"><?php echo $myResult['stock']; ?>
+            	<input type="hidden" name="articles5[]" value="<?php echo $item['stock'];?>">
+            </td>
 			<td >
 				<a class="btn btn-primary btn-lg" href="updatecart.php?ItemID=<?php echo $myResult['id']; ?>" role="button">
 				<span></span>เลือกรายการ</a>
