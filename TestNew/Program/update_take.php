@@ -17,25 +17,21 @@ else{
 	$update_photo=",photo='$photo'";
 	
 }
+	
+		$sql="UPDATE take SET 
+		take_name= '$_POST[take_name]',
+		take_brand= '$_POST[take_brand]',
+		take_pice= '$_POST[take_pice]',
+		take_category= '$_POST[take_category]',
+		take_acquire= '$_POST[take_acquire]',
+		take_time= '$_POST[take_time]'
+		$update_photo  WHERE take_id= '$_POST[id_inventory]'";
+	    
+		//echo $sql ;
 
-	$sql="UPDATE spare_part SET acquire = '$_POST[acquire]' WHERE id= '$_POST[Newid]'";
     mysqli_query($con,$sql)or die("ERROR1".mysqli_error($con));
-	
-	
-	$sql2="INSERT INTO take (take_id,id_inventory,take_name,take_brand,take_pice,take_category,take_acquire,take_time)
-	 VALUES ('','$_POST[Newid]'
-					,'$_POST[name]'
-					,'$_POST[brand]'
-					,'$_POST[price]'
-					,'$_POST[category]'
-					,'$_POST[acquire]'
-					,'$_POST[time]')";
-	 mysqli_query($con,$sql2)or die("ERROR2".mysqli_error($con));
-	  
-	echo $sql2 ;
-	
 	mysqli_close($con);
-	echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว')</script>";
-    echo "<script>window.location='list_spare.php'</script>";
-    
+echo "<script>alert('แก้ไขข้อมูลเรียบร้อยแล้ว')</script>";
+echo "<script>window.location='take.php'</script>";
+
 ?>

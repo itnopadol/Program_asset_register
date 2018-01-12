@@ -1,28 +1,26 @@
-<?php
-	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
-	$con=connect_db();
-?>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>List Rent</title>
-    <link href="../../CSS/bootstrap.min.css" rel="stylesheet">
-
-  </head>
+<html>
+<head>
+<meta charset="utf-8">
+<title>List Rent</title>
+</head>
+<style>
+#titletable2{
+	text-align:center;
+	box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 10px 30px 0 rgba(0,0,0,0.19);
+}
+</style>
 <body style="background-color:#EBEBEB">
-<div class="container">
 <h1 align='center'>จัดการ ยืม/คืน สินทรัพย์</h1>
 <form method ="post"  align='center' >
 	<input type ="search" name='keyword' size="50" id="titletable2"> 
-    <input type="submit" value="ค้นหา" id="titletable2" class="btn btn-info">
+    <input type="submit" value="ค้นหา" id="titletable2">
 </form>
-</div>
 <?php
-	echo "<div class='container'>";
-    if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
+	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
+	$con=connect_db();
+	
+	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
 		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
 	}
 	else{
@@ -30,18 +28,16 @@
 	}
 	
 	$result = mysqli_query($con,"SELECT * FROM rent WHERE Rent_log = 1") or die ("Error =>".mysqli_error($con));
-	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	
+	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
-		echo"<p id='middlecenter' align='center'>ไม่พบข้อมูลที่ตรงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
+		echo"<p id='middlecenter'>ไม่พบข้อมูลที่ตรงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
 	}
 	else{
-		echo"<p id='middlecenter' align='center'>จำนวนสินทรัพย์ที่ตรงกับคำว่า \"<b>$keyword</b>\"
+		echo"<p id='middlecenter'>จำนวนสินทรัพย์ที่ตรงกับคำว่า \"<b>$keyword</b>\"
 			ทั้งหมด $rows รายการ </p>";
 	$num=1; //กำหนดตัวแปรเพื่อนับแถว
-	echo "<table border='1' align='center' class='table table-striped'>";
-	echo "<div class='row'>";
-	echo "<div class='col-xl-12'";
+	echo "<table border='1' align='center'>";
 	echo "<tr>";
 	echo "<th>No</th>";
 	echo "<th>ชื่อสินทรัพย์</th>";
@@ -76,25 +72,12 @@
 			<img src='img/cancel.png'  width='30'  height='30'></TD>";
 		
 		echo "</tr>";
-		echo "</div>";
-		echo "</div>";
 		$num++;//เพิ่มค่าตัวแปรนับแถว
 		}		
 		echo "</table>";
-		echo "</div>";
 	mysqli_free_result($result);//คืนค่าหน่วยความจำให้กับระบบ
 	mysqli_close($con); //ปิดฐานข้อมูล
 	}
-    
-    
-    
-    
-    
 ?>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
-	<script src="../../js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../../JS/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>
