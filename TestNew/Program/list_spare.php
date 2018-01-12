@@ -3,13 +3,57 @@
 <head>
 <meta charset="utf-8">
 <title>รายการวัสดุ / อุปกรณ์</title>
+<style>
+	.bodyfont{
+		font-family:"TH Sarabun New", "Tw Cen MT";
+		font-size:22px;
+	}
+	#sizezi{
+		font-size:26px;
+		
+	}
+	#sizezi2{
+		font-size:22px;
+	}
+	#centertable{
+		text-align:center;	
+	}
+	#midter{
+		padding-top:50px;
+	}
+	
+	navbar{
+	padding-botton:20px;
+	}
+</style>
 </head>
+<link rel="stylesheet" href="css/css/bootstrap.min.css">
+<body class="bodyfont">
+<div class="container">
 
-<body>
-<h1 align='center'>รายการวัสดุ / อุปกรณ์</h1>
-<form method ="post"  align='center'>
-	<input type ="search" name='keyword' size="50"  placeholder="ค้นหารายการวัสดุ-อุปกรณ์"> <input type="submit" value="ค้นหา">
-</form>
+	<!-- Static navbar -->
+    	<div id="sizezi2" style="padding-top:20px; width:100%; padding-left:2.5%" > 
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#" id="sizezi">Spare Parts System</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+  				</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">หน้าแรกวัสดุ-อุปกรณ์</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">เพิ่มรายการวัสดุ</a>
+				</li>
+			</ul>
+            </div>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="sizezi2">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="sizezi2">Search</button>
+                </form>
+			</div>
+		</nav>
 <?php
 	include("../function/db_function.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
@@ -43,13 +87,16 @@
 		echo"<p>ไม่พบข้อมูลที่ครงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
 	}
 	else{
-		echo"<p align='center'>ชื่อรายการวัสดุ - อุปกรณ์มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $row รายการ </p>";
+
 
 
 	$num=1;//กำหนดตัวแปรเพื่อนับแถว
-	
-	echo "<table border = 1 align='center'>";
+	echo "<table border='0' align='center' width='95%' >";
+	echo "<tr>";
+	echo "<td>";
+	echo "<table border='0' align='center' class='table' >";
+	 echo "<thead 	>";
+	echo "<tr>";
 	echo "<th>รหัสวัสดุ</th>";
 	echo "<th>รูปภาพ</th>";
 	echo "<th>รายการ</th>";
@@ -64,6 +111,8 @@
 	echo "<th>เพิ่มจำนวน</th>";
 	echo "<th>แก้ไข</th>";
 	echo "<th>ลบ</th>";
+	echo "</tr>";
+	echo "</thead>";
 	
 	
 	while(list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$Pay,$balance,$time) = mysqli_fetch_row($result2)){ 
@@ -91,6 +140,9 @@
 	echo "</tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
+	echo"</table>";
+	echo "</td>";
+	echo "</tr>";
 	echo"</table>";
 echo"<hr>";
 	//วนลูปแสดงลิงค์หมายเลขหน้า ตามจำนวนหน้า
@@ -121,6 +173,7 @@ echo"<hr>";
 	mysqli_close($con); //ปิดฐานข้อมูล
 
 ?>
+
 <p align="center"><a href="menu_rent.php">กลับหน้า Index</a> || <a href="add_spare.php">เพิ่มรายการ</p>
 </body>
 </html>

@@ -91,7 +91,7 @@ if(isset($_SESSION['Qty'])){
    }
 ?>
 
-    <table class="table" id="centertable" i>
+    <table class="table" id="centertable" width="80%">
       <thead>
         <tr>
             <th id="centertable">รายการ</th>

@@ -18,6 +18,7 @@
 	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
 	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
     list($category)=mysqli_fetch_row($sql);
+	 
 	
 ?>
 
@@ -25,7 +26,7 @@
 <form action="update_numspare.php" method="post" enctype="multipart/form-data">
 <input hidden="id" name="Newid" value="<?php echo $id ?>">
 <p>รหัสวัสดุ : <input type="text" name="id"  disabled="disabled" value="<?php echo $id ?>"></p>
-<p>รูปภาพ : <img src='..img/$photo' width='150' height='150' border='1' ></p>
+<p>รูปภาพ : <img src='../img/$photo'  width='70'  height='70' ></p>
 <p>รายการ : <input type="text" name="name"  readonly ="readonly" size=30 value="<?php echo $name ?>"></p>
 <p>รุ่น/ยี่ห้อ : <input type="text" name="brand"  readonly ="readonly" size=30 value="<?php echo $brand ?>"></p>
 <p>ประเภท : <select name="category"  readonly ="readonly">

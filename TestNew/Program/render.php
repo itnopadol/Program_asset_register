@@ -21,7 +21,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 	
-	$result = mysqli_query($con, "SELECT * FROM  lend_empsp  ") or die ("MySQL =>".mysqli_error($con));	
+	$result = mysqli_query($con, "SELECT * FROM  lend_empsp") or die ("MySQL =>".mysqli_error($con));	
 	//$result2 =  mysqli_query($con, "SELECT * FROM  lend_spare  ") or die ("MySQL =>".mysqli_error($con));
 	$rows=mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
@@ -52,7 +52,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	
 	echo "<tr>";
 	echo "<td align='center'>$No</td>";
-	echo "<td align='center'>$Order_lend</td>";
+	echo "<td align='center'></td>";
 	echo "<td align='center'>$rent_date</td>";
 	echo "<td align='center'>$rent_empID</td>";
 	echo "<td align='center'>$rent_name</td>";
