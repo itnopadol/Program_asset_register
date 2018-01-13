@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>ใบแจ้งหนี้</title>
-	
     <!-- Bootstrap -->
     <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
 	<link type="text/css" href="CSS.css" rel="stylesheet">
@@ -40,10 +39,10 @@
     <div class="text-center">
     	<span class="pull-left"><table style="width:320px;">
         <tr>
-        	<th align="left">บริษัท นพดลพานิชจำกัด<br>
-			สำนักงานใหญ่: 392 ถนนซุปเปอร์ไฮเวย์ เชียงใหม่-ลำปาง
-      		<br>ต.ฟ้าฮ่าม อ.เมือง จ.เชียงใหม่ 50000
-      		<br>สาขา 1:183 หมู่ที่ 2 ต.ตันเปา อ.สันกำแพง จ.เชียงใหม่ 50130
+        	<th align="left">&nbsp;บริษัท นพดลพานิชจำกัด<br>
+			&nbsp;สำนักงานใหญ่: 392 ถนนซุปเปอร์ไฮเวย์ เชียงใหม่-ลำปาง
+      		<br>&nbsp;ต.ฟ้าฮ่าม อ.เมือง จ.เชียงใหม่ 50000
+      		<br>&nbsp;สาขา 1:183 หมู่ที่ 2 ต.ตันเปา อ.สันกำแพง จ.เชียงใหม่ 50130
         	</th>
         </tr>
       	</table></span>
@@ -61,37 +60,52 @@
     <!----Div หัวส่วนที่1---->
         <div class="text-center">
         <span class="pull-left">&nbsp;</span>
-        <span>&nbsp;</span>
-        <span class="pull-right">ใบแจ้งหนี้/Credit Statement</span>
+        <span>&nbsp;</span><table border="1" class="pull-right">
+        <tr><td><span class="pull-right">ใบแจ้งหนี้/Credit Statement</span></td>
+        </tr>
+        <tr>
+        <td>
+        เลขที่ใบแจ้งหนี้ <strong> </strong>
+        </td>
+        </tr>
+         <tr>
+        <td>
+        เลขประจำตัวผู้เสียภาษี <strong> </strong>
+        </td>
+        </tr>
+         <tr>
+        <td>
+        วันที่ครบกำหนด : <strong>........../............./.........</strong>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        วันที่สรุป : .<strong>........../............./.........</strong>
+        </td>
+        </tr>
+        </table>
         </div>
     <!----ปิด Div หัวส่วนที่1---->
     <!---- Div หัวส่วนที่2---->
-        <div class="text-center">
+       
         	<span class="pull-left">&nbsp;</span>
         	<span>&nbsp;</span>
-        	<span class="pull-right">เลขที่ใบแจ้งหนี้ <strong id="inv2"></strong></span>
-        </div>
+         
+        
     <!----ปิด Div หัวส่วนที่2---->
     <!---- Div หัวส่วนที่3----> 
         <div class="text-center">
         	<span class="pull-left">&nbsp;</span>
         	<span>&nbsp;</span>
-        	<span class="pull-right">เลขประจำตัวผู้เสียภาษี <strong id="tax2"></strong></span>
         </div>
     <!----ปิด Div หัวส่วนที่3---->
     
     <!---- Div หัวส่วนที่4---->
 	<div class="text-center" >
         <span class="pull-right">
-                <tr>
-                    <th align="left">วันที่ครบกำหนด : <strong id="dat1"> </strong></th>
-                </tr>
-		</table></span>
-		<span class="pull-right">
-                <tr>
-                    <th align="left">วันที่สรุป : <strong id="dat2"> </strong>&nbsp;&nbsp;</th>
-                </tr>
-		</table></span>
+              </span>
+		<span class="pull-center">
+     </span>
 	</div>
     <!----ปิด Div หัวส่วนที่4---->
     
@@ -110,7 +124,7 @@
     <div><span>
     <table width="70%" cellspacing="1" bgcolor="#CCCCCC" align="center" border="1" >
     	<caption>ทางบริษัทฯใคร่ขอความกรุณาท่านโปรดชำระเงินค่าสินค้าและบริการ ตามรายการใบกำกับข้างล่างนี้</caption>
-	<thead>
+	<thead">
   		<tr>
             <th width="5%" bgcolor="#FFFFFF">No</th>
             <th width="16%" bgcolor="#FFFFFF">ใบกำกับสินค้า</th>
@@ -187,8 +201,8 @@
 	</table>
     </div>
     <input type="submit" name="Submit" value=" PRINT " onClick="javascript:this.style.display='none';window.print()">
-    <script>
-	
+    
+	<!--<script>
 	var invoice , x; //เลขใบแจ้งหนี้
 	var Taxpayer, T; //เลขประจำตัวผู้เสียภาษี
 	var Datesum ,DT; //วันที่สรุป
@@ -218,8 +232,8 @@
 	document.getElementById("deb").innerHTML = N;
 	document.getElementById("add").innerHTML = AD;
 	document.getElementById("phone").innerHTML = TEL;
-	</script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	</script>-->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or   include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
