@@ -98,7 +98,7 @@ if(isset($_SESSION['Qty'])){
             <th id="centertable">รหัสวัสดุ</th>
             <th id="centertable">ชื่อสินค้า</th>
             <th id="centertable">ยี่ห้อ</th>
-             <th id="centertable">ประเภท</th>
+            <th id="centertable">ประเภท</th>
             <th id="centertable">จำนวนที่เหลือ</th>
             <th> </th>
          <tr>
@@ -107,7 +107,7 @@ if(isset($_SESSION['Qty'])){
        <?php while ($myResult = mysqli_fetch_assoc($result)) {
 
       ?>
-      
+
 		<tr>
 			<td  id="centertable" ><img src="../../img/<?php echo $myResult['photo'] ; ?>" border="0"  width='80'  height='80'></td>
 			<td id="centertable" style="padding-top:3%"><?php echo $myResult['id']; ?>
@@ -122,8 +122,8 @@ if(isset($_SESSION['Qty'])){
             <td id="centertable" style="padding-top:3%" ><?php echo $myResult['category']; ?>
             	<input type="hidden" name="articles3[]" value="<?php echo $item['category'];?>">
             </td>
-			<td id="centertable" style="padding-top:3%" ><?php echo $myResult['stock']; ?>
-            	<input type="hidden" name="articles5[]" value="<?php echo $item['stock'];?>">
+			<td id="centertable" style="padding-top:3%" ><?php echo $myResult['balance']; ?>
+            	<input type="hidden" name="articles5[]" value="<?php echo $item['balance'];?>">
             </td>
 			<td style="padding-top:2%" >
 				<a class="btn btn-primary btn-lg" href="updatecart.php?ItemID=<?php echo $myResult['id']; ?>" role="button">

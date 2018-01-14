@@ -24,15 +24,19 @@
 			$articles2 = $_POST['articles2'][$i];
 			$articles3 = $_POST['articles3'][$i];
 			$articles4 = $_POST['articles4'][$i];
+			$articles5 = $_POST['articles5'][$i];
 			//$rent_empID = $_POST['rent_empID'][$i];
-		$sql = "INSERT INTO lend_spare (id_spare ,name ,detail ,amount ,Order_lend ,rent_empID)  VALUES ('$articles' , 
+		$sql = "INSERT INTO lend_spare (id_spare ,name ,detail ,category_lend,amount ,Order_lend ,rent_empID)  VALUES ('' , 
 				'$articles2' ,
 				'$articles3' ,
 				'$articles4' ,
+				'$articles5',
 				'$Order_lend',
 				'$rent_empID'
 				) ";
 				$Order_id = $rent_empID;
+				
+				//echo $sql;
 		$result = mysqli_query($con, $sql) or die ("Error in query: $sql " . mysqli_error($con));
 			//}
 		

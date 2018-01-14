@@ -16,9 +16,9 @@
   <li class="listcircle"><a href='index_sp.php'>จัดทำรายการเบิก</a></li>
    <li class="listcircle"><a href='take.php'>ประวัติรายการรับเข้า</a></li>
   <li class="listcircle"><a href='lend.php'>ประวัติรายการเบิก</a></li>
-    <li class="listcircle"><a href='render.php'>รับคืนวัสดุ-อุปกรณ์</a></li>
+   <li class="listcircle"><a href='render.php'>รับคืนวัสดุ-อุปกรณ์</a></li>
   <li class="listcircle"><a href='list_category_spare.php'>จัดการหมวดหมู่</a></li>
-  <li class="listcircle">รายงาน</a></li>
+
 
 </ol>
 <hr>

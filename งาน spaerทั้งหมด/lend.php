@@ -3,13 +3,50 @@
 <head>
 <meta charset="utf-8">
 <title>รายการวัสดุ / อุปกรณ์</title>
+<style>
+	.bodyfont{
+		font-family:"TH Sarabun New", "Tw Cen MT";
+		font-size:22px;
+	}
+	#sizezi{
+		font-size:25px;
+		
+	}
+	#sizezi2{
+		font-size:22px;
+	}
+	#centertable{
+		text-align:center;	
+	}
+	#midter{
+		padding-top:50px;
+	}
+	
+	navbar{
+	padding-botton:20px;
+	}
+</style>
+</head>
+<link rel="stylesheet" href="css/css/bootstrap.min.css">
+<body class="bodyfont">
+<div class="container">
+
+	<!-- Static navbar -->
+    	<div id="sizezi2" style="padding-top:20px; width:98%; padding-left:5.3%" > 
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#" id="sizezi">ประวัติรายการเบิกการวัสดุ / อุปกรณ์</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+  				</button>
+		<form method ="post"  align='center'>
+	<input type ="search" name='keyword' size="50"> <input type="submit" value="ค้นหา">
+</form>
+			</div>
+		</nav>
+<body>
 </head>
 
 <body>
-<h1 align='center'>ประวัติรายการเบิกการวัสดุ / อุปกรณ์</h1>
-<form method ="post"  align='center'>
-	<input type ="search" name='keyword' size="50"> <input type="submit" value="ค้นหา">
-</form>
 <?php
 include("../function/db_function.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
@@ -33,8 +70,12 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 
 	//แสดงข้อมูล รหัสนักศึกษา คำนำหน้า ชื่อ นามสกุล ของนักศึกษาทุกคน
 	$num=1;//กำหนดตัวแปรเพื่อนับแถว
-	
-	echo "<table border = 1 align='center'>";
+	echo "<table border='0' align='center' width='90%' >";
+	echo "<tr>";
+	echo "<td>";
+	echo "<table border='0' align='center' class='table table-sm' >";
+	echo "<thead 	>";
+	echo "<tr>";
 	echo "<th>ลำดับ</th>";
 	echo "<th>รหัสใบเบิก</th>";
 	echo "<th>รหัสวัสดุ</th>";
@@ -44,7 +85,8 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	echo "<th>จำนวนที่เบิก</th>";
     echo "<th>วันที่เบิก</th>";
 	echo "<th>ชื่อผู้ขอเบิก</th>";
-	
+	echo "</tr>";
+	echo "</thead>";
 
 	
 	
@@ -55,14 +97,14 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
     list($category_lend)=mysqli_fetch_row($sql);
 	
 	echo "<tr>";
-	echo "<td align='center'>$No</td>";
-	echo "<td align='center'>$Order_lend</td>";
-	echo "<td align='center'>$id_spare</td>";
-	echo "<td align='center'>$name</td>";
-	echo "<td align='center'>$detail</td>";
-	echo "<td align='center'>$category_lend</td>";
+	echo "<td align='left'>$No</td>";
+	echo "<td align='left'>$Order_lend</td>";
+	echo "<td align='left'>$id_spare</td>";
+	echo "<td align='left'>$name</td>";
+	echo "<td align='left'>$detail</td>";
+	echo "<td align='left'>$category_lend</td>";
 	echo "<td align='center'>$amount</td>";
-	echo "<td align='center'>$lend_data</td>";
+	echo "<td align='left'>$lend_data</td>";
 	echo "<td align='center'>$rent_empID</td>";
 
 	

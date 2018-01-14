@@ -140,10 +140,11 @@ if (isset($_SESSION['cart']) and $ItemCount > 0){
   					   <option value="บุคคล">บุคคล</option>
   					   <option value="บัญชี">บัญชี</option>
   					   <option value="การเงินสินเชื่อ">การเงิน-สินเชื่อ</option>
-          </select>
-
-            </div></td>
-            </tr>
+          </select> </div></td></tr>
+          
+             <td><div class="form-group"><label for="exampleInputFullname">วันที่ยืม</label>
+            <input type="date" class="form-control" id="lend_data"  style="width:300px;" name="lend_data">
+            </div> </td>
             </table>
             <br>
            <table class="table table-striped table-bordered">

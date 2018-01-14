@@ -14,7 +14,7 @@
 	id='$_GET[id]'")  or die("SQL Error=>".mysqli_error($con));
 
 	list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$Pay,$balance,$time) = mysqli_fetch_row($result);
-	
+	$stock = $acquire + $stock;
 ?>
 
 <h1>ฟอร์มแก้ไขรายการวัสดุ-อุปกรณ์</h1>
@@ -36,7 +36,7 @@
    ?>
    </select>
 <p>ราคา :  <input type="text" name="price" value="<?php echo $price ?>"></p>
-<p> ยอดยกมา :  <input type="text" name="stock" value="<?php echo $stock ?>"></p>
+<p> Stock :  <input type="text" name="stock" value="<?php echo $stock ?>"></p>
 <p>วัน/เดือน/ปี  :  <input type="text" name="time" disabled="disabled" value="<?php echo $time ?>"></p><hr>
 
 

@@ -9,7 +9,7 @@
 		font-size:22px;
 	}
 	#sizezi{
-		font-size:26px;
+		font-size:25px;
 		
 	}
 	#sizezi2{
@@ -32,24 +32,15 @@
 <div class="container">
 
 	<!-- Static navbar -->
-    	<div id="sizezi2" style="padding-top:20px; width:100%; padding-left:2.5%" > 
+    	<div id="sizezi2" style="padding-top:20px; width:98%; padding-left:2.3%" > 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<a class="navbar-brand" href="#" id="sizezi">Spare Parts System</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
   				</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">หน้าแรกวัสดุ-อุปกรณ์</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">เพิ่มรายการวัสดุ</a>
-				</li>
-			</ul>
-            </div>
+		
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="sizezi2">
+                    <input class="form-control mr-sm-2" type="search" placeholder="ค้นหารายการ" aria-label="Search" id="sizezi2">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="sizezi2">Search</button>
                 </form>
 			</div>
@@ -94,7 +85,7 @@
 	echo "<table border='0' align='center' width='95%' >";
 	echo "<tr>";
 	echo "<td>";
-	echo "<table border='0' align='center' class='table' >";
+	echo "<table border='0' align='center' class='table table-bordered' >";
 	 echo "<thead 	>";
 	echo "<tr>";
 	echo "<th>รหัสวัสดุ</th>";
@@ -104,10 +95,9 @@
 	echo "<th>ราคาซื้อ</th>";
 	echo "<th>ประเภท</th>";
 	echo "<th>STOCK</th>";
-	echo "<th>จำนวนรับ</th>";
+	echo "<th>จำนวนรับล่าสุด</th>";
 	echo "<th>จำนวนจ่าย</th>";
 	echo "<th>คงเหลือ</th>";
-	echo "<th>วัน/เดือน/ปี</th>";
 	echo "<th>เพิ่มจำนวน</th>";
 	echo "<th>แก้ไข</th>";
 	echo "<th>ลบ</th>";
@@ -121,22 +111,21 @@
 	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
     list($category)=mysqli_fetch_row($sql);
 	
-	$balance = $acquire + $stock;
+	$stock = $acquire + $stock;
 	echo "<tr>";
-	echo "<td align='center'>$id</td>";
-	echo"<td align='center'><img src='../img/$photo'  width='70'  height='70' ></td>";
-	echo "<td align='center'>$name</td>";
-	echo "<td align='center'>$brand</td>";
-	echo "<td align='center'>$price</td>";
-	echo "<td align='center'>$category</td>";
-	echo "<td align='center'>$stock</td>";
-	echo "<td align='center'>$acquire</td>";
-	echo "<td align='center'>$Pay</td>";
-	echo "<td align='center'>$balance</td>";
-	echo "<td align='center'>$time</td>";
-	echo "<td align='center'><a href='add_numspare.php?id=$id'><img src='../img/11.png'  width='30'  height='30'></TD>";
-	echo "<td align='center'><a href='edit_spare.php?id=$id'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></TD>";
-	echo "<td align='center'><a href='delete_spare.php?id=$id'><img src='../img/cancel.png'  width='30'  height='30'></TD>";
+	echo "<td align='center' style='padding-top:3%' >$id</td>";
+	echo"<td align='center'><img src='../img/$photo'  width='60'  height='60' ></td>";
+	echo "<td align='center'  style='padding-top:3%' >$name</td>";
+	echo "<td align='center'  style='padding-top:3%' >$brand</td>";
+	echo "<td align='center'  style='padding-top:3%' >$price</td>";
+	echo "<td align='center'  style='padding-top:3%' >$category</td>";
+	echo "<td align='center'  style='padding-top:3%' >$stock</td>";
+	echo "<td align='center'  style='padding-top:3%' >$acquire</td>";
+	echo "<td align='center'  style='padding-top:3%' >$Pay</td>";
+	echo "<td align='center'  style='padding-top:3%' >$balance</td>";
+	echo "<td align='center'  style='padding-top:3%' ><a href='add_numspare.php?id=$id'><img src='../img/11.png'  width='35'  height='35'></TD>";
+	echo "<td align='center'  style='padding-top:3%' ><a href='edit_spare.php?id=$id'><img src='../img/if_pencil_10550.png'  width='35'  height='35'></TD>";
+	echo "<td align='center'  style='padding-top:3%' ><a href='delete_spare.php?id=$id'><img src='../img/cancel.png'  width='35'  height='35'></TD>";
 	echo "</tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}

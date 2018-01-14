@@ -3,13 +3,52 @@
 <head>
 <meta charset="utf-8">
 <title>รายการวัสดุ / อุปกรณ์</title>
+<style>
+	.bodyfont{
+		font-family:"TH Sarabun New", "Tw Cen MT";
+		font-size:22px;
+	}
+	#sizezi{
+		font-size:25px;
+		
+	}
+	#sizezi2{
+		font-size:22px;
+	}
+	#centertable{
+		text-align:center;	
+	}
+	#midter{
+		padding-top:50px;
+	}
+	
+	navbar{
+	padding-botton:20px;
+	}
+</style>
+</head>
+<link rel="stylesheet" href="css/css/bootstrap.min.css">
+<body class="bodyfont">
+<div class="container">
+
+	<!-- Static navbar -->
+    	<div id="sizezi2" style="padding-top:20px; width:95%; padding-left:4.7%" > 
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#" id="sizezi">รับคืนวัสดุ / อุปกรณ์</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+  				</button>
+		
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="ค้นหารายการ" aria-label="Search" id="sizezi2">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="sizezi2">Search</button>
+               </form>
+                </form>
+			</div>
+		</nav>
 </head>
 
 <body>
-<h1 align='center'>รับคืนวัสดุ / อุปกรณ์</h1>
-<form method ="post"  align='center'>
-	<input type ="search" name='keyword' size="50"> <input type="submit" value="ค้นหา">
-</form>
 <?php
 include("../function/db_function.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
@@ -25,37 +64,37 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	
 	
 	$rows=mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
-	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
-		echo"<p>ไม่พบข้อมูลที่ครงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
-	}
-	else{
-		echo"<p align='center'>เลขที่ใบเบิกมีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $rows รายการ </p>";
-
+	
 	//แสดงข้อมูล รหัสนักศึกษา คำนำหน้า ชื่อ นามสกุล ของนักศึกษาทุกคน
 	$num=1;//กำหนดตัวแปรเพื่อนับแถว
 	
-	echo "<table border = 1 align='center'>";
-	echo "<th>ลำดับที่</th>";
+	echo "<table border='0' align='center' width='90%' >";
+	echo "<tr>";
+	echo "<td>";
+	echo "<table border='0' align='center' class='table table-striped' >";
+	echo "<thead 	>";
+	echo "<tr>";
+	echo "<th>เลขที่ใบเบิก</th>";
 	echo "<th>วันที่เบิก</th>";
 	echo "<th>รหัสพนักงาน</th>";
 	echo "<th>ชื่อผู้เบิก</th>";
 	echo "<th>แผนก</th>";
 	echo "<th>เลืกรายการรับคืน</th>";
+	echo "</tr>";
+	echo "</thead>";
+	
 	
 	while(list($No,$rent_empID,$rent_name,$rent_phone,$rent_date,$lend_status,$rent_department) = mysqli_fetch_row($result)){ 
 	
 	
 	echo "<tr>";
-	echo "<td align='center'>$No</td>";
-	echo "<td align='center'>$rent_date</td>";
-	echo "<td align='center'>$rent_empID</td>";
-	echo "<td align='center'>$rent_name</td>";
-	echo "<td align='center'>$rent_department</td>";
-	echo "<td align='center'><a href=''>เลือก</TD>";
+	echo "<td align='left' width='10%'>$No</td>";
+	echo "<td align='left'>$rent_date</td>";
+	echo "<td align='left'>$rent_empID</td>";
+	echo "<td align='left'>$rent_name</td>";
+	echo "<td align='left'>$rent_department</td>";
+	echo "<td align='left'><a href='render_list.php'>เลือก</TD>";
 
-
-	
 	echo "</tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
@@ -63,7 +102,7 @@ include("../function/db_function.php");//include ไฟล์ที่เขี�
 	
 	mysqli_free_result($result);//คืนค่าหน่วยความจำให้กับระบบ
 	mysqli_close($con); //ปิดฐานข้อมูล
-	}
+
 ?>
 <p align="center"><a href="menu_rent.php">กลับหน้า Index</a></p>
 </body>
