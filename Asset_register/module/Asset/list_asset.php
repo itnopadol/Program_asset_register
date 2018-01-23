@@ -2,12 +2,12 @@
 	//include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>จัดการสินทรัพย์</title>
 <link href="../../CSS/list_asset.css" rel="stylesheet" type="text/css">
 <link href="../../CSS/bootstrap.min.css" rel="stylesheet">
@@ -50,7 +50,7 @@ table tr th{
 	}
 	$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_log = 1 and (asset_id LIKE '%$keyword%' or
 		Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%'OR brand LIKE '%$keyword%'
-		OR Asset_Category LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_id LIMIT 13 ")
+		OR Asset_Category LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_id DESC")
 	or die ("MySQL =>".mysqli_error($con));
 	
 	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
@@ -72,9 +72,14 @@ table tr th{
 			echo "<th id='titletablelist2'>ยี่ห้อ</th>";
 			echo "<th id='titletablelist2'>แก้ไข</th>";
 			echo "<th id='titletablelist2'>ลบ</th>";
+			echo "<th id='titletablelist2'>สถานะ</th>";
 	while(list($Asset_id,$Asset_code ,$Asset_serial ,$Asset_name ,$mac_address,$computer_name
 		,$brand,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
-		,$Asset_Category ,$Asset_photo ,$Asset_time,$detail) = mysqli_fetch_row($result)){
+		,$Asset_Category ,$Asset_photo ,$Asset_time,$detail,$Asset_status) = mysqli_fetch_row($result)){
+			
+		$result2 = mysqli_query($con ,"SELECT Status_name FROM status WHERE Status_id = '$Asset_status' ")
+		or die("SQL Error2=>".mysqli_error($con)) ;
+		list($Status_name) = mysqli_fetch_row($result2); 
 
 			echo "<tr id='titletablelist2'>";
 			echo "<td align='center' id='titletablelist2'>$Asset_id</td>";
@@ -90,6 +95,7 @@ table tr th{
 				<a href='index.php?module=2&action=10&Asset_id=$Asset_id'
 				onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'>
 				<img src='img/cancel.png'  width='30'  height='30'></TD>";
+			echo "<td align='center' id='titletablelist2'> <img src='img/$Asset_status.png' style='width:35px;height:35px;' title='$Status_name!'></td>";
 
 			echo "</tr>";
 		$num++;//เพิ่มค่าตัวแปรนับแถว
@@ -104,7 +110,6 @@ table tr th{
 ?>
 	<script src="../../js/jquery.min.js"></script>
     <script src="../../JS/bootstrap.min.js"></script>
-<p id="middlecenter"><a href="index.php">กลับหน้า Index</a> || <a href="index.php?module=2&action=6">เพิ่มข้อมูลสินทรัพย์</a>
-</p>
+	<p id="middlecenter"><a href="index.php">กลับหน้า Index</a> || <a href="index.php?module=2&action=6">เพิ่มข้อมูลสินทรัพย์</a></p>
 </body>
 </html>

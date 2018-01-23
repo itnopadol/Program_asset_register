@@ -10,11 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>List Rent</title>
     <link href="../../CSS/bootstrap.min.css" rel="stylesheet">
-
   </head>
 <body style="background-color:#EBEBEB">
 <div class="container">
-<h1 align='center'>จัดการ ยืม/คืน สินทรัพย์</h1>
+<h2 align='center'>รายการที่ยืมสินทรัพย์</h2>
 <form method ="post"  align='center' >
 	<input type ="search" name='keyword' size="50" id="titletable2"> 
     <input type="submit" value="ค้นหา" id="titletable2" class="btn btn-info">
@@ -42,7 +41,7 @@
 	echo "<table border='1' align='center' class='table table-striped'>";
 	echo "<div class='row'>";
 	echo "<div class='col-xl-12'";
-	echo "<tr>";
+	echo "<tr >";
 	echo "<th>No</th>";
 	echo "<th>ชื่อสินทรัพย์</th>";
 	echo "<th>ชื่อพนักงาน</th>";
@@ -50,7 +49,6 @@
 	echo "<th>วันที่ยืม</th>";
 	echo "<th>หมายเหตุ</th>";
 	echo "<th id='titletablelist2'>คืน</th>";
-	
 	while(list($Rent_id,$Rent_asset,$Rent_emp,$Rent_active,$Rent_time,$Rent_ect) = mysqli_fetch_row($result)){
 		
 		$result1 = mysqli_query($con,"SELECT Asset_name FROM asset WHERE Asset_id = '$Rent_asset'") 
@@ -72,10 +70,10 @@
 		echo "<td>$Rent_time</td>";
 		echo "<td>$Rent_ect</td>";
 		echo "<td id='titletablelist2'>
-			<a href='index.php?module=5&action=34&Rent_id=$Rent_id'onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'>
-			<img src='img/cancel.png'  width='30'  height='30'></TD>";
+			<a href='index.php?module=5&action=34&Rent_id=$Rent_id'onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการคืนข้อมูล\")'>
+			<img src='img/System_Restore.png'  width='30'  height='30'></TD>";
 		
-		echo "</tr>";
+		echo "</tr>"; 
 		echo "</div>";
 		echo "</div>";
 		$num++;//เพิ่มค่าตัวแปรนับแถว

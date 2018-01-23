@@ -22,7 +22,7 @@
 		mysqli_query($con, $sql2) or die("Error Delete" . mysqli_error($con));
 		//echo $sql ."<br>". $sql2;
 		
-		echo "<script>alert('ลบข้อมูลเรียบร้อยแล้ว')</script>";
+		echo "<script>alert('คืนรายการเรียบร้อยแล้ว')</script>";
 		echo "<script>window.location='index.php?module=5&action=31'</script>";
 
 		mysqli_close($con);

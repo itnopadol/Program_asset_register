@@ -1,7 +1,7 @@
 <?php 
 	//session_start();
 	//include("../../Funtion/funtion.php");
-	$con = connect_db();
+	//$con = connect_db();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Login Form</title>
-    <link href="CSS/Loginform.css" rel="stylesheet" type="text/css">
+    <link href="../../CSS/Loginform.css" rel="stylesheet" type="text/css">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -25,11 +25,12 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="img/if_supportmale.png" id="icon" alt="User Icon" />
+      <img src="../../img/if_supportmale.png" id="icon" alt="User Icon" />
+      <!--<img src="img/if_supportmale.png" id="icon" alt="User Icon" />-->
     </div>
 
     <!-- Login Form -->
-    <form method="post" action="module/User/Check_GLogin.php">
+    <form method="post" action="Check_GLogin.php"><!---index.php?module=7&action=96--->
       <input type="text" id="login" class="fadeIn second" name="username" placeholder="login" required="required">
       <input type="password" id="password" class="fadeIn third" name="passwd" placeholder="password" required="required">
       <input type="submit" class="fadeIn fourth" value="Log In">

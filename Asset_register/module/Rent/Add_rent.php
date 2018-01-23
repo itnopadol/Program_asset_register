@@ -31,8 +31,8 @@
 	echo $sql2;*/
 	
 	mysqli_close($con);
+	echo "<script>alert('บันทึกข้อมูลการเบิกเรียบร้อยแล้ว')</script>";
 	echo "<script>window.location='index.php?module=5&action=31'</script>";
-	
     ?>
 </body>
 </html>

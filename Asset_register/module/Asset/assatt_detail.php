@@ -19,13 +19,17 @@
 	
 	$Asset_id=$_GET['id']; 
 	$result=mysqli_query($con,"SELECT * FROM asset WHERE 
-	 Asset_id='$Asset_id'") or die("SQL Error=>".mysqli_error($con));
+	 Asset_id = '$Asset_id' ") or die("SQL Error=>".mysqli_error($con));
 
-	list($Asset_id,$Asset_code,$Asset_seria,$Asset_name,$mac_address,$computer_name,$brand,$Asset_date,$Asset_company,$Asset_price,$Asset_barcode,$Asset_Category,$Asset_photo,$Asset_time,$detail	)=mysqli_fetch_row($result);
+	list($Asset_id,$Asset_code,$Asset_seria,$Asset_name,$mac_address,$computer_name,$brand,$Asset_date,$Asset_company,$Asset_price,$Asset_barcode,$Asset_Category,$Asset_photo,$Asset_time,$detail,$Asset_status,$active_point ,$Asset_log ,$Asset_remand	)=mysqli_fetch_row($result);
 	
 	$result = mysqli_query($con ,"SELECT Category_name FROM category WHERE Category_id = '$Asset_Category' ")
-	or die("SQL Error2=>".mysqli_error($con)) ; //เขียนเริ่มจากขวาไปซ้าย
-	list($Asset_Category) = mysqli_fetch_row($result); //เขียนเริ่มจากขวาไปซ้าย
+	or die("SQL Error2=>".mysqli_error($con)) ;
+	list($Asset_Category) = mysqli_fetch_row($result);
+	
+	$result2 = mysqli_query($con ,"SELECT Status_name FROM status WHERE Status_id = '$Asset_status' ")
+	or die("SQL Error2=>".mysqli_error($con)) ;
+	list($Status_name) = mysqli_fetch_row($result2); 
 	
 	echo "<div align='center'><table border='1'>";
 	echo "<TH id='XD'>";
@@ -44,7 +48,8 @@
 	echo"<P>Barcode: $Asset_barcode</p>";
 	echo"<P>ประเภท : $Asset_Category</p>";
 	echo"<P>รายละเอียด : $detail</p>";
- 	echo"<P>แก้ไขข้อมูลล่าสุดเมื่อ : $Asset_time</p>";
+	echo"<P>สถานะปัจจุบัน : $Status_name <img src='img/$Asset_status.png' style='width:35px;height:35px;'></p>";
+ 	echo"<P>แก้ไขข้อมูลล่าสุดเมื่อ : $Asset_remand </p>";
 	echo"</hr>";
 	echo "</div></table>";
 	echo "</th>";

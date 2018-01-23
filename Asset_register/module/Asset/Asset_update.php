@@ -11,15 +11,13 @@
 
 <body>
 <?php
-	//$photo = $_POST['Asset_photo'];
-	//echo $photo;
 	if(empty($_FILES['Asset_photo']['name'])){
 		$asset_photo = "";
 		$Update_photo = "";
 	}
 	else{
-		//$time = date("dmyhis");	
-		//$char = str_shuffle("ABC");
+		$time = date("dmyhis");	
+		$char = str_shuffle("ABC");
 		$sum_name = date("dmyhis")."ABC";
 		$char = substr(str_shuffle($sum_name),0,10); //ตัดเหลือตัว 10
 		$asset_photo = $char."_".$_FILES['Asset_photo']['name']; //ชื่อไฟล์
@@ -43,8 +41,10 @@
 	$Update_photo
 	,detail = '$_POST[detail]'
 	WHERE Asset_id = '$_POST[Old_ID]' ";
-	
-	//echo $sql;
+		/*$test = $_POST['Asset_code'];
+		$test2 = $_POST['Asset_photo'];
+		echo $test ,"<br>", $test2;
+		echo $Update_photo;*/
 	mysqli_query($con,$sql) or die(mysqli_error($con));
 	mysqli_close($con);
 	echo "<script>window.location='index.php?module=2&action=22'</script>";

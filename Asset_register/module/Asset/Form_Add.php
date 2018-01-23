@@ -4,27 +4,28 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>ทดสอบฟอร์มใหม่ New Form</title>
-<link href="css/smart-forms.css" rel="stylesheet" type="text/css">
-<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <title>ทดสอบฟอร์มใหม่ New Form</title>
+    <link href="css/smart-forms.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../../CSS/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../CSS/bootstrap-theme.min.css" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
 </head>
 <style type="text/css">
-@font-face { font-family: 'FontAwesome'; src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.eot?#iefix') 
- format('embedded-opentype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.woff') 
- format('woff'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.ttf') 
- format('truetype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.svg#FontAwesome') 
- format('svg'); 
- font-weight: 
- normal; 
- font-style: normal; 
+	@font-face { font-family: 'FontAwesome'; src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.eot?#iefix') 
+	 format('embedded-opentype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.woff') 
+	 format('woff'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.ttf') 
+	 format('truetype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.svg#FontAwesome') 
+	 format('svg'); 
+	 font-weight: 
+	 normal; 
+	 font-style: normal; 
  }
  </style>
 <body>
@@ -44,12 +45,14 @@ enctype="mu ltipart/form-data">
                         <div class="section colm colm6">
 						<label for="Barcode" class="field prepend-icon">Barcode
 							<input type="text" name="Asset_barcode" id="Barcode" class="gui-input" 
-                            placeholder="Barcode" required>
+                            placeholder="Barcode">
 							<label for="Barcode" class="field-icon"></label>  
 						</label>
                         </div><!-- end section -->                     
 					<div class="section colm colm6">
                             <label for="Asset_code" class="field prepend-icon">เลขทะเบียนสินทรัพย์
+                            <img src="img/if_asterisk.png" style="width:14px;height:14px;" title="สำคัญ!" 
+                            data-target=".bs-example-modal-sm">
                                 <input type="text" name="Asset_code" id="Asset_code" class="gui-input" 
                                 placeholder="เลขทะเบียนสินทรัพย์" required>
                                 <label for="Asset_code" class="field-icon"></label>  
@@ -57,6 +60,8 @@ enctype="mu ltipart/form-data">
                         </div><!-- end section -->
                         <div class="section colm colm6">
                             <label for="Serial Number" class="field prepend-icon">Serial Number
+                            <img src="img/if_asterisk.png" style="width:14px;height:14px;" title="สำคัญ!" 
+                            data-target=".bs-example-modal-sm">
                                 <input type="text" name="Asset_serial" id="Serial Number" class="gui-input" 
                                 placeholder="Serial Number" required>
                                 <label for="Serial Number" class="field-icon"></label>  
@@ -65,7 +70,9 @@ enctype="mu ltipart/form-data">
                         </div><!-- end .frm-row section -->   
                         <div class="section colm colm6">
                             <label for="Asset name" class="field prepend-icon">ชื่อสินทรัพย์
-                                <input type="text" name="Asset_name" id="Asset name" class="gui-input" placeholder="ชื่อสินทรัพย์">
+                            <img src="img/if_asterisk.png" style="width:14px;height:14px;" title="สำคัญ!" 
+                            data-target=".bs-example-modal-sm">
+                                <input type="text" name="Asset_name" id="Asset name" class="gui-input" placeholder="ชื่อสินทรัพย์" required>
                                 <label for="Asset name" class="field-icon"></label>  
                             </label>
 						</div><!-- end section 1-->
@@ -95,8 +102,7 @@ enctype="mu ltipart/form-data">
 											elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
 											elseif (strpos($user_agent, 'Safari')) return 'Safari';
 											elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
-											elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
-											
+											elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';	
 											return 'Other';
 										}
 										//แสดง Browser ที่ใช้ 
@@ -106,7 +112,6 @@ enctype="mu ltipart/form-data">
 										//แสดงชื่อคอมพิวเตอร์ที่ใช้
 										echo "Computer name ==> ";
 										echo gethostbyaddr($_SERVER['REMOTE_ADDR']);								
-										
 								?>
                                 </div>
                               </div>
@@ -118,7 +123,9 @@ enctype="mu ltipart/form-data">
 						</div><!-- end section 3-->
                         <div class="section colm colm6">
                             <label for="Brand" class="field prepend-icon">รุ่น
-                                <input type="text" name="brand" id="Brand" class="gui-input" placeholder="รุ่น">
+                            <img src="img/if_asterisk.png" style="width:14px;height:14px;" title="สำคัญ!" 
+                            data-target=".bs-example-modal-sm">
+                                <input type="text" name="brand" id="Brand" class="gui-input" placeholder="รุ่น" required>
                                 <label for="Brand" class="field-icon"></label>  
                             </label>
 						</div><!-- end section 4-->
@@ -143,7 +150,10 @@ enctype="mu ltipart/form-data">
 						</div><!-- end section 7-->
                     </div><!-- end .frm-row section -->                                    
                     <div class="section">
-						ประเภท<label class="field select">
+						ประเภท
+                        <img src="img/if_asterisk.png" style="width:14px;height:14px;" title="สำคัญ!" 
+                        data-target=".bs-example-modal-sm">
+                        <label class="field select">
 							<select id="language" name="Asset_Category">
                                 <?php
 									  $result=mysqli_query($con,"SELECT Category_id,Category_name FROM category") 

@@ -47,7 +47,8 @@
 	//echo $sql;
 	mysqli_query($con, $sql) or die("Error =" .mysqli_error($con));
 	mysqli_close($con);
-	echo "<script>window.location='index.php?module=2&action=21' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยัน\")</script>";
+	echo "<script>alert('บันทึกข้อมูลเรียบร้อยแล้ว')</script>";
+	echo "<script>window.location='index.php?module=6&action=21'</script>";
 ?>
 </body>
 </html>

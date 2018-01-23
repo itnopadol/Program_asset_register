@@ -2,12 +2,12 @@
 	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>ตรวจสอบสถานะสินทรัพย์</title>
     <!-- Bootstrap -->
@@ -87,7 +87,7 @@
 	or die("SQL error2  ".mysqli_error($con));
     list($active_point) = mysqli_fetch_row($result1);
 
-	$result2 = mysqli_query($con,"SELECT Status_id,Status_name FROM status ")
+	$result2 = mysqli_query($con,"SELECT Status_id,Status_name FROM status")
 	or die ("mysql error=>>".mysql_error($con));
 		echo "<tr>";
 		/*echo "<td><input type='checkbox' name='As_id[]' id = 'As_id' value='$Asset_id'></td>";	*/
@@ -96,8 +96,8 @@
 		echo "<td align='center' id='titletable3'>$Asset_serial</td>";
 		echo "<td align='center' id='titletable3'><a href='index.php?module=6&action=24&id=$Asset_id'>$Asset_name</a></td>";
 		echo "<td align='center' id='titletable3'>$brand</td>";
-		echo "<td align='center' id='titletable3'>";
 		/*----------------------------^------------------------------------*/
+		echo "<td align='center' id='titletable3'>";
 		echo "<form action=\"index.php\">";
 		echo "<input type='hidden' name='Asset_id' value= '$Asset_id'> ";
 		echo "<input type='hidden' name='module' value= '6'> "; 
@@ -106,29 +106,33 @@
 		while(list($Status_id,$Status_name)=mysqli_fetch_row($result2)){
 			if($Status_id == $Asset_status){
 				$select = "selected='selected=selected'";
-				//$select = $Status_id == $Asset_status? "selected":"";
 			}
 			else{
 				$select = "";
 			}
 			echo "<option value='$Status_id'$select>$Status_name</option>";
 		}
-		echo "</select>&nbsp;&nbsp;
-				<button type='submit' name='update' id='button1' value='บันทึก' class='btn btn-primary btn-sm'>บันทึก
-				</button></form></td>";
+		echo "</select>&nbsp;&nbsp;";
+		switch($Asset_status){
+			case "04" : echo "<button type='submit' name='update' id='' value='บันทึก' 
+			class='btn btn-primary btn-sm' disabled>บันทึก</button></form></td>"; break;
+			default : echo "<button type='submit' name='update' id='' value='บันทึก' class='btn btn-primary btn-sm'>บันทึก
+			</button></form></td>"; break;
+		}
 		/*----------------------------v------------------------------------*/
 		echo "<td align='center' id='titletable'>$active_point</td>";
 		/*----------------------------^------------------------------------*/
 		echo "<form action=\"index.php\" method='post'>";
-		/*echo "<input type='hidden' name='As_id' value= '$As_id'> ";
-		echo "<input type='hidden' name='module' value= '6'> ";
-		echo "<input type='hidden' name='action' value= '21'> ";*/
-		/*echo "<a href='#' class='edit-customer' data-id='$c[Rent_id]' 
-		data-rent_asset='$c[Rent_asset] '>";*/
-		echo "<td id='titletable' align='center'>
-		<img src='img/P-1-36-128.png' width='40' height='40'
-		onClick=\"openModal('".$Asset_id."', '".$Asset_code."')\">";
-		echo "</a></td></form>";
+		echo "<td>";
+		switch($Asset_status){
+			case "01" : echo "<img src='img/box.png' width='40' height='40'onClick=\"openModal('".$Asset_id."', '".$Asset_code."')\" title='ทำรายการเบิก'>"; break;
+			case "02" : echo "<img src='img/02.png' width='40' height='40' title='สินทรัพย์เสีย'>"; break;
+			case "03" : echo "<img src='img/03.png' width='40' height='40' title='รอการซ่อมแซม'>"; break;	
+			case "04" : echo "<img src='img/04.png' width='40' height='40' title='รายการถูกเบิก'>"; break;	
+			default : echo "Error Test $Asset_status"; break;
+		}
+		echo "</td>";
+		echo "</form>";
 		echo "</tr>";
 			echo "</div>";
 		echo "</div>";
@@ -142,77 +146,68 @@
 	echo "<span aria-hidden='true'>&laquo;</span>";
 	echo "</a>";
 	echo "</li>";
-	echo "<li><a href='#'>1</a></li>";
-	echo "<li><a href='#'>2</a></li>";
-	echo "<li><a href='#'>3</a></li>";
-	echo "<li><a href='#'>4</a></li>";
-	echo "<li><a href='#'>5</a></li>";
     echo "<li>";
-	echo "<a href='#' aria-label=\"Next\">";
 	echo "<span aria-hidden=\"true\">&raquo;</span>";
-	echo "</a>";
+	//echo "</a>";
     echo "</li>";
 	echo "</ul>";
 	echo "</nav>";
 	echo "</div>";
 	}
-	
 ?>
 </div>
-<div class='container'>
-<div id="id01" class="modal">		
-		<form class="modal-content animate" action="index.php?module=5&action=32" method="post" name="FormRent">
-        <!--<input  type="hidden" name="As_id" value="" />
-        <input type='hidden' name='module' value= '5'>
-		<input type='hidden' name='action' value= '32'>-->
-    	<div id="imgcontainer">
-		<span onclick="document.getElementById('id01').style.display='none' " class="closes" title="Close Modal">&times;</span>
-		<img src="img/if_user_accounts.png" >
-	</div>
-    <div id="container2" >
-      	<input type="hidden" name="Rent_id" >
-        <P>No : <input type="text" name="id_asset" id="id_asset" readonly></P>
-		<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset" id="Rent_assets" readonly></P>
-        <P>รหัสพนักงาน : <input type="text" name="Rent_emp" required></P>
-        <P>จุดใช้งาน : <input type="text" name="Rent_active" required></P>
-        <P>วันที่ยืม : <input type="date" name="Rent_time" required></P>
-        <P>*หมายเหตุ : <textarea name="Rent_ect" ></textarea></P>
-       <?php /*?><P>จุดใช้งาน : <select name="Rent_active">
-        	<?php
-				  $result = mysqli_query($con,"SELECT Active_id,Active_name FROM active_point")
-				  or die ("mysql error=>>".mysql_error($con));
-				  while(list($Active_id,$Active_name)=mysqli_fetch_row($result)){
-					  $select = $Active_id == $Active_name? "selected":"";
-				  echo "<option value=$Active_id>$Active_name</option>";
-				  }
-				  mysqli_free_result($result);
-				  mysqli_close($con);
-				?>
-        </select></P><?php */?>
-    </div>
-    <div id="container2" style="background-color:#f1f1f1">
-		<button type="submit">Add</button>
-		<button type="button" onclick="document.getElementById('id01').style.display='none'" id="cancelbtn">Cancel</button>
-    </div>
-	</form>
-</div>
-<?php
-	mysqli_free_result($result);//คืนค่าหน่วยความจำให้กับระบบ
-	mysqli_close($con); //ปิดฐานข้อมูล
-?>
 
+<div class="modal" tabindex="-1" role="dialog" id="id01">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <form class="modal-content animate" action="index.php?module=5&action=32" method="post" name="FormRent" >
+        	<center><div style="width: 128px; height:128px; text-align:center;">
+             	<img src="img/packing.png" style="width: 100%;">
+             </div></center>
+             <input type="hidden" name="Rent_id" >
+				<P><center>No : <input type="text" name="id_asset" id="id_asset" readonly ></center></P>
+				<P><center>รหัสสินทรัพย์ : <input type="text" name="Rent_asset" id="Rent_assets" readonly></center></P>
+				<P><center>รหัสพนักงาน : <input type="text" name="Rent_emp" required></center></P>
+				<P><center>จุดใช้งาน : <select name="Rent_active">
+                            <?php 
+                                  $result=mysqli_query($con,"SELECT Active_id,Active_name FROM active_point") 
+									  or die ("mysql error=>>".mysql_error($con));
+									  while(list( $Active_id,$Active_name)=mysqli_fetch_row($result)){
+										  $select = $Active_id == $Active_name? "selected":"";
+									  echo "<option value=$Active_id>$Active_name</option>";  
+									  }
+									  
+									  mysqli_free_result($result);
+									  mysqli_close($con);
+                                ?>
+                    </P></center></select>
+				<P><center>วันที่ยืม : <input type="date" name="Rent_time" required></center></P>
+				<P><center>*หมายเหตุ : <textarea name="Rent_ect" ></textarea></center></P>
+				
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" style="size:100%;">Close</button>
+			<button type="submit" class="btn btn-primary btn-lg">Save changes</button>  
+		</div>
+        </form>
+     
+      </div>
+    </div>
+  </div>
+</div>
+</div> 
 <script>
-function openModal(Asset_id, Asset_code) {
-	document.getElementById('id01').style.display='block';
-	document.getElementById('id_asset').value = Asset_id;
-	document.getElementById('Rent_assets').value = Asset_code;
-	//document.getElementsByName('Rent_assets')[0].value = asset_code;
-	
+	function openModal(Asset_id, Asset_code){
+		$('#id01').modal('show');
+		document.getElementById('id_asset').value = Asset_id;
+		document.getElementById('Rent_assets').value = Asset_code;
+		//document.getElementsByName('Rent_assets')[0].value = asset_code;
 }
 </script>
 	<script src="../../js/jquery.min.js"></script>
-    <script src="../../JS/bootstrap.min.js"></script>
-<p id='middlecenter'><a href="index.php">กลับหน้า Index</a></p>    
-</div>    
-  </body>
+    <script src="../../JS/bootstrap.min.js"></script>   
+</body>
 </html>
