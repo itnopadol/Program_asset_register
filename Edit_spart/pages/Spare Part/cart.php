@@ -1,4 +1,5 @@
 <?php
+session_start();
 	include("../../function/db_function.php");
 	$con=connect_db();
 ?>
@@ -205,10 +206,8 @@ else {
 		$inputItem = trim($itemIDs, ",");
 		$inputItem = explode(",", $itemIDs);
 		$inputItem = trim($inputItem[0]);
-		//echo var_dump($_SESSION['cart'])."<br>".count($_SESSION['cart'])."<hr>";
 		$cnt_list = $_SESSION['cart'];
 		$sql = "SELECT * FROM spare_part WHERE id = '$inputItem'";
-		// $sql = "SELECT * FROM spare_part";
 		$myQuery = mysqli_query($con,$sql) or die ("Error =>".mysqli_error($con));
 		$myCount = mysqli_num_rows($myQuery);
 	/*----------------------------------------------------------*/
@@ -240,35 +239,46 @@ else {
 	</style>
 </head>
 <body>
-	<div class="container">
-    	<!-- Static navbar -->
-    	<div class="navbar navbar-default" role="navigation">
-    	<div class="container-fluid">
-        	<div class="navbar-header">
-            	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navber-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index_sp.php">Spare Parts System</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                	<ul class="nav navbar-nav">
-                    	<li ><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
-                        <li class="active"><a href="cart.php">รายการวัสดุของฉัน <span class="badge"><?php echo $myQty; ?></span></a></li>
-    				</ul>
-                 </div><!--/.nav-collapse -->
-            </div><!--/.container-fluid -->
-    </div>
-    <h3>รายการวัสดุของฉัน</h3>
+	 <div class="container">
+      <!-- Static navbar -->
+      
+      <style type="text/css">
+#div1 {
+    float:left;
+    width:200px;
+    height:50px;
+    border:solid 1px  #999999;
+    text-align:center;
+	font-family:"TH Sarabun New", "Tw Cen MT";
+    font-size:22px;
+	padding-top:1%;
+	background-color:#FFF;
+}
+.block-2 {
+	width: 600px;
+	height: 100px;
+	background:#FC6;
+	font-family:"TH Sarabun New", "Tw Cen MT";
+    font-size:22px;
+	padding-top:6%
+</style>
+        
+            
+                 
+                       
+						<div id='div1'>Spare Parts System</a></div>
+            	        <div id='div1'><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></div>
+                        <div id='div1'><a href="cart.php">รายการวัสดุของฉัน <?php echo $myQty; ?></a></div>
+       
+                       
     <?php
+
 		if($action == "removed")
 		{
-			echo "<div class=\"alert alert-warning\">ลบข้อมูลเรียบร้อยแล้ว</div>";
+			echo "<div class=\"block-2\" align='center'>ลบข้อมูลเรียบร้อยแล้ว</div>";
 		}
 		if($myCount == 0){
-			echo "<div class=\"alert alert-warning\">ยังไม่มีรายการวัสดุ</div>";
+			echo "<div class=\"block-2\" align='center'>ยังไม่มีรายการวัสดุ</div>";
 		}else{
 			?>  
 <hr>

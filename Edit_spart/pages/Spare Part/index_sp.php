@@ -1,4 +1,5 @@
 <?php
+session_start();
 	include("../../function/db_function.php");
 	$con=connect_db();
 ?>
@@ -180,6 +181,7 @@
 
         <!-- partial -->
         <div class="content-wrapper">
+
 <?php
 
 
@@ -218,78 +220,54 @@ $row=mysqli_num_rows($result);
 	 $start_rows=($page_id*$rowspage)-$rowspage;
 	 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link href="../../CSS/bootstrapv3.1.1.min.css" rel="stylesheet" >
-    <title>Test ทดสอบการเพิ่มข้อมูล</title>
-    <!-- Bootstrap -->
-    <link href="../../CSS/nava.css" rel="stylesheet" type="text/css">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-		#centertable{
-			text-align:center;	
-		}
-	.hovertable th{
-		background: #39C;
-	}
-
-
-	</style>
     
-
-
-  </head>
-  <body>
     <div class="container">
       <!-- Static navbar -->
-            <div class="navbar navbar-default" role="navigation">
+      
+      <style type="text/css">
+#div1 {
+    float:left;
+    width:200px;
+    height:50px;
+    border:solid 1px  #999999;
+    text-align:center;
+	font-family:"TH Sarabun New", "Tw Cen MT";
+    font-size:22px;
+	padding-top:1%;
+	background-color:#FFF;
+}
+.block-2 {
+	width: 600px;
+	height: 100px;
+	background: #04BF9D;
+	font-family:"TH Sarabun New", "Tw Cen MT";
+    font-size:22px;
+	padding-top:6%
+}
+</style>
+        
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-						<a class="navbar-brand" href="index_sp.php">Spare Parts System</a>
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
-                            <li><a href="cart.php">รายการวัสดุที่ยืม <span class="badge"><?php echo $myQty; ?></span></a></li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0" align="right" >
-	   ค้นหา :  <input class="form-control mr-sm-2" type="search" placeholder="ค้นหารายการ" aria-label="Search" id="sizezi2" name='keyword'>
-       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="sizezi2">Search</button></form></li>
-            
-    </div><!--ปิด nav-collapse-->
-   </div><!--ปืด container-fluid-->
-  </div>
-
+                       
+						<div id='div1'>Spare Parts System</a></div>
+            	        <div id='div1'><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></div>
+                       <div id='div1'><a href="cart.php">รายการวัสดุที่ยืม <?php echo $myQty; ?></a></div>
+ 
 <?php
+
    if ($action == 'exists') {
-     echo "<div class=\"alert alert-warning\">เพิ่มจำนวนวัสดุแล้ว</div>";
+     echo "<div class=\"block-2\" align='center'>เพิ่มจำนวนวัสดุแล้ว</div>";
 
    }
    if ($action == 'add') {
-     echo "<div class=\"alert alert-success\">เพิ่มรายการวัสดุเรียบร้อยแล้ว</div>";
+     echo "<div class=\"block-2\" align='center'>เพิ่มรายการวัสดุเรียบร้อยแล้ว</div>";
 
    }
    if ($action == 'order') {
-     echo "<div class=\"alert alert-success\">ทำรายการวัสดุเรียบร้อยแล้ว</div>";
+     echo "<div class=\"block-2\" align='center'>ทำรายการวัสดุเรียบร้อยแล้ว</div>";
    }
    if ($action == 'orderfail') {
-     echo "<div class=\"alert alert-success\">ทำรายการไม่สำเร็จ กรุณาลองใหม่อีกครั้ง</div>";
+     echo "<div class=\"block-2\" align='center'>ทำรายการไม่สำเร็จ กรุณาลองใหม่อีกครั้ง</div>";
    }
 ?>
 
@@ -341,12 +319,6 @@ $row=mysqli_num_rows($result);
 		</table>
       
 
-        </div> <!-- /container -->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
-    <script src="../js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../js/bootstrap.min.js"></script>
        
         </div> <!-- /container -->
 
