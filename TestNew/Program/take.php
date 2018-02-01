@@ -4,83 +4,153 @@
 <meta charset="utf-8">
 <title>ประวัติรายรับการวัสดุ / อุปกรณ์</title>
 </head>
+<style>
+	.bodyfont{
+		font-family:"TH Sarabun New", "Tw Cen MT";
+		font-size:22px;
+	}
+	#sizezi{
+		font-size:25px;
+		
+	}
+	#sizezi2{
+		font-size:22px;
+	}
+	#centertable{
+		text-align:center;	
+	}
+	#midter{
+		padding-top:50px;
+	}
+	
+	navbar{
+	padding-botton:20px;
+	}
+</style>
+</head>
+<link rel="stylesheet" href="css/css/bootstrap.min.css">
+<body class="bodyfont">
+<div class="container">
 
-<body>
-<h1 align='center'>ประวัติรายการรับการวัสดุ / อุปกรณ์</h1>
-<form method ="post"  align='center'>
-	ค้นหา : <input type ="search" name='keyword' size="20" placeholder="ค้นหารจากรายการ"> 
-    ค้นหาวันที่ : <input type="date" name=' '> <input type="submit" value="ค้นหา">
+	<!-- Static navbar -->
+    	<div id="sizezi2" style="padding-top:20px; width:98%; padding-left:5.3%" > 
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#" id="sizezi">ประวัติการรับเข้าวัสดุ / อุปกรณ์</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+  		</button>
+		<form class="form-inline my-2 my-lg-0">
+	    ค้นหา :  <input class="form-control mr-sm-2" type="search" placeholder="ค้นหารายการ" aria-label="Search" id="sizezi2" name='keyword'>
+       ค้นหาวันที่ :  <input class="form-control mr-sm-2" type="date" placeholder="ค้นหาจากวันที่" aria-label="Search" id="sizezi2">
+       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="sizezi2">Search</button><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 </form>
+      
+			</div>
+		</nav>
+<body>
 
 <?php
 include("../function/db_function.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
 	
-	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
-		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
+	if(empty($_GET['keyword'])){ 
+		$keyword="";
 	}
 	else{
-		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
+		$keyword=$_GET['keyword'];
 	}
 	
-	$result = mysqli_query($con, "SELECT * FROM take  INNER JOIN spare_part  ON (take. take_id = spare_part.id) WHERE  id_inventory  LIKE '%$keyword%' OR take_name LIKE '%$keyword%'OR take_pice  LIKE '%$keyword%' OR take_time LIKE '%$keyword%'OR take_brand  ORDER BY take_id ASC ") or die ("MySQL =>".mysqli_error($con));
+	$result1 = mysqli_query($con,"SELECT take_id  FROM  take WHERE  take_name  LIKE '%$keyword%' OR take_name LIKE '%$keyword%'OR take_brand LIKE '%$keyword%'OR take_category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY take_id  ASC LIMIT 1)")or die(mysqli_error($con));
 	
-	
-	
-	
-	
-	$rows=mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
-	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
-		echo"<p>ไม่พบข้อมูลที่ครงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
-	}
-	else{
-		echo"<p align='center'>ชื่อรายการวัสดุ - อุปกรณ์มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $rows รายการ </p>";
+	$row=mysqli_num_rows($result1); 
+	$rowspage=15;
+	$page=ceil($row/$rowspage); 
 
-	//แสดงข้อมูล รหัสนักศึกษา คำนำหน้า ชื่อ นามสกุล ของนักศึกษาทุกคน
-	$num=1;//กำหนดตัวแปรเพื่อนับแถว
+    if(empty($_GET['page_id'])){
+		$page_id=1; 
+	}
+	else{
+			$page_id=$_GET['page_id'];
+	}
+	$start_rows=($page_id*$rowspage)-$rowspage; 
+
+	$result2 = mysqli_query($con,"SELECT*FROM  take WHERE  take_name  LIKE '%$keyword%' OR take_name LIKE '%$keyword%'OR take_brand LIKE '%$keyword%'OR take_category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY take_id  ASC LIMIT 1) ORDER BY take_time ASC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
 	
-	echo "<table border = 1 align='center'>";
-	echo "<th>ลำดับที่</th>";
+	 if($row==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
+		echo"<p><h3>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p></h3><hr>";
+	}
+	else{
+		echo"<p align='center'>จำนวนวัสดุปุกรณ์ที่มีตรงกับคำค้น \"<b>$keyword</b>\"
+มีทั้งหมด $row รายการ </p>";
+
+
+	$num=1;//กำหนดตัวแปรเพื่อนับแถว
+	echo "<table border='0' align='center' width='90%' >";
+	echo "<tr>";
+	echo "<td>";
+	echo "<table border='0' align='center' class='table table-sm' >";
+	echo "<thead 	>";
+	echo "<tr>";
+	echo "<th >ลำดับที่</th>";
 	echo "<th>รหัสวัสดุ</th>";
 	echo "<th>รายการ</th>";
 	echo "<th>รุ่น / ยี่ห้อ</th>";
 	echo "<th>ราคาซื้อ</th>";
 	echo "<th>ประเภท</th>";
-	echo "<th>จำนวนที่รับ</th>";
+	echo "<th>จำนวนที่รับเข้า</th>";
 	echo "<th>วัน/เดือน/ปี</th>";
 	echo "<th>แก้ไข</th>";
 	echo "<th>ลบ</th>";
-
+	echo "</tr>";
+	echo "</thead>";
 	
-	
-	while(list($take_id,$id_inventory,$take_name,$take_brand,$take_pice,$take_category,$take_acquire,$take_time) = mysqli_fetch_row($result)){ 
+	while(list($take_id,$id_inventory,$take_name,$take_brand,$take_pice,$take_category,$take_acquire,$take_time) = mysqli_fetch_row($result2)){ 
 	
 	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
 	WHERE Category_id='$take_category' ")or die("SQL error2  ".mysqli_error($con));
-    list($take_category)=mysqli_fetch_row($sql);
+    list($category)=mysqli_fetch_row($sql);
 	
 	echo "<tr>";
-	echo "<td align='center'>$take_id</td>";
-	echo "<td align='center'>$id_inventory</td>";
-	echo" <td align='center'>$take_name</td>";
-	echo "<td align='center'>$take_brand</td>";
-	echo "<td align='center'>$take_pice</td>";
-	echo "<td align='center'>$take_category</td>";
-	echo "<td align='center'>$take_acquire</td>";
-	echo "<td align='center'>$take_time</td>";
-	echo "<td align='center'><a href='edit_take.php?take_id=$take_id'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></TD>";
-	echo "<td align='center'><a href='delete_spare.php?take_id=$take_id'><img src='../img/cancel.png'  width='30'  height='30'></TD>";
-	echo "</tr>";
-	echo "</tr>";
+	echo "<td align='left'>$take_id</td>";
+	echo "<td align='left'>$id_inventory</td>";
+	echo" <td align='left'>$take_name</td>";
+	echo "<td align='left'>$take_brand</td>";
+	echo "<td align='left'>$take_pice</td>";
+	echo "<td align='left'>$take_category</td>";
+	echo "<td align='left' width='6.5%'>$take_acquire</td>";
+	echo "<td align='left'>$take_time</td>";
+	echo "<td align=''left'><a href='edit_take.php?take_id=$take_id'><img src='../img/if_pencil_10550.png'  width='30'  height='30'></TD>";
+	echo "<td align=''left'><a href='delete_spare.php?take_id=$take_id'><img src='../img/cancel.png'  width='30'  height='30'></td></tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
 	echo"</table>";
-	
-	
-	mysqli_free_result($result);//คืนค่าหน่วยความจำให้กับระบบ
+	echo"<hr>";
+	//วนลูปแสดงลิงค์หมายเลขหน้า ตามจำนวนหน้า
+	echo"หน้า $page_id : จาก $page ";
+
+	$go=$page_id+1;
+	$back=$page_id-1;
+ 	if($page_id>1){//ถ้า$page มากกว่า 1 ให้แสดงหน้าก่อนหน้า
+		echo "<span><a href='take.php?page_id=$back&keyword=$keyword'>ก่อนหน้า...</a></span>";
+		}
+		 for($id=1;$id<=$page;$id++){
+
+ 	 if($id==$page_id){  //ถ้าเป็นหน้าปัจจุบัน ให้แสดงเลขหน้าเป็นตัวหนาสีแดงและไม่มีลิ้งค์
+     echo"<span style='font-weight:bold;color:red;'>[ $id ]</span>";
+  }
+  else{//ถ้าไม่ใช่หน้าปัจจุบันให้แสดงลิ้งค์ปกติ
+  echo"<span style='color:back;'><a href='take.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
+      }
+}
+
+		if($page!=$page_id){//ถ้า$page ไม่เท่ากับ $page_id ให้แสดงหน้าถัดไป
+			    echo "<span><a href='take.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";
+			  }
+}
+	mysqli_free_result($result1);//คืนหน่วยความจำให้กับระบบ
+ 	mysqli_free_result($result2);//คืนหน่วยความจำให้กับระบบ
 	mysqli_close($con); //ปิดฐานข้อมูล
-	}
+
 ?>
 <p align="center"><a href="menu_rent.php">กลับหน้า Index</a></p>
 </body>

@@ -1,7 +1,6 @@
 <?php
-	include("../../Funtion/funtion.php");
-	include("../../vendor/autoload.php");
-	$con=connect_db();
+	include("function/db_function.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
+	$con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
 	ob_start();
 ?>
 <!doctype html>

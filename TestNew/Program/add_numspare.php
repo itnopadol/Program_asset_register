@@ -27,9 +27,9 @@
 <input hidden="id" name="Newid" value="<?php echo $id ?>">
 <p>รหัสวัสดุ : <input type="text" name="id"  disabled="disabled" value="<?php echo $id ?>"></p>
 <p>รูปภาพ : <img src='../img/<?php echo $photo ?>'  width='150'  height='150' ></p>
-<p>รายการ : <input type="text" name="name"  readonly ="readonly" size=30 value="<?php echo $name ?>"></p>
-<p>รุ่น/ยี่ห้อ : <input type="text" name="brand"  readonly ="readonly" size=30 value="<?php echo $brand ?>"></p>
-<p>ประเภท : <select name="category"  readonly ="readonly">
+<p>รายการ : <input type="text" name="name" size=30 value="<?php echo $name ?>"></p>
+<p>รุ่น/ยี่ห้อ : <input type="text" name="brand" size=30 value="<?php echo $brand ?>"></p>
+<p>ประเภท : <select name="category">
   <?php 
  	  $result=mysqli_query($con,"SELECT Category_id,Category_name FROM category_spare") or die("SQL ERROR ==>" .mysqli_error()); 
    while(list( $Category_id,$Category_name)=mysqli_fetch_row($result)){ 
@@ -38,11 +38,13 @@
    }
 	mysqli_free_result($result);//คืนหน่วยความจำให้กับระบบ
  	mysqli_close($con);//ปิดฐานข้อมูล
-	$stock = $acquire + $stock;
+	
    ?>
-   </select><p>ราคา :  <input type="text" name="price" readonly ="readonly" value="<?php echo $price ?>"></p>
-<p>Stock :  <input type="text" name="stock" disabled="disabled" value="<?php echo $stock ?>"></p><hr>
-<p>วัน/เดือน/ปี  :  <input type="date" name="time" value=""></p>
+ </select>
+<p>ราคา :  <input type="text" name="price" value="<?php echo $price ?>"></p>
+<p> Stock :  <input type="text" name="stock" value="<?php echo $stock ?>"></p><hr>
+<p>วัน/เดือน/ปี  :  <input type="date" name="time" value="<?php echo date("Y-m-d"); ?>" readonly></p>
+
 <p>จำนวนที่รับ: <input type="text" name="acquire" size=20 required></p>
 
 <input type="submit" name="button" id="button" value="ตกลง">

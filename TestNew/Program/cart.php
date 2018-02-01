@@ -133,7 +133,7 @@ else {
 	</thead>
     <tbody>
     	<tr align='center' >
-			<td><img src="../../img/<?php echo $item['photo']; ?>"  width='80'  height='80'></td>
+			<td><img src="../img/<?php echo $item['photo']; ?>"  width='80'  height='80'></td>
 			<td><?php echo $item['id'] ?>
             	<input type="hidden" name="articles[]" value="<?php echo $item['id'];?>">
             </td>
@@ -152,7 +152,7 @@ else {
                 <input type="hidden" name="articles5[]" value="<?php echo $_SESSION['Qty'][$key];?>">
 				<input type="hidden" name="arr_key_<?php echo $num; ?>" value="<?php echo $key; ?>">
 			</td>
-			<td><?php echo $item['stock']; ?>
+			<td><?php echo $item['balance']; ?>
             	<?php /*?><input type="hidden" name="articles[]" value="<?php echo $item['stock'];?>"><?php */?>
             </td> <!---โชว์จำนวนต๊อก--->
 			<td><?php echo $total_matter; ?>

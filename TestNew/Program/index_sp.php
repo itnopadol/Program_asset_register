@@ -68,7 +68,7 @@ if(isset($_SESSION['Qty'])){
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
                             <li><a href="cart.php">รายการวัสดุที่ยืม <span class="badge"><?php echo $myQty; ?></span></a></li>
-                          
+                         
                         </ul>
     </div><!--ปิด nav-collapse-->
    </div><!--ปืด container-fluid-->
@@ -105,11 +105,11 @@ if(isset($_SESSION['Qty'])){
        </thead>
      <tbody >
        <?php while ($myResult = mysqli_fetch_assoc($result)) {
-
+		   
       ?>
-
+      
 		<tr>
-			<td  id="centertable" ><img src="../../img/<?php echo $myResult['photo'] ; ?>" border="0"  width='80'  height='80'></td>
+			<td  id="centertable" ><img src="../img/<?php echo $myResult['photo'] ; ?>" border="0"  width='80'  height='80'></td>
 			<td id="centertable" style="padding-top:3%"><?php echo $myResult['id']; ?>
             	<input type="hidden" name="articles[]" value="<?php echo $item['id'];?>">
             </td>
@@ -128,6 +128,7 @@ if(isset($_SESSION['Qty'])){
 			<td style="padding-top:2%" >
 				<a class="btn btn-primary btn-lg" href="updatecart.php?ItemID=<?php echo $myResult['id']; ?>" role="button">
 				<span></span>เลือกรายการ</a>
+                
 			</td>
 		</tr>
 			<?php
@@ -139,9 +140,9 @@ if(isset($_SESSION['Qty'])){
         </div> <!-- /container -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
-    <script src="../../js/jquery.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <p align="center"><a href="menu_rent.php">กลับหน้า menu</a>
   </body>
 </html>

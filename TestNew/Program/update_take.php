@@ -7,7 +7,7 @@ if(empty($_FILES['photo']['name'])){//ถ้าไฟล์รูปว่าง
 	$update_photo = "";
 }
 else{
-	$time=date("dmyhis");
+	$time=date("YYYY/mm/dd");
 	$sum_name=$time.("fefefefethyikeddw");
 	$char=substr(str_shuffle($sum_name),0,10);//ตัดตัวอักษร
 	$photo=$char."_".$_FILES['photo']['name'];
@@ -17,7 +17,6 @@ else{
 	$update_photo=",photo='$photo'";
 	
 }
-	
 		$sql="UPDATE take SET 
 		take_name= '$_POST[take_name]',
 		take_brand= '$_POST[take_brand]',
@@ -25,7 +24,7 @@ else{
 		take_category= '$_POST[take_category]',
 		take_acquire= '$_POST[take_acquire]',
 		take_time= '$_POST[take_time]'
-		$update_photo  WHERE take_id= '$_POST[id_inventory]'";
+		$update_photo  WHERE take_id= '$_POST[take_id]'";
 	    
 		//echo $sql ;
 

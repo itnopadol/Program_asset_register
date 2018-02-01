@@ -143,7 +143,8 @@ if (isset($_SESSION['cart']) and $ItemCount > 0){
           </select> </div></td></tr>
           
              <td><div class="form-group"><label for="exampleInputFullname">วันที่ยืม</label>
-            <input type="date" class="form-control" id="lend_data"  style="width:300px;" name="lend_data">
+            <input type="date" class="form-control" id="lend_data"  style="width:300px;" name="lend_data"  
+            readonly value="<?php echo date("Y-m-d"); ?>"
             </div> </td>
             </table>
             <br>
@@ -185,7 +186,7 @@ if (isset($_SESSION['cart']) and $ItemCount > 0){
 	</thead>
     <tbody>
     	<tr align='center'>       
-			<td><img src="../../img/<?php echo $item['photo']; ?>" width='80'  height='80'></td>
+			<td><img src="../img/<?php echo $item['photo']; ?>" width='80'  height='80'></td>
 			<td>	<?php echo $item['id'];?>
             		<input type="hidden" name="articles[]" value="<?php echo $item['id'];?>">
             </td>
@@ -204,11 +205,11 @@ if (isset($_SESSION['cart']) and $ItemCount > 0){
                 <input type="hidden" name="articles5[]" value="<?php echo $_SESSION['Qty'][$key]; ?>">
 				<input type="hidden" name="arr_key_<?php echo $num; ?>" value="<?php echo $key; ?>">
 			</td>
-			<td><?php echo $item['stock']; ?>
-            	<?php /*?><input type="hidden" name="articles5[]" value="<?php echo $item['stock'];?>"><?php */?>
+			<td><?php echo $item['balance']; ?>
+            	<input type="hidden" name="stock[]" value="<?php echo $item['balance'];?>">
             </td> <!---โชว์จำนวนต๊อก--->
 			<td><?php echo $total_matter; ?>
-            	<?php /*?><input type="hidden" name="articles6[]" value="<?php echo $total_matter;?>"><?php */?>
+            	<input type="hidden" name="articles6[]" value="<?php echo $total_matter;?>">
             </td> <!---โชว์จำนวนที่ทำการยืม *ค่ามาจาก Key--->
             <td>
 				<a class="btn btn-danger btn-lg" href="removecart.php?ItemID=<?php echo $item['id']; ?>" role="button">

@@ -19,7 +19,7 @@
 
 <h1>ฟอร์มแก้ไขประวัติรายการรับการวัสดุ / อุปกรณ์</h1>
 <form action="update_take.php" method="post" enctype="multipart/form-data">
-<p>ลำดับที่: <input type="text" name="take_id" readonly  value="<?php echo $id_inventory?>"></p
+<p>ลำดับที่: <input type="text" name="take_id" readonly  value="<?php echo $_GET['take_id'] ?>"></p
 ><p>รหัสวัสดุ : <input type="text" name="id_inventory" readonly  value="<?php echo $id_inventory?>"></p>
 <p>รายการ : <input type="text" name="take_name" size=30 value="<?php echo $take_name ?>"></p>
 <p>รุ่น/ยี่ห้อ : <input type="text" name="take_brand" size=30 value="<?php echo $take_brand ?>"></p>
