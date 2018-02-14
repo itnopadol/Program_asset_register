@@ -224,7 +224,7 @@
 
 	echo "<tr>";
 	echo "<td align='center' style='padding-top:3%' >$id</td>";
-	echo"<td align='center'><img src='../../images/$photo'  width='60'  height='60' ></td>";
+	echo"<td align='center'><img src='../../images/$photo' width='80'  height='80' ></td>";
 	echo "<td align='center'  style='padding-top:3%' >$name</td>";
 	echo "<td align='center'  style='padding-top:3%' >$brand</td>";
 	echo "<td align='center'  style='padding-top:3%' >$price</td>";

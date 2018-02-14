@@ -1,6 +1,7 @@
-<?php 
-	include("../function/db_function.php");// include ไฟล์ที่เขียนฟังก์ชันไว้เข้ามาใช้งาน
-	$con=connect_db();//เรียกใช้ฟงัก์ชั่นในการติดต่อฐานข้อมูล
+<?php
+	include("../../Funtion/funtion.php");
+	$con = connect_db();
+
 	
 if(empty($_FILES['photo']['name'])){//ถ้าไฟล์รูปว่าง
 	$photo="";
@@ -13,7 +14,7 @@ else{
 	$photo=$char."_".$_FILES['photo']['name'];
 	$photo=$_FILES['photo']['name'];//ชื่อไฟล์
 	$temp_file=$_FILES['photo']['tmp_name']; 
-	copy($temp_file,"../img/$photo");
+	copy($temp_file,"../../images/$photo");
 	$update_photo=",photo='$photo'";
 	
 }

@@ -213,7 +213,7 @@ $row=mysqli_num_rows($result);
                        
 						<div id='div1'>Spare Parts System</a></div>
             	        <div id='div1'><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></div>
-                       <div id='div1'><a href="cart.php">รายการวัสดุที่ยืม <?php echo $myQty; ?></a></div>
+                        <div id='div1'><a href="cart.php">รายการวัสดุที่ยืม <?php echo $myQty; ?></a></div>
  
 <?php
 
