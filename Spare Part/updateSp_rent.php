@@ -2,11 +2,10 @@
 	session_start();
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
-?>
-<?php
 	//print_r($_POST);
-	
-	$Sql = "INSERT INTO lend_empSP (No, rent_empID, rent_name, rent_phone,rent_department)
+	?>
+    <?php
+$Sql = "INSERT INTO lend_empsp (No, rent_empID, rent_name, rent_phone,rent_department)
 			VALUES 
 			(''
 			,'$_POST[rent_empID]'

@@ -1,5 +1,5 @@
-<?php
-	include("../../Funtion/db_function.php");
+﻿<?php
+	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!DOCTYPE html>
@@ -36,15 +36,15 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="bg-white text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="../../images/logo_star_black.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo_star_mini.jpg" alt=""></a>
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../../images/Nopadol LOGO-1--05.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../../images/Nopadol LOGO-1--03.png" alt=""></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search">
+        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method="post">
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -67,15 +67,15 @@
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
             <img src="../../images/face.jpg" alt="">
-            <p class="name">Sittichai Wongfun</p>
+            <p class="name">Administrator</p>
             <p class="designation">Admin Manager</p>
             <span class="online"></span>
           </div>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
-                <img src="../../images/icons/1.png" alt="">
-                <span class="menu-title">Dashboard</span>
+              <a class="nav-link" href="../../index.php">
+                <img src="../../images/icons/house.png" alt="">
+                <span class="menu-title">Home</span>
               </a>
             </li>
             <li class="nav-item">
@@ -190,9 +190,15 @@
             </li>
            
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <img src="../../images/icons/10.png" alt="">
-                <span class="menu-title">Settings</span>
+              <a class="nav-link" href="../Search/Search_asset.php">
+                <img src="../../images/icons/search.png" alt="">
+                <span class="menu-title">Search asset</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../User/Logout.php">
+                <img src="../../images/icons/exit.png" alt="">
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
@@ -264,7 +270,7 @@
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="float-right">
-                <a href="#">Star Admin</a> &copy; 2017
+                <a href="http://www.nopadol.com" target="_blank">Nopadol Panich</a> &copy; 2018
             </span>
           </div>
         </footer>

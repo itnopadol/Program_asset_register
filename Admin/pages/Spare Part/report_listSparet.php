@@ -12,7 +12,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<title>รายงานการรับเข้าวัสดุ</title>
+	<title>รายงานวัสดุคงเหลือ</title>
     <style>
 @media print {
   @page { margin: 0; }
@@ -57,62 +57,64 @@
             <div class="col-1" align="right"> </div>
 		</div>      
 	<div>
-    <h3 align="center">รายงานการรับเข้าวัสดุ/อุปกรณ์</h2>
-    <h4 align="center"><P>ประจำเดือน <?php $date = date("m-Y"); 
-				echo $date; ?></P></h4>
+    <h3 align="center">รายงานสรุปยอดคงเหลือของวัสดุ/อุปกรณ์</h2>
+    <h4 align="center"><P>ประจำเดือน มกราคม 2561</P></h4>
     </div>
-   <?php
+     <?php
 	 if(empty($_GET['keyword'])){ 
 		$keyword="" ;
 	}
 	else{
 		$keyword=$_GET['keyword'];
 	}
-	
-	$result = mysqli_query($con,"SELECT take_id,id_inventory,take_name,take_brand,take_pice,take_category,take_acquire,take_time FROM  take WHERE take_name LIKE '%$keyword% 'OR  take_name  LIKE '%$keyword%' OR  take_brand LIKE '%$keyword%' OR take_category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY take_id )")or die(mysqli_error($con));
+
+	 
+    $result = mysqli_query($con,"SELECT id,name,brand,price,category,stock,Pay,balance,acquire FROM spare_part WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%' OR brand LIKE '%$keyword%' OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY name)")or die(mysqli_error($con));
 	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
-	$num = 0;
+	$num = 0;	
 	
 	    echo "<table align=\"center\" id=\"customers\" >";
 		echo "<tr>";
-		echo "<th width='7%'>ลำดับ</th>";
-		echo "<th width='7%'>รหัสวัสดุ</th>";
+		echo "<th width='7%'>รหัสวัสดุ</th>"; 
 		echo "<th>รายการ</th>";
 		echo "<th>รุ่น / ยี่ห้อ</th>";
 		echo "<th>ราคาซื้อ</th>";
 		echo "<th>ประเภท</th>";
-		echo "<th width='10%'>จำนวนรับเข้า</th>";
-		echo "<th width='10%'>วันที่รับเข้า</th>";
+		echo "<th width='10%'>จำนวนทั้งหมด</th>";
+		echo "<th width='10%'>จำนวนจ่าย</th>";
+		echo "<th width='10%'>จำนวนคงเหลือ</th>";
 		echo "</tr>";
+		while(list($id,$name,$brand,$price,$category,$stock,$Pay,$balance  ) = mysqli_fetch_row($result)){ 
 		
-		while(list($take_id,$id_inventory,$take_name,$take_brand,$take_pice,$take_category,$take_acquire,$take_time) = mysqli_fetch_row($result)){ 
+	    $sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
+	    WHERE Category_id='$category'")or die("SQL error2  ".mysqli_error($con));
+        list($category)=mysqli_fetch_row($sql);
 		
-	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
-	WHERE Category_id='$take_category' ")or die("SQL error2  ".mysqli_error($con));
-    list($category)=mysqli_fetch_row($sql);
-		
-		echo "<tr>";
-		echo "<td align='left'>$take_id</td>";
-		echo "<td align='left'>$id_inventory</td>";
-		echo" <td align='left'>$take_name</td>";
-		echo "<td align='left'>$take_brand</td>";
-		echo "<td align='left'>$take_pice</td>";
-		echo "<td align='left'>$take_category</td>";
-		echo "<td align='left' width='6.5%'>$take_acquire</td>";
-		echo "<td align='left'>$take_time</td>";
-   	    echo "</tr>";
+  		echo "<tr align=\"center\">";
+				echo "<strong>";
+				echo "<td>$id</td>";
+				echo "<td>$name</td>";
+				echo "<td>$brand</td>";
+				echo "<td>$price</td>";
+				echo "<td>$category</td>";
+				echo "<td>$stock</td>";
+				echo "<td>$Pay</td>";
+				echo "<td>$balance</td>";
+				echo "</strong>";
+		        echo "</tr>";
 				$num++;
 		}	
 		echo "</table>";
 		echo "<br>";
 		echo "<div class='col-11' align='right'>";
-		echo "<h4 >สรุปรายการรับวัสดุ/อุปกรณ์เข้าทั้งหมด จำนวน : $num รายการ</h4>";	
+		echo "<h4 >สรุปรายการวัสดุคงเหลือหมด จำนวน : $num รายการ</h4>";	
 		echo "</div>";
 		echo "<div class='col-1' align='right'>";
 		echo "</div>";
-	    echo "<div align='center' style='font-size:20px'>";
-	    echo "<input type='submit' name='Submi' value=' PRINT '  align='center'  onClick=\"javascript:this.style.display='none';window.print()\">";
+		echo "<div align='center' style='font-size:20px'>";
+	    echo "<input type='button' name='Submi' value=' พิมพ์รายงาน'  align='center'  onClick=\"javascript:this.style.display='none';window.print()\">";
 		echo "</div>";
+	
 	?>
 	
     <!-- Optional JavaScript -->
@@ -122,3 +124,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+

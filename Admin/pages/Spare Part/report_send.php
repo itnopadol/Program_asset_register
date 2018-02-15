@@ -58,8 +58,7 @@
 		</div>      
 	<div>
     <h3 align="center">รายงานการรับคืนวัสดุ/อุปกรณ์</h2>
-    <h4 align="center"><P>ประจำเดือน<?php $date = date("m-Y"); 
-				echo $date; ?></P></h4>
+    <h4 align="center"><P>ประจำเดือน มกราคม 2561</P></h4>
     </div>
     <?php
 if(empty($_GET['keyword'])){ 

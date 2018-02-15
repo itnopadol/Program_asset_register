@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	session_start();
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
@@ -9,7 +9,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin</title>
+  <title>Asset Register</title>
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -35,15 +35,15 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="bg-white text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="../../images/logo_star_black.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo_star_mini.jpg" alt=""></a>
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../../images/Nopadol LOGO-1--05.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../../images/Nopadol LOGO-1--03.png" alt=""></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="get">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search"  name='keyword'>
+        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method="post">
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -66,15 +66,15 @@
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
             <img src="../../images/face.jpg" alt="">
-            <p class="name">Sittichai Wongfun</p>
+            <p class="name">Administrator</p>
             <p class="designation">Admin Manager</p>
             <span class="online"></span>
           </div>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
-                <img src="../../images/icons/1.png" alt="">
-                <span class="menu-title">Dashboard</span>
+              <a class="nav-link" href="../../index.php">
+                <img src="../../images/icons/house.png" alt="">
+                <span class="menu-title">Home</span>
               </a>
             </li>
             <li class="nav-item">
@@ -108,11 +108,11 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#sample-pages" aria-expanded="false" aria-controls="sample-pages">
+              <a class="nav-link" data-toggle="collapse" href="#Spare" aria-expanded="false" aria-controls="Spare">
                 <img src="../../images/icons/9.png" alt="">
                 <span class="menu-title">Spare Part<i class="fa fa-sort-down"></i></span>
               </a>
-              <div class="collapse" id="sample-pages">
+              <div class="collapse" id="Spare">
                 <ul class="nav flex-column sub-menu">
                 
                   <li class="nav-item">
@@ -183,21 +183,26 @@
                       <span class="menu-title">รายงานคืนวัสดุ</span>
                     </a>
                        </li>
-
                 </ul>
               </div>
             </li>
            
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <img src="../../images/icons/10.png" alt="">
-                <span class="menu-title">Settings</span>
+              <a class="nav-link" href="../Search/Search_asset.php">
+                <img src="../../images/icons/search.png" alt="">
+                <span class="menu-title">Search asset</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../User/Logout.php">
+                <img src="../../images/icons/exit.png" alt="">
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
         </nav>
 
-        <!-- partial -->
+        <!-- partial --> 
         <div class="content-wrapper">
     <link rel="stylesheet" href="css/css/bootstrap.min.css">
 <body class="bodyfont">
@@ -342,7 +347,7 @@ else {
 	</thead>
     <tbody>
     	<tr align='center' >
-			<td><img src="../../img/<?php echo $item['photo']; ?>"  width='80'  height='80'></td>
+			<td><img src="../../images/<?php echo $item['photo']; ?>"  width='80'  height='80'></td>
 			<td><?php echo $item['id'] ?>
             	<input type="hidden" name="articles[]" value="<?php echo $item['id'];?>">
             </td>
@@ -396,7 +401,20 @@ else {
         <?php
 		}
 		?>
-	</div> <!-- /container -->
+	</div>
+        <!-- partial -->
+      </div>
+    </div>
+  
+  <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="float-right">
+                <a href="http://www.nopadol.com" target="_blank">Nopadol Panich</a> &copy; 2018
+            </span>
+          </div>
+        </footer>
+        </div>
 
 
 </script>

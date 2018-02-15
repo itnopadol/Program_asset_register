@@ -12,7 +12,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<title>รายงานการรับคืนวัสดุ</title>
+	<title>รายงานการรับเข้าวัสดุ</title>
     <style>
 @media print {
   @page { margin: 0; }
@@ -57,58 +57,49 @@
             <div class="col-1" align="right"> </div>
 		</div>      
 	<div>
-    <h3 align="center">รายงานการรับคืนวัสดุ/อุปกรณ์</h2>
-    <h4 align="center"><P>ประจำเดือน<?php $date = date("m-Y"); 
-				echo $date; ?></P></h4>
+    <h3 align="center">รายงานการรับเข้าวัสดุ/อุปกรณ์</h2>
+    <h4 align="center"><P>ประจำเดือน มกราคม 2561</P></h4>
     </div>
-    <?php
-if(empty($_GET['keyword'])){ 
+   <?php
+	 if(empty($_GET['keyword'])){ 
 		$keyword="" ;
 	}
 	else{
 		$keyword=$_GET['keyword'];
 	}
-?>
-     <?php
-	$result = mysqli_query($con, "SELECT * FROM send_sp  WHERE  send_id  LIKE '%$keyword%' OR send_bill LIKE '%$keyword%' OR send_nameSp  LIKE '%$keyword%' ") or die ("MySQL =>".mysqli_error($con));
-	$num = 0;
 	
-	$result3 = mysqli_query($con,"SELECT rent_empID,rent_name,rent_department FROM lend_empsp WHERE rent_empID") 
-		or die ("Error =>".mysqli_error($con));
-		list($rent_empID,$rent_name,$rent_department) =  mysqli_fetch_row($result3);
+	$result = mysqli_query($con,"SELECT take_id,id_inventory,take_name,take_brand,take_pice,take_category,take_acquire,take_time FROM  take WHERE take_name LIKE '%$keyword% 'OR  take_name  LIKE '%$keyword%' OR  take_brand LIKE '%$keyword%' OR take_category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY take_id )")or die(mysqli_error($con));
+	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
+	$num = 0;
 	
 	    echo "<table align=\"center\" id=\"customers\" >";
 		echo "<tr>";
-		echo "<th >ลำดับที่</th>";
-	    echo "<th>เลขที่ใบเบิก</th>";
-	    echo "<th>รหัสวัสดุ</th>";
-	    echo "<th>รายการ</th>";
-	   echo "<th>รุ่น / ยี่ห้อ</th>";
-	   echo "<th>จำนวนที่เบิก</th>";
-	   echo "<th>จำนวนที่คืน</th>";
-	   echo "<th>รหัสพนักงาน</th>";
-	   echo "<th>ชื่อผู้คืน</th>";
-       echo "<th>แผนก</th>";
-	   echo "<th>วันที่คืน</th>";
-		echo "</tr>";
+		echo "<th width='7%'>ลำดับ</th>";
+		echo "<th width='7%'>รหัสวัสดุ</th>";
+		echo "<th>รายการ</th>";
+		echo "<th>รุ่น / ยี่ห้อ</th>";
+		echo "<th>ราคาซื้อ</th>";
+		echo "<th>ประเภท</th>";
+		echo "<th width='10%'>จำนวนรับเข้า</th>";
+		echo "<th width='10%'>วันที่รับเข้า</th>";
 		echo "</tr>";
 		
-		while(list($send_id,$send_bill,$send_idSp,$send_nameSp,$send_brand,$send_number,$send_back,$send_name,$send_department,$send_date) = mysqli_fetch_row($result)){ 
+		while(list($take_id,$id_inventory,$take_name,$take_brand,$take_pice,$take_category,$take_acquire,$take_time) = mysqli_fetch_row($result)){ 
 		
- 
-	echo "<tr>";
-	echo "<td align='left'>$send_id</td>";
-	echo "<td align='left'>$send_bill</td>";
-	echo "<td align='left'>$send_idSp</td>";
-	echo" <td align='left'>$send_nameSp</td>";
-	echo" <td align='left'>$send_brand</td>";
-	echo "<td align='left'>$send_number</td>";
-	echo "<td align='left'>$send_back</td>";
-	echo "<td align='left'>$rent_empID</td>";
-	echo "<td align='left'>$rent_name</td>";
-	echo "<td align='left'>$rent_department</td>";
-	echo "<td align='left'>$send_date</td>";
-	echo "</tr>";
+	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
+	WHERE Category_id='$take_category' ")or die("SQL error2  ".mysqli_error($con));
+    list($category)=mysqli_fetch_row($sql);
+		
+		echo "<tr>";
+		echo "<td align='left'>$take_id</td>";
+		echo "<td align='left'>$id_inventory</td>";
+		echo" <td align='left'>$take_name</td>";
+		echo "<td align='left'>$take_brand</td>";
+		echo "<td align='left'>$take_pice</td>";
+		echo "<td align='left'>$take_category</td>";
+		echo "<td align='left' width='6.5%'>$take_acquire</td>";
+		echo "<td align='left'>$take_time</td>";
+   	    echo "</tr>";
 				$num++;
 		}	
 		echo "</table>";
@@ -121,8 +112,6 @@ if(empty($_GET['keyword'])){
 	    echo "<div align='center' style='font-size:20px'>";
 	    echo "<input type='submit' name='Submi' value=' PRINT '  align='center'  onClick=\"javascript:this.style.display='none';window.print()\">";
 		echo "</div>";
-		
-			mysqli_free_result($result3);
 	?>
 	
     <!-- Optional JavaScript -->
