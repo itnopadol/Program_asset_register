@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group d-flex align-items-center justify-content-between">
                   <div class="form-check"><label><input type="checkbox" class="form-check-input">Remember me</label></div>
-                  <a href="#" class="forgot-pass">Forgot password</a>
+                  <!--<a href="#" class="forgot-pass">Forgot password</a>-->
                 </div>
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary btn-block enter-btn">LOG IN</button>
@@ -42,11 +42,16 @@
                 <a href="#" class="google-login btn btn-create-account btn-block">Create An Account</a>-->
               </form>
             </div>
-				<div class="container-fluid clearfix" align="center">
-            	<span>
-					<a href="http://www.nopadol.com" target="_blank">Nopadol Panich</a> &copy; 2018
-            	</span>
-          </div>
+            
+		<footer align="center">
+    	<a href="https://www.facebook.com/NopadolPanich/" target=_blank>
+        <img src="../../images/fb.png" style="width:40px;height:40px;" ></a>
+        <a href="http://www.nopadol.com" target=_blank>
+        <img src="../../images/nopadol-logo.png" style="width:40px;height:40px;"></a>
+        <a href="sale@nopadol.com" target=_blank>
+        <img src="../../images/email-icon.png" style="width:40px;height:40px;"></a>
+    	<div id="footer_top" class="fontcolor" align="center" style="padding:10px;"><p>©2014 Nopadol Panich Co., Ltd. All Rights Reserved</p></div>
+		</footer>
           </div>
         </div>
       </div>
