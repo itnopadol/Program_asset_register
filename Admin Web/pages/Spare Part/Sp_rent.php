@@ -9,7 +9,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin</title>
+  <title>Asset Register</title>
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -284,6 +284,7 @@ if (isset($_SESSION['cart']) and $ItemCount > 0){
             <td><div class="form-group">
             <label for="exampleInputempID">รหัสพนักงาน</label>
             <input type="text" class="form-control" id="rent_empID" placeholder="ใส่รหัสพนักงาน" style="width:300px;" name="rent_empID">
+            <?php //include("../../api.php") ?>
             </div></td>
         	
            <td><div class="form-group">

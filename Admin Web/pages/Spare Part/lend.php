@@ -234,11 +234,11 @@
 	  $result2= mysqli_query($con,"SELECT lend_spare.*,lend_empsp.rent_name FROM lend_spare Left JOIN lend_empsp ON lend_spare.rent_empID=lend_empsp.rent_empID  WHERE lend_empsp.rent_name	LIKE '%$keyword%' OR lend_spare.Order_lend LIKE '%$keyword%' OR lend_spare.detail  LIKE '%$keyword%' OR lend_spare.category_lend LIKE '%$keyword%' GROUP BY lend_spare.No ORDER BY lend_spare.No ASC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
 	  
 	if($row==0){ 
-		echo"<p><h3>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p></h3><hr>";
+		/*echo"<p><h3>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p></h3><hr>";*/
 	}
 	else{
-		echo"<p align='center'>ชื่อรายการวัสดุ - อุปกรณ์มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $row รายการ </p>";
+		/*echo"<p align='center'>ชื่อรายการวัสดุ - อุปกรณ์มีตรงกับคำค้น \"<b>$keyword</b>\"
+มีทั้งหมด $row รายการ </p>";*/
 
 	$num=1;
 	echo "<table border='0' align='center' width='90%' >";
@@ -260,12 +260,11 @@
 	echo "</tr>";
 	echo "</thead>";
 	
-	 while(list($No,$id_spare,$name,$detail,$category_lend,$amount,$Order_lend,$lend_data,$rent_empID,$rent_name) = mysqli_fetch_row($result)){ 
+	 while(list($No,$id_spare,$name,$detail,$category_lend,$amount,$Order_lend,$rent_date,$rent_empID,$rent_name) = mysqli_fetch_row($result)){ 
 	
-	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
+	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare
     WHERE Category_id='$category_lend' ")or die("SQL error2  ".mysqli_error($con));
     list($category_lend)=mysqli_fetch_row($sql);
-	
 	
 	echo "<tr>";
 	echo "<td align='left'>$No</td>";
@@ -275,7 +274,7 @@
 	echo "<td align='left'>$detail</td>";
 	echo "<td align='left'>$category_lend</td>";
 	echo "<td align='center'>$amount</td>";
-	echo "<td align='left'>$lend_data</td>";
+	echo "<td align='left'>$rent_date</td>";
 	echo "<td align='center'>$rent_empID</td>";
 	echo "<td align='center'>$rent_name</td>";
 	echo "</tr>";

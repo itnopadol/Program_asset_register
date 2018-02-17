@@ -14,7 +14,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin</title>
+  <title>Asset Register</title>
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -39,8 +39,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="bg-white text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="../../images/logo_star_black.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo_star_mini.jpg" alt=""></a>
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../../images/Nopadol LOGO-1--05.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../../images/Nopadol LOGO-1--03.png" alt=""></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
@@ -77,8 +77,8 @@
           <ul class="nav">
             <li class="nav-item">
               <a class="nav-link" href="index.html">
-                <img src="../../images/icons/1.png" alt="">
-                <span class="menu-title">Dashboard</span>
+                <img src="../../images/icons/house.png" alt="">
+                <span class="menu-title">Home</span>
               </a>
             </li>
             <li class="nav-item">
@@ -87,8 +87,8 @@
                 <span class="menu-title">Add Asset</span>
               </a>
             </li>
-             <li class="nav-item">
-              <a class="nav-link" href="../Status/list_status.php" title="จัดการสินทรัพย์">
+             <li class="nav-item active">
+              <a class="nav-link" href="list_status.php" title="จัดการสินทรัพย์">
                 <img src="../../images/icons/list.png" alt="">
                 <span class="menu-title">Management Asset</span>
               </a>
@@ -112,54 +112,94 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#sample-pages" aria-expanded="false" aria-controls="sample-pages">
+              <a class="nav-link" data-toggle="collapse" href="#Spare" aria-expanded="false" aria-controls="Spare">
                 <img src="../../images/icons/9.png" alt="">
                 <span class="menu-title">Spare Part<i class="fa fa-sort-down"></i></span>
               </a>
-              <div class="collapse" id="sample-pages">
+              <div class="collapse" id="Spare">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="list_spare.php">
-                      จัดการวัสดุ-อุปกรณ์
-                    </a>
-                  </li>
+                
                   <li class="nav-item">
-                    <a class="nav-link" href="index_sp.php">
-                      จัดทำรายการเบิก
-                    </a>
+                    <a class="nav-link" href="../Spare Part/list_spare.php"  title="จัดการวัสดุ-อุปกรณ์">
+                     <img src="../../images/icons/slice30-20.png" alt="">
+                     <span class="menu-title">จัดการวัสดุ-อุปกรณ์</span>
+                     </a>
                   </li>
+                  
                   <li class="nav-item">
-                    <a class="nav-link" href="take.php">
-                      รายการรับเข้า
+                    <a class="nav-link" href="../Spare Part/index_sp.php">
+                     <img src="../../images/icons/cart_full.png" alt="">
+                      <span class="menu-title">จัดทำรายการเบิก</span>
                     </a>
                   </li>
+                  
                   <li class="nav-item">
-                    <a class="nav-link" href="lend.php">
-                      รายการเบิก
+                    <a class="nav-link" href="../Spare Part/take.php">
+                    <img src="../../images/icons/download_5-24.png" alt="">
+                    <span class="menu-title"> รายการรับเข้า</span>
                     </a>
                   </li>
+                  
                   <li class="nav-item">
-                    <a class="nav-link" href="render.php">
-                      รับคืนวัสดุ-อุปกรณ์
+                    <a class="nav-link" href="../Spare Part/lend.php">
+                    <img src="../../images/icons/credit-card.png" alt="">
+                       <span class="menu-title">รายการเบิก</span>
                     </a>
                   </li>
+                  
                   <li class="nav-item">
-                    <a class="nav-link" href="send.php">
-                      ประวัติรับคืนวัสดุ-อุปกรณ์ 
+                    <a class="nav-link" href="../Spare Part/render.php">
+                    <img src="../../images/icons/back-arrow.png" alt="">
+                      <span class="menu-title">รับคืนวัสดุ-อุปกรณ์</span>
                     </a>
                   </li>
-                   <li class="nav-item">
-                    <a class="nav-link" href="send.php">
-                      รายงาน
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="../Spare Part/send.php">
+                    <img src="../../images/icons/clipboard (1).png" alt="">
+                      <span class="menu-title">ประวัติรับคืนวัสดุ </span>
                     </a>
                   </li>
+                  
+                  
+                    <li class="nav-item">
+                    <a class="nav-link" href="../Spare Part/report_spart1.php">
+                    <img src="../../images/icons/analytics.png" alt="">
+                      <span class="menu-title">รายงานยอดคงเหลือ</span>
+                    </a>
+                       </li>
+                     
+                     <li class="nav-item">
+                    <a class="nav-link" href="../Spare Part/report_take1.php">
+                    <img src="../../images/icons/analytics.png" alt="">
+                      <span class="menu-title">รายงานรับเข้าวัสดุ</span>
+                    </a>
+                       </li>
+                       <li class="nav-item">
+                    <a class="nav-link" href="../Spare Part/report_lend1.php">
+                    <img src="../../images/icons/analytics.png" alt="">
+                      <span class="menu-title">รายงานการเบิก</span>
+                    </a>
+                       </li>
+                        <li class="nav-item">
+                    <a class="nav-link" href="../Spare Part/report_send1.php">
+                    <img src="../../images/icons/analytics.png" alt="">
+                      <span class="menu-title">รายงานคืนวัสดุ</span>
+                    </a>
+                       </li>
                 </ul>
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <img src="../../images/icons/10.png" alt="">
-                <span class="menu-title">Settings</span>
+              <a class="nav-link" href="../Search/Search_asset.php">
+                <img src="../../images/icons/search.png" alt="">
+                <span class="menu-title">Search asset</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../User/Logout.php">
+                <img src="../../images/icons/exit.png" alt="">
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
@@ -281,7 +321,7 @@ input[type=submit]:hover {
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="float-right">
-                <a href="#">Star Admin</a> &copy; 2017
+                <a href="http://www.nopadol.com" target="_blank">Nopadol Panich</a> &copy; 2018
             </span>
           </div>
         </footer>

@@ -5,17 +5,19 @@
 	//print_r($_POST);
 	?>
     <?php
-$Sql = "INSERT INTO lend_empsp (No, rent_empID, rent_name, rent_phone,rent_department)
+	$Sql = "INSERT INTO lend_empsp (No, rent_empID, rent_name, rent_phone,rent_department,rent_date)
 			VALUES 
 			(''
 			,'$_POST[rent_empID]'
 			,'$_POST[rent_name]'
 			,'$_POST[rent_phone]'
 			,'$_POST[rent_department]'
+			,'$_POST[lend_data]'
 			)"; //เพิ่มในฐานข้อมูลพนักงานที่มายืมวัสดุ-อุปกรณ์
 	$result = mysqli_query($con,$Sql) or die("Error =" .mysqli_error($con));;
 	$rent_empID = $_POST['rent_empID'];
 	$Order_lend = mysqli_insert_id($con);
+	$Order_data = $_POST['lend_data'];
 	for ($i = 0; $i < count($_POST['articles']); $i++){
 		//foreach($_POST['articles'] as $row=>$art){
 			//$row = mysqli_fetch_row($conn);
@@ -33,12 +35,13 @@ $Sql = "INSERT INTO lend_empsp (No, rent_empID, rent_name, rent_phone,rent_depar
 		
 		$result2 = mysqli_query($con, $update_spare) or die ("Error in query: $update_spare " . mysqli_error($con));
 			
-		$sql = "INSERT INTO lend_spare (id_spare ,name ,detail ,category_lend,amount ,Order_lend ,rent_empID)  VALUES ('$articles' , 
+		$sql = "INSERT INTO lend_spare (id_spare ,name ,detail ,category_lend,amount ,Order_lend ,lend_data ,rent_empID)  VALUES ('$articles' , 
 				'$articles2' ,
 				'$articles3' ,
 				'$articles4' ,
 				'$articles5' ,
 				'$Order_lend',
+				'$Order_data',
 				'$rent_empID'
 				) ";
 				$Order_id = $rent_empID;
