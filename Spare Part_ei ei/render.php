@@ -1,4 +1,5 @@
-<?php
+﻿<?php
+	session_start();
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
@@ -36,15 +37,15 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="bg-white text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="../../images/logo_star_black.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo_star_mini.jpg" alt=""></a>
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../../images/Nopadol LOGO-1--05.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../../images/Nopadol LOGO-1--03.png" alt=""></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="get">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search"  name='keyword'>
+        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method="post">
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -67,15 +68,15 @@
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
             <img src="../../images/face.jpg" alt="">
-            <p class="name">Sittichai Wongfun</p>
+            <p class="name">Administrator</p>
             <p class="designation">Admin Manager</p>
             <span class="online"></span>
           </div>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
-                <img src="../../images/icons/1.png" alt="">
-                <span class="menu-title">Dashboard</span>
+              <a class="nav-link" href="../../index.php">
+                <img src="../../images/icons/house.png" alt="">
+                <span class="menu-title">Home</span>
               </a>
             </li>
             <li class="nav-item">
@@ -190,121 +191,112 @@
             </li>
            
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <img src="../../images/icons/10.png" alt="">
-                <span class="menu-title">Settings</span>
+              <a class="nav-link" href="../Search/Search_asset.php">
+                <img src="../../images/icons/search.png" alt="">
+                <span class="menu-title">Search asset</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../User/Logout.php">
+                <img src="../../images/icons/exit.png" alt="">
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
         </nav>
 
         <!-- partial -->
-                <div class="content-wrapper">
-        <?php
+        <div class="content-wrapper">
+       <?php
 	
-	if(empty($_GET['keyword'])){ 
-		$keyword="";
+	if(empty($_GET['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
+		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
 	}
 	else{
-		$keyword=$_GET['keyword'];
+		$keyword=$_GET['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 	
-	$result = mysqli_query($con, "SELECT * FROM send_sp  WHERE  send_id  LIKE '%$keyword%' OR send_bill LIKE '%$keyword%' OR send_nameSp  LIKE '%$keyword%' ") or die ("MySQL =>".mysqli_error($con));
+	$result=mysqli_query($con,"SELECT No FROM lend_empsp WHERE rent_name LIKE '%$keyword%' OR rent_empID LIKE '%$keyword%' OR rent_department") or die("SQL Error1=>".mysqli_error($con));
 	
-	$row=mysqli_num_rows($result);
+	$row=mysqli_num_rows($result); 
 	$rowspage=15;
 	$page=ceil($row/$rowspage);
-
-    if(empty($_GET['page_id'])){
-		$page_id=1;
+	
+	 if(empty($_GET['page_id'])){
+		$page_id=1; 
 	}
 	else{
 			$page_id=$_GET['page_id'];
 	}
 	
 	 $start_rows=($page_id*$rowspage)-$rowspage; 
+	 
+	  $result2= mysqli_query($con,"SELECT*FROM lend_empsp WHERE rent_name   LIKE '%$keyword%' OR rent_empID LIKE '%$keyword%' OR rent_department  ORDER BY No DESC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
 
-	$result2 = mysqli_query($con,"SELECT * FROM send_sp  WHERE  send_id  LIKE '%$keyword%' OR send_bill LIKE '%$keyword%' OR send_nameSp ORDER BY send_id   ASC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
+	$num=1;//กำหนดตัวแปรเพื่อนับแถว
 	
-	$result3 = mysqli_query($con,"SELECT rent_empID,rent_name,rent_department FROM lend_empsp WHERE rent_empID") 
-		or die ("Error =>".mysqli_error($con));
-		list($rent_empID,$rent_name,$rent_department) =  mysqli_fetch_row($result3);
-	
-	 if($row==0){ 
-		echo"<p><h3>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p></h3><hr>";
-	}
-	else{
-		echo"<p align='center'>จำนวนวัสดุปุกรณ์ที่มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $row รายการ </p>";
-
-	$num=1;
 	echo "<table border='0' align='center' width='90%' >";
 	echo "<tr>";
 	echo "<td>";
-	echo "<table border='0' align='center' class='table table-sm' >";
+	echo "<table border='0' align='center' class='table table-striped' >";
 	echo "<thead>";
 	echo "<tr>";
-	echo "<th >ลำดับที่</th>";
 	echo "<th>เลขที่ใบเบิก</th>";
-	echo "<th>รหัสวัสดุ</th>";
-    echo "<th>รายการ</th>";
-	echo "<th>รุ่น / ยี่ห้อ</th>";
-    echo "<th>จำนวนที่เบิก</th>";
-	echo "<th>จำนวนที่คืน</th>";
+	echo "<th>วันที่เบิก</th>";
 	echo "<th>รหัสพนักงาน</th>";
-	echo "<th>ชื่อผู้คืน</th>";
-    echo "<th>แผนก</th>";
-	echo "<th>วันที่คืน</th>";
+	echo "<th>ชื่อผู้เบิก</th>";
+	echo "<th>แผนก</th>";
+	echo "<th>เบอร์โทร</th>";
+	echo "<th>เลืกรายการรับคืน</th>";
 	echo "</tr>";
 	echo "</thead>";
-	
-	
-	while(list($send_id,$send_bill,$send_idSp,$send_nameSp,$send_brand,$send_number,$send_back,$send_name,$send_department,$send_date) = mysqli_fetch_row($result2)){ 
 
+	while(list($No,$rent_empID,$rent_name,$rent_phone,$rent_date,$lend_status,$rent_department) = mysqli_fetch_row($result2)){ 
+	
 	
 	echo "<tr>";
-	echo "<td align='left'>$send_id</td>";
-	echo "<td align='left'>$send_bill</td>";
-	echo "<td align='left'>$send_idSp</td>";
-	echo" <td align='left'>$send_nameSp</td>";
-	echo" <td align='left'>$send_brand</td>";
-	echo "<td align='left'>$send_number</td>";
-	echo "<td align='left'>$send_back</td>";
+	echo "<td align='left' width='10%'>$No</td>";
+	echo "<td align='left'>$rent_date</td>";
 	echo "<td align='left'>$rent_empID</td>";
 	echo "<td align='left'>$rent_name</td>";
 	echo "<td align='left'>$rent_department</td>";
-	echo "<td align='left'>$send_date</td>";;
-	echo "</tr>";
-	$num++;//เพิ่มค่าตัวแปรนับแถว
+	echo "<td align='left'>$rent_phone</td>";
+	echo "<td align='left'><a href='render_list.php?id=$No'><button type='button' class='btn btn-success'><img src='../../images/Select.png'  width='27'  height='27'>เลือก</button></a></TD></tr>";
+	
+    $num++;
 	}
 	echo"</table>";
-	echo"<hr>";
-	//วนลูปแสดงลิงค์หมายเลขหน้า ตามจำนวนหน้า
+	echo "</td>";
+	echo "</tr>";
+	echo"</table>";
+    echo"<hr>";
+
 	echo"หน้า $page_id : จาก $page ";
 
 	$go=$page_id+1;
 	$back=$page_id-1;
- 	if($page_id>1){//ถ้า$page มากกว่า 1 ให้แสดงหน้าก่อนหน้า
-		echo "<span><a href='send.php?page_id=$back&keyword=$keyword'>ก่อนหน้า...</a></span>";
+	
+ 	if($page_id>1){
+		echo "<span><a href='render.php?page_id=$back&keyword=$keyword'>ก่อนหน้า...</a></span>";
 		}
 		 for($id=1;$id<=$page;$id++){
 
- 	 if($id==$page_id){  //ถ้าเป็นหน้าปัจจุบัน ให้แสดงเลขหน้าเป็นตัวหนาสีแดงและไม่มีลิ้งค์
+ 	 if($id==$page_id){  
      echo"<span style='font-weight:bold;color:red;'>[ $id ]</span>";
   }
-  else{//ถ้าไม่ใช่หน้าปัจจุบันให้แสดงลิ้งค์ปกติ
-  echo"<span style='color:back;'><a href='send.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
+  else{
+  echo"<span style='color:back;'><a href='render.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
       }
 }
 
-		if($page!=$page_id){//ถ้า$page ไม่เท่ากับ $page_id ให้แสดงหน้าถัดไป
-			    echo "<span><a href='send.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";
+		if($page!=$page_id){
+			    echo "<span><a href='render.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";
 			  }
-}
+
 	
-	mysqli_free_result($result);//คืนหน่วยความจำให้กับระบบ
- 	mysqli_free_result($result2);//คืนหน่วยความจำให้กับระบบ
-	mysqli_close($con); //ปิดฐานข้อมูล
+	mysqli_free_result($result);
+ 	mysqli_free_result($result2);
+	mysqli_close($con); 
 
 ?>
         </div>
@@ -316,7 +308,7 @@
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="float-right">
-                <a href="#">Star Admin</a> &copy; 2017
+                <a href="http://www.nopadol.com" target="_blank">Nopadol Panich</a> &copy; 2018
             </span>
           </div>
         </footer>

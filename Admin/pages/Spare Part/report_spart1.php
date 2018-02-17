@@ -5,7 +5,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<?php
+	if(empty($_GET['keyword'])){ 
+		$keyword="" ;
+	}
+	else{
+		$keyword=$_GET['keyword'];
+	}
 
+?>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -47,7 +55,10 @@
           <input class="form-control mr-sm-2 search" type="text" placeholder="Search"  name='keyword'>
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
-          <li class="nav-item">
+        <li class="nav-item">
+         <button class="btn btn-default" type="submit" id="sizezi2"  method="post" action="report_listSparet.php"><a href="report_listSparet.php?keyword=<?php echo $keyword; ?>" target="_blank"><img src='../../images/doc.png'  width='30'  height='30' >พิมพ์</a></button>
+        </li>
+        <li class="nav-item">
             <a class="nav-link profile-pic" href="#"><img class="rounded-circle" src="../../images/face.jpg" alt=""></a>
           </li>
           <li class="nav-item">
@@ -200,181 +211,136 @@
 
         <!-- partial -->
         <div class="content-wrapper">
-    <link rel="stylesheet" href="css/css/bootstrap.min.css">
-<body class="bodyfont">
-<div class="container">
+  
+<style>
+.table3_4 table {
+	width:100%;
+	margin:15px 0
+}
+.table3_4 th {
+	background-color:#3296D7;
+	color:#FFFFFF
+}
+.table3_4,.table3_4 th,.table3_4 td
+{
+	
+	font-family:"TH Sarabun New", "Tw Cen MT";
+    font-size:20px;
+	text-align:center;
+	padding:4px;
+	border:1px solid #2073c9;
+	border-collapse:collapse
+}
+.table3_4 tr:nth-child(odd){
+	background-color:#ffffff;
+}
+.table3_4 tr:nth-child(even){
+	background-color:#ffffff;
+}
+</style>
 
-	<!-- Static navbar -->
-    	<div id="sizezi2" style="padding-top:20px; width:98%; padding-left:2%" > 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand"  id="sizezi">รายการวัสดุ / อุปกรณ์ทั้งหมด</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
-  				</button>
+        
+<?php
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              
-       <button class="btn btn-outline-success my-2 my-sm-0" ><a href="add_spare.php"><img src='../../../img/678092-sign-add-128.png'  width='30'  height='30'>เพิ่มรายการ</a></button>&nbsp;&nbsp;&nbsp;
-                </form>
-                
-			</div>
-		</nav>
-	<?php
-	if(empty($_GET['keyword'])){ 
-		$keyword="";
+	$result1 = mysqli_query($con,"SELECT id,name,brand,price,category,stock,Pay,balance,acquire FROM spare_part WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%'OR brand LIKE '%$keyword%'OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY id DESC LIMIT 1)")or die(mysqli_error($con));
+	
+	$row=mysqli_num_rows($result1); 
+	$rowspage=10;
+	$page=ceil($row/$rowspage); 
+
+    if(empty($_GET['page_id'])){
+		$page_id=1;
 	}
 	else{
-		$keyword=$_GET['keyword'];
-	}
-	$result1 = mysqli_query($con,"SELECT id FROM spare_part WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%'OR brand LIKE '%$keyword%'OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY id DESC LIMIT 1)")or die(mysqli_error($con));
-	
-	$row=mysqli_num_rows($result1); //จำนวนแถวที่คิวรี่ออกมาได้
-	$rowspage=10;//กำหนดจำนวนแถวที่จะแสดงในแต่ละหน้า
-	$page=ceil($row/$rowspage); //จำนวนหน้าทั้งหมด = ปัดเศษขึ้น (จำนวนแถวทั้งหมด /จำนวนแถวใน 1 หน้า)
-
-    if(empty($_GET['page_id'])){//ตรวจสอบว่าตัวแปร $_GET['page_id'] ว่างหรือไม่
-		$page_id=1; //กำหนดให้แสดงหน้า 1
-	}
-	else{
-			$page_id=$_GET['page_id'];//รับค่าหมายเลขหน้ามาจากลิ้งค์ด้วยวิธี GET /
+			$page_id=$_GET['page_id'];
 	}
 	
-	 $start_rows=($page_id*$rowspage)-$rowspage; //แถวแรกที่จะแสดงในแต่ละหน้า(หมายเลขหน้า * จำนวนแถวใน 1 หน้า) จำนวนแถวใน 1 หน้า
+	 $start_rows=($page_id*$rowspage)-$rowspage; 
 	
-	
-	$result2 = mysqli_query($con,"SELECT * FROM spare_part WHERE  id LIKE '%$keyword%' OR category LIKE '%$keyword%'OR brand  LIKE '%$keyword%' OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%' LIMIT 1) ORDER BY id DESC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
+	$result2 = mysqli_query($con,"SELECT id,name,brand,price,category,stock,Pay,balance,acquire FROM spare_part WHERE  id LIKE '%$keyword%' OR category LIKE '%$keyword%'OR brand  LIKE '%$keyword%' OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%' LIMIT 1) ORDER BY id DESC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
 	
 	$result3 = mysqli_query($con,"SELECT * FROM category_spare")
 	or die("SQL Error2".mysqli_error($con));
-	$num=1;//กำหนดตัวแปรเพื่อนับแถว
-
-?>
-
-	<table border='0' align='center' width='96%' >
-	<tr><td>
-	<table border='0' align='center' class='table'  >
-	<thead>
-    <tr>
-	<th>รหัสวัสดุ</th>
-	<th>รูปภาพ</th>
-	<th>รายการ</th>
-	<th>รุ่น / ยี่ห้อ</th>
-	<th>ราคาซื้อ</th>
-	<th>ประเภท</th>
-	<th>จำนวนสินค้าทั้งหมด</th>
-    <th>จำนวนจ่าย</th>
-	<th>คงเหลือ</th>
-	<th>จำนวนรับล่าสุด</th>
-	<th>เพิ่มจำนวน</th>
-	<th>แก้ไข</th>
-	<th>ลบ</th>
-	</tr>
-	</thead>
 	
-	<?php
-	while(list($id,$photo,$name,$brand,$price,$category,$stock,$acquire,$Pay,$balance,$time) = mysqli_fetch_row($result2)){ 
+	 if($row==0){ 
+		echo"<p>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p><hr>";
+	}
+	else{
+		echo"<h6><p align='center'>จำนวนวัสดุ / อุปกรณ์ที่มีตรงกับคำค้น \"<b>$keyword</b>\"
+มีทั้งหมด $row รายการ </p></h6>";
+	$num=1;//กำหนดตัวแปรเพื่อนับแถว
+    echo "<table class=table3_4 align='center'>";
+    echo "<tr>";
+	echo "<th>รหัสวัสดุ</th>";
+	echo "<th>รายการ</th>";
+	echo "<th>รุ่น / ยี่ห้อ</th>";
+	echo "<th>ราคาซื้อ</th>";
+	echo "<th>ประเภท</th>";
+	echo "<th>จำนวนสินค้าทั้งหมด</th>";
+    echo "<th>จำนวนจ่าย</th>";
+	echo "<th>คงเหลือ</th>";
+	echo "<th>จำนวนรับล่าสุด</th>";
+    echo "</tr>";
+
+while(list($id,$name,$brand,$price,$category,$stock,$Pay,$balance,$acquire) = mysqli_fetch_row($result2)){ 
 	
 	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
 	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
     list($category)=mysqli_fetch_row($sql);
 
 	echo "<tr>";
-	echo "<td align='center' style='padding-top:3%' >$id</td>";
-	echo"<td align='center'><img src='../../images/$photo'  width='60'  height='60' ></td>";
-	echo "<td align='center'  style='padding-top:3%' >$name</td>";
-	echo "<td align='center'  style='padding-top:3%' >$brand</td>";
-	echo "<td align='center'  style='padding-top:3%' >$price</td>";
-	echo "<td align='center'  style='padding-top:3%' >$category</td>";
-	echo "<td align='center'  style='padding-top:3%' >$stock</td>";
-	echo "<td align='center'  style='padding-top:3%' >$Pay</td>";
-	echo "<td align='center'  style='padding-top:3%' >$balance</td>";
-	echo "<td align='center'  style='padding-top:3%' >$acquire</td>";
-	
-	echo"<td align='center'  style='padding-top:2%;cursor:pointer;'><img src='../../images/11.png'  width='35'  height='35' onClick=\"Omd('$id', '$name', '$brand', '$price', '$category', '$stock', '$Pay', '$balance', '$acquire')\"></TD>";
-	
-	echo "<td align='center'  style='padding-top:2%' ><a href='edit_spare.php?id=$id'><img src='../../images/if_pencil_10550.png'  width='35'  height='35'></TD>";
-	
-	echo "<td align='center'  style='padding-top:2%' ><a href='delete_spare.php?id=$id' onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการลบข้อมูล\")'><img src='../../images/cancel.png'  width='35'  height='35'></TD>";
+	echo "<td>$id</td>";
+	echo "<td>$name</td>";
+	echo "<td>$brand</td>";
+	echo "<td>$price</td>";
+	echo "<td>$category</td>";
+	echo "<td>$stock</td>";
+	echo "<td>$Pay</td>";
+	echo "<td>$balance</td>";
+	echo "<td>$acquire</td>";
 	echo "</tr>"; 
-	$num++;//เพิ่มค่าตัวแปรนับแถว
+	$num++;
 	
 	}
 	echo"</table>";
-	echo"</form>";
+	echo"<hr>";
 	
 //วนลูปแสดงลิงค์หมายเลขหน้า ตามจำนวนหน้า
 	echo"หน้า $page_id : จาก $page ";
 
-
 	$go=$page_id+1;
 	$back=$page_id-1;
  	if($page_id>1){//ถ้า$page มากกว่า 1 ให้แสดงหน้าก่อนหน้า
-		echo "<span><a href='list_spare.php?page_id=$back&keyword=$keyword'>ก่อนหน้า...</a></span>";
+		echo "<span><a href='report_spart1.php?page_id=$back&keyword=$keyword'>ก่อนหน้า...</a></span>";
 		}
 		 for($id=1;$id<=$page;$id++){
 
  	 if($id==$page_id){  //ถ้าเป็นหน้าปัจจุบัน ให้แสดงเลขหน้าเป็นตัวหนาสีแดงและไม่มีลิ้งค์
-     echo"<span style='font-weight:bold;color:red;'>[ $id ]</span>";
+     echo"<span style='font-weight:bold;color:red;'>[$id]</span>";
   }
   else{//ถ้าไม่ใช่หน้าปัจจุบันให้แสดงลิ้งค์ปกติ
-  echo"<span style='color:back;'><a href='list_spare.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
+  echo"<span style='color:back;'><a href='report_spart1.php?page_id=$id&keyword=$keyword'>[$id]</a></span> ";
       }
 }
 
 		if($page!=$page_id){//ถ้า$page ไม่เท่ากับ $page_id ให้แสดงหน้าถัดไป
-			    echo "<span><a href='list_spare.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";
+			    echo "<span><a href='report_spart1.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";
 			  }
+	}
 	
-?>
-</div>
-<div class="modal" tabindex="-1" role="dialog" id="id">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-          <div class="form-group">          
-             <form action="update_numspare.php" method="post" enctype="multipart/form-data">
-           
-           <P>รหัสวัสดุ : <input type="text" class="form-control" name="item_id" id="item_id" readonly ></P>
-            <P>รายการ : <input type="text" class="form-control" name="name" id="name" readonly ></P>
+	mysqli_free_result($result1);//คืนหน่วยความจำให้กับระบบ
+ 	mysqli_free_result($result2);//คืนหน่วยความจำให้กับระบบ
+	mysqli_free_result($result3);//คืนหน่วยความจำให้กับระบบ
+	mysqli_close($con); //ปิดฐานข้อมูล
 
-            <label for="recipient-name" class="control-label">
-            
-            <label for="recipient-name" class="control-label">รุ่น/ยี่ห้อ :
-            <input type="text" class="form-control" name="brand" id="brand" readonly></label>
-            
-            <label for="recipient-name" class="control-label">ประเภท :
-            <input type="select" class="form-control" name="category" id="category" readonly>
-           </label>
-       
-            <label for="recipient-name" class="control-label">ราคา :
-            <input type="text" class="form-control" id="price" name="price" readonly ></label>
-            <label for="recipient-name" class="control-label">จำนวนที่มีอยู่ :
-            <input type="text" class="form-control" id="stock" name="stock" readonly ></label><p><hr>
-            
-             <label for="recipient-name" class="control-label">วันที่เพิ่มจำนวน :</label>
-            <input type="date" class="form-control" name="time" readonly  value="<?php echo date("Y-m-d") ?>" > </label>
-           
-            <input type="hidden" name="pay" id="Pay">
-                       
-            <label for="recipient-name" class="control-label">จำนวนที่รับเข้า :</label>
-            <input type="text" class="form-control" name="acquire"></label>
-           
-          </div>
-      </div>
-      <div class="modal-footer">
-      <input type="submit" value="เพิ่มจำนวน" class="btn btn-success"  >
-      <button type="reset" class="btn btn-danger" data-dismiss="modal" >ยกเลิก</button>  
-        </form>
+
+?>
+        </div>
+        <!-- partial -->
       </div>
     </div>
-  </div>
-</div>
-
-    
-        </div>
-        <!-- partial -->   
-      </div>
-    <!-- partial:../../partials/_footer.html -->
+  
+  <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="float-right">
@@ -383,32 +349,23 @@
           </div>
         </footer>
         </div>
-  </div>
-	<script type="text/javascript">
-	function Omd(id, name, brand, price, category, stock, balance, acquire,time,Pay){
-		 $("#id").modal('show');
-		 
-		  document.getElementById("item_id").value = id;
-		  document.getElementById("name").value = name;
-		  document.getElementById("brand").value = brand;
-		  document.getElementById("category").value = category;
-		  document.getElementById("price").value = price;
-		  document.getElementById("stock").value = stock; 
-		  document.getElementById("time").value = time;
-		  document.getElementById("Pay").value = Pay;
-	}
+<script>
+	function openModal(Asset_id, Asset_code ,Rent_time){
+		$('#id01').modal('show');
+		document.getElementById('id_asset').value = Asset_id;
+		document.getElementById('Rent_assets').value = Asset_code;
+		document.getElementById('Rent_time').value = Rent_time;
+		//document.getElementsByName('Rent_assets')[0].value = asset_code;
+}
 </script>
-        
-      </div>
-    </div>
-  </div>
-</div>
-  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="../../node_modules/popper.js/dist/umd/popper.min.js"></script>
-  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="../../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
-  <script src="../../js/off-canvas.js"></script>
-  <script src="../../js/hoverable-collapse.js"></script>
-  <script src="../../js/misc.js"></script>
+	<script src="../../js/jquery.min.js"></script>
+    <script src="../../JS/bootstrap.min.js"></script>   
+	<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="../../node_modules/popper.js/dist/umd/popper.min.js"></script>
+	<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+	<script src="../../js/off-canvas.js"></script>
+	<script src="../../js/hoverable-collapse.js"></script>
+	<script src="../../js/misc.js"></script>
 </body>
 </html>

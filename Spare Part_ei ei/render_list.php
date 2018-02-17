@@ -1,19 +1,11 @@
-<?php
+﻿<?php
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php
-	if(empty($_GET['keyword'])){ 
-		$keyword="" ;
-	}
-	else{
-		$keyword=$_GET['keyword'];
-	}
 
-?>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -44,21 +36,18 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="bg-white text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="../../images/logo_star_black.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo_star_mini.jpg" alt=""></a>
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../../images/Nopadol LOGO-1--05.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../../images/Nopadol LOGO-1--03.png" alt=""></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="get">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search"  name='keyword'>
+        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method="post">
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
-        <li class="nav-item">
-         <button class="btn btn-default" type="submit" id="sizezi2"  method="post" action="report_listSparet.php"><a href="report_listSparet.php?keyword=<?php echo $keyword; ?>" target="_blank"><img src='../../images/doc.png'  width='30'  height='30' >พิมพ์</a></button>
-        </li>
-        <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link profile-pic" href="#"><img class="rounded-circle" src="../../images/face.jpg" alt=""></a>
           </li>
           <li class="nav-item">
@@ -78,15 +67,15 @@
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
             <img src="../../images/face.jpg" alt="">
-            <p class="name">Sittichai Wongfun</p>
+            <p class="name">Administrator</p>
             <p class="designation">Admin Manager</p>
             <span class="online"></span>
           </div>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
-                <img src="../../images/icons/1.png" alt="">
-                <span class="menu-title">Dashboard</span>
+              <a class="nav-link" href="../../index.php">
+                <img src="../../images/icons/house.png" alt="">
+                <span class="menu-title">Home</span>
               </a>
             </li>
             <li class="nav-item">
@@ -201,9 +190,15 @@
             </li>
            
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <img src="../../images/icons/10.png" alt="">
-                <span class="menu-title">Settings</span>
+              <a class="nav-link" href="../Search/Search_asset.php">
+                <img src="../../images/icons/search.png" alt="">
+                <span class="menu-title">Search asset</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../User/Logout.php">
+                <img src="../../images/icons/exit.png" alt="">
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
@@ -211,130 +206,61 @@
 
         <!-- partial -->
         <div class="content-wrapper">
-  
-<style>
-.table3_4 table {
-	width:100%;
-	margin:15px 0
-}
-.table3_4 th {
-	background-color:#3296D7;
-	color:#FFFFFF
-}
-.table3_4,.table3_4 th,.table3_4 td
-{
-	
-	font-family:"TH Sarabun New", "Tw Cen MT";
-    font-size:20px;
-	text-align:center;
-	padding:4px;
-	border:1px solid #2073c9;
-	border-collapse:collapse
-}
-.table3_4 tr:nth-child(odd){
-	background-color:#ffffff;
-}
-.table3_4 tr:nth-child(even){
-	background-color:#ffffff;
-}
-</style>
+        <?php
 
-        
-<?php
-
-	$result1 = mysqli_query($con,"SELECT id,name,brand,price,category,stock,Pay,balance,acquire FROM spare_part WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%'OR brand LIKE '%$keyword%'OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY id DESC LIMIT 1)")or die(mysqli_error($con));
 	
-	$row=mysqli_num_rows($result1); 
-	$rowspage=10;
-	$page=ceil($row/$rowspage); 
-
-    if(empty($_GET['page_id'])){
-		$page_id=1;
-	}
-	else{
-			$page_id=$_GET['page_id'];
-	}
+	$No=$_GET['id']; 
+	$result=mysqli_query($con,"SELECT * FROM lend_spare WHERE 
+	Order_lend='$No'") or die("SQL Error=>".mysqli_error($con));
 	
-	 $start_rows=($page_id*$rowspage)-$rowspage; 
-	
-	$result2 = mysqli_query($con,"SELECT id,name,brand,price,category,stock,Pay,balance,acquire FROM spare_part WHERE  id LIKE '%$keyword%' OR category LIKE '%$keyword%'OR brand  LIKE '%$keyword%' OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%' LIMIT 1) ORDER BY id DESC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
-	
-	$result3 = mysqli_query($con,"SELECT * FROM category_spare")
-	or die("SQL Error2".mysqli_error($con));
-	
-	 if($row==0){ 
-		echo"<p>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p><hr>";
-	}
-	else{
-		echo"<h6><p align='center'>จำนวนวัสดุ / อุปกรณ์ที่มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $row รายการ </p></h6>";
-	$num=1;//กำหนดตัวแปรเพื่อนับแถว
-    echo "<table class=table3_4 align='center'>";
-    echo "<tr>";
+	echo "<table border='0' align='center' width='90%' >";
+	echo "<tr>";
+	echo "<td>";
+	echo "<table border='0' align='center' class='table' >";
+	echo "<thead 	>";
+	echo "<tr>";
+	echo "<th>เลขที่ใบเบิก</th>";
 	echo "<th>รหัสวัสดุ</th>";
 	echo "<th>รายการ</th>";
-	echo "<th>รุ่น / ยี่ห้อ</th>";
-	echo "<th>ราคาซื้อ</th>";
-	echo "<th>ประเภท</th>";
-	echo "<th>จำนวนสินค้าทั้งหมด</th>";
-    echo "<th>จำนวนจ่าย</th>";
-	echo "<th>คงเหลือ</th>";
-	echo "<th>จำนวนรับล่าสุด</th>";
-    echo "</tr>";
-
-while(list($id,$name,$brand,$price,$category,$stock,$Pay,$balance,$acquire) = mysqli_fetch_row($result2)){ 
+	echo "<th>รุ่น/ยี่ห้อ</th>";
+	echo "<th>จำนวนที่จ่าย</th>";
+	echo "<th>จำนวนที่คืน</th>";
+	echo "<th>วันที่คืน</th>";
+	echo "<th>รับคืน</th>";
+	echo "</tr>";
+	echo "</thead>";
 	
-	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
-	WHERE Category_id='$category' ")or die("SQL error2  ".mysqli_error($con));
-    list($category)=mysqli_fetch_row($sql);
-
-	echo "<tr>";
-	echo "<td>$id</td>";
-	echo "<td>$name</td>";
-	echo "<td>$brand</td>";
-	echo "<td>$price</td>";
-	echo "<td>$category</td>";
-	echo "<td>$stock</td>";
-	echo "<td>$Pay</td>";
-	echo "<td>$balance</td>";
-	echo "<td>$acquire</td>";
-	echo "</tr>"; 
-	$num++;
-	
-	}
-	echo"</table>";
-	echo"<hr>";
-	
-//วนลูปแสดงลิงค์หมายเลขหน้า ตามจำนวนหน้า
-	echo"หน้า $page_id : จาก $page ";
-
-	$go=$page_id+1;
-	$back=$page_id-1;
- 	if($page_id>1){//ถ้า$page มากกว่า 1 ให้แสดงหน้าก่อนหน้า
-		echo "<span><a href='repost_spart1.php?page_id=$back&keyword=$keyword'>ก่อนหน้า...</a></span>";
-		}
-		 for($id=1;$id<=$page;$id++){
-
- 	 if($id==$page_id){  //ถ้าเป็นหน้าปัจจุบัน ให้แสดงเลขหน้าเป็นตัวหนาสีแดงและไม่มีลิ้งค์
-     echo"<span style='font-weight:bold;color:red;'>[ $id ]</span>";
-  }
-  else{//ถ้าไม่ใช่หน้าปัจจุบันให้แสดงลิ้งค์ปกติ
-  echo"<span style='color:back;'><a href='repost_spart1.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
-      }
-}
-
-		if($page!=$page_id){//ถ้า$page ไม่เท่ากับ $page_id ให้แสดงหน้าถัดไป
-			    echo "<span><a href=repost_spart1.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";
-			  }
-	}
-	
-	mysqli_free_result($result1);//คืนหน่วยความจำให้กับระบบ
- 	mysqli_free_result($result2);//คืนหน่วยความจำให้กับระบบ
-	mysqli_free_result($result3);//คืนหน่วยความจำให้กับระบบ
-	mysqli_close($con); //ปิดฐานข้อมูล
-
-
+	while(list($No,$id_spare,$name,$detail,$category_lend,$amount,$Order_lend,$lend_data,$rent_empID)=mysqli_fetch_row($result)){
 ?>
+<form action="Insert_render.php" method="post" enctype="multipart/form-data">
+	<tr align='center' >
+    
+    <td><?php echo $Order_lend ?>
+    <input type="hidden" name="Order_lend" value="<?php echo $Order_lend ?>"></td>
+    
+     <td><?php echo $id_spare ?>
+    <input type="hidden" name="id_spare" value="<?php echo $id_spare ?>"></td>
+    
+    <td><?php echo $name?>
+    <input type="hidden" name="name" value="<?php echo $name ?>"></td>
+    
+    <td><?php echo $detail ?>
+    <input type="hidden" name="detail" value="<?php echo $detail ?>"></td>
+    
+    <td><?php echo $amount?>
+    <input type="hidden" name="amount" value="<?php echo $amount ?>"></td>
+    
+    
+    <td><input type="text" name="number"  size="5" value=""></td>
+    
+    <td><input type="date" name="time"  size="5" value=""></td>
+   
+    <td align=''><a href='Insert_render.php'><button type='submit'  class="btn btn-info" data-toggle='modal' data-target='#myModal'><img src='../../../img/document_edit.png'  width='27'  height='27'> รับคืน</button></td>
+ <?php
+    }
+   ?>
+</tr>
+</table>
         </div>
         <!-- partial -->
       </div>
@@ -344,19 +270,13 @@ while(list($id,$name,$brand,$price,$category,$stock,$Pay,$balance,$acquire) = my
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="float-right">
-                <a href="#">Star Admin</a> &copy; 2017
+                <a href="http://www.nopadol.com" target="_blank">Nopadol Panich</a> &copy; 2018
             </span>
           </div>
         </footer>
         </div>
 <script>
-	function openModal(Asset_id, Asset_code ,Rent_time){
-		$('#id01').modal('show');
-		document.getElementById('id_asset').value = Asset_id;
-		document.getElementById('Rent_assets').value = Asset_code;
-		document.getElementById('Rent_time').value = Rent_time;
-		//document.getElementsByName('Rent_assets')[0].value = asset_code;
-}
+	
 </script>
 	<script src="../../js/jquery.min.js"></script>
     <script src="../../JS/bootstrap.min.js"></script>   

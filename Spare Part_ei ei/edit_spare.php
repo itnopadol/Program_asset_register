@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -70,7 +70,7 @@
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
             <img src="../../images/face.jpg" alt="">
-            <p class="name">Sittichai Wongfun</p>
+            <p class="name">Administrator</p>
             <p class="designation">Admin Manager</p>
             <span class="online"></span>
           </div>

@@ -1,4 +1,5 @@
-<?php
+﻿<?php
+	session_start();
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
@@ -36,15 +37,15 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="bg-white text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="../../images/logo_star_black.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo_star_mini.jpg" alt=""></a>
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../../images/Nopadol LOGO-1--05.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../../images/Nopadol LOGO-1--03.png" alt=""></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="get">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search"  name='keyword'>
+        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="post">
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name='keyword'>
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -67,15 +68,15 @@
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
             <img src="../../images/face.jpg" alt="">
-            <p class="name">Sittichai Wongfun</p>
+            <p class="name">Administrator</p>
             <p class="designation">Admin Manager</p>
             <span class="online"></span>
           </div>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
-                <img src="../../images/icons/1.png" alt="">
-                <span class="menu-title">Dashboard</span>
+              <a class="nav-link" href="../../index.php">
+                <img src="../../images/icons/house.png" alt="">
+                <span class="menu-title">Home</span>
               </a>
             </li>
             <li class="nav-item">
@@ -188,11 +189,16 @@
                 </ul>
               </div>
             </li>
-           
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <img src="../../images/icons/10.png" alt="">
-                <span class="menu-title">Settings</span>
+              <a class="nav-link" href="../Search/Search_asset.php">
+                <img src="../../images/icons/search.png" alt="">
+                <span class="menu-title">Search asset</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../User/Logout.php">
+                <img src="../../images/icons/exit.png" alt="">
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
@@ -200,129 +206,157 @@
 
         <!-- partial -->
         <div class="content-wrapper">
-       <?php
-	
-	if(empty($_GET['keyword'])){ 
-		$keyword="";
+    <link rel="stylesheet" href="css/css/bootstrap.min.css">
+<body class="bodyfont">
+<div class="container">
+
+	<!-- Static navbar -->
+
+<?php
+
+if(empty($_GET['keyword'])){ 
+		$keyword="" ;
 	}
 	else{
 		$keyword=$_GET['keyword'];
 	}
-	
-	$result1 = mysqli_query($con,"SELECT take_id  FROM  take WHERE  take_name  LIKE '%$keyword%' OR take_name LIKE '%$keyword%'OR take_brand LIKE '%$keyword%'OR take_category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY take_id  ASC LIMIT 1)")or die(mysqli_error($con));
-	
-	$row=mysqli_num_rows($result1); 
-	$rowspage=15;
+
+$result = mysqli_query($con,"SELECT*FROM spare_part WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%'OR brand LIKE '%$keyword%'OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY id DESC LIMIT 1)")or die(mysqli_error($con));
+$action = isset($_GET['a'])? $_GET['a']: "";
+$ItemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
+// echo var_dump($_SESSION['Qty']);
+if(isset($_SESSION['Qty'])){
+	$myQty = 0;
+	foreach ($_SESSION['Qty'] as $myItem) {
+		if($myItem!=''){
+			$myQty =$myQty + $myItem;
+		}	
+  	}
+}else{
+	$myQty = 0;
+}
+$row=mysqli_num_rows($result); 
+	$rowspage=5;
 	$page=ceil($row/$rowspage); 
 
     if(empty($_GET['page_id'])){
-		$page_id=1; 
+		$page_id=1;
 	}
 	else{
 			$page_id=$_GET['page_id'];
 	}
-	$start_rows=($page_id*$rowspage)-$rowspage; 
-
-	$result2 = mysqli_query($con,"SELECT*FROM  take WHERE  take_name  LIKE '%$keyword%' OR take_name LIKE '%$keyword%'OR take_brand LIKE '%$keyword%'OR take_category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY take_id  ASC LIMIT 1) ORDER BY take_time ASC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
 	
-	 if($row==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
-		echo"<p><h3>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p></h3><hr>";
-	}
-	else{
-		echo"<p align='center'>จำนวนวัสดุปุกรณ์ที่มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $row รายการ </p>";
-
-
-	$num=1;//กำหนดตัวแปรเพื่อนับแถว
-	echo "<table border='0' align='center' width='90%' >";
-	echo "<tr>";
-	echo "<td>";
-	echo "<table border='0' align='center' class='table table-sm' >";
-	echo "<thead 	>";
-	echo "<tr>";
-	echo "<th >ลำดับที่</th>";
-	echo "<th>รหัสวัสดุ</th>";
-	echo "<th>รายการ</th>";
-	echo "<th>รุ่น / ยี่ห้อ</th>";
-	echo "<th>ราคาซื้อ</th>";
-	echo "<th>ประเภท</th>";
-	echo "<th>จำนวนที่รับเข้า</th>";
-	echo "<th>วัน/เดือน/ปี</th>";
-	echo "<th>แก้ไข</th>";
-	echo "<th>ลบ</th>";
-	echo "</tr>";
-	echo "</thead>";
-	
-	while(list($take_id,$id_inventory,$take_name,$take_brand,$take_pice,$take_category,$take_acquire,$take_time) = mysqli_fetch_row($result2)){ 
-	
-	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
-	WHERE Category_id='$take_category' ")or die("SQL error2  ".mysqli_error($con));
-    list($category)=mysqli_fetch_row($sql);
-	
-	echo "<tr>";
-	echo "<td align='left'>$take_id</td>";
-	echo "<td align='left'>$id_inventory</td>";
-	echo" <td align='left'>$take_name</td>";
-	echo "<td align='left'>$take_brand</td>";
-	echo "<td align='left'>$take_pice</td>";
-	echo "<td align='left'>$take_category</td>";
-	echo "<td align='left' width='6.5%'>$take_acquire</td>";
-	echo "<td align='left'>$take_time</td>";
-	echo "<td align=''left'><a href='edit_take.php?take_id=$take_id'><img src='../../images/if_pencil_10550.png'  width='30'  height='30'></TD>";
-	echo "<td align=''left'><a href='delete_spare.php?take_id=$take_id'><img src='../../images/cancel.png'  width='30'  height='30'></td></tr>";
-	$num++;//เพิ่มค่าตัวแปรนับแถว
-	}
-	echo"</table>";
-	echo"<hr>";
-	//วนลูปแสดงลิงค์หมายเลขหน้า ตามจำนวนหน้า
-	echo"หน้า $page_id : จาก $page ";
-
-	$go=$page_id+1;
-	$back=$page_id-1;
- 	if($page_id>1){//ถ้า$page มากกว่า 1 ให้แสดงหน้าก่อนหน้า
-		echo "<span><a href='take.php?page_id=$back&keyword=$keyword'>ก่อนหน้า...</a></span>";
-		}
-		 for($id=1;$id<=$page;$id++){
-
- 	 if($id==$page_id){  //ถ้าเป็นหน้าปัจจุบัน ให้แสดงเลขหน้าเป็นตัวหนาสีแดงและไม่มีลิ้งค์
-     echo"<span style='font-weight:bold;color:red;'>[ $id ]</span>";
-  }
-  else{//ถ้าไม่ใช่หน้าปัจจุบันให้แสดงลิ้งค์ปกติ
-  echo"<span style='color:back;'><a href='take.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
-      }
-}
-
-		if($page!=$page_id){//ถ้า$page ไม่เท่ากับ $page_id ให้แสดงหน้าถัดไป
-			    echo "<span><a href='take.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";
-			  }
-}
-	mysqli_free_result($result1);//คืนหน่วยความจำให้กับระบบ
- 	mysqli_free_result($result2);//คืนหน่วยความจำให้กับระบบ
-	mysqli_close($con); //ปิดฐานข้อมูล
-
+	 $start_rows=($page_id*$rowspage)-$rowspage;
+	 
 ?>
-        </div>
-        <!-- partial -->
-      </div>
-    </div>
-  
-  <!-- partial:../../partials/_footer.html -->
-        <footer class="footer">
-          <div class="container-fluid clearfix">
-            <span class="float-right">
-                <a href="#">Star Admin</a> &copy; 2017
-            </span>
-          </div>
-        </footer>
-        </div>
-<script>
-	function openModal(Asset_id, Asset_code ,Rent_time){
-		$('#id01').modal('show');
-		document.getElementById('id_asset').value = Asset_id;
-		document.getElementById('Rent_assets').value = Asset_code;
-		document.getElementById('Rent_time').value = Rent_time;
-		//document.getElementsByName('Rent_assets')[0].value = asset_code;
+  <style>
+#ccc {
+    list-style-type: none;
+	border-radius: 8px;
+    margin: 0;
+    padding: 3;
+	font-family:"TH Sarabun New", "Tw Cen MT";
+    font-size:20px;
+    overflow: hidden;
+    background-color: #4F4F4F;
 }
+
+#xx {
+    float: left;
+}
+
+#xx a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 16px;
+    text-decoration: none;
+}
+
+#xx a:hover {
+    background-color: #111;
+}
+</style>
+</head>
+<body>
+  <ul id="ccc">
+  <li id="xx"><a class="active" href="#home">Spare Parts System</a></li>
+  <li id="xx"><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
+  <li id="xx"><a href="cart.php">รายการวัสดุที่ยืม &nbsp;<?php echo $myQty; ?></a></li>
+</ul>
+ 
+ <?php
+   if ($action == 'exists') {
+     echo "<div class=\"alert alert-warning\">เพิ่มจำนวนวัสดุแล้ว</div>";
+
+   }
+   if ($action == 'add') {
+     echo "<div class=\"alert alert-success\">เพิ่มรายการวัสดุเรียบร้อยแล้ว</div>";
+
+   }
+   if ($action == 'order') {
+     echo "<div class=\"alert alert-success\">ทำรายการวัสดุเรียบร้อยแล้ว</div>";
+   }
+   if ($action == 'orderfail') {
+     echo "<div class=\"alert alert-success\">ทำรายการไม่สำเร็จ กรุณาลองใหม่อีกครั้ง</div>";
+   }
+?>
+
+    <table class="table" id="centertable" width="80%">
+      <thead>
+        <tr>
+            <th id="centertable">รายการ</th>
+            <th id="centertable">รหัสวัสดุ</th>
+            <th id="centertable">ชื่อสินค้า</th>
+            <th id="centertable">ยี่ห้อ</th>
+            <th id="centertable">ประเภท</th>
+            <th id="centertable">จำนวนที่เหลือ</th>
+            <th> </th>
+         <tr>
+       </thead>
+     <tbody >
+       <?php while ($myResult = mysqli_fetch_assoc($result)) {
+		   
+      ?>
+      
+		<tr>
+			<td  id="centertable" ><img src="../../images/<?php echo $myResult['photo'] ; ?>" border="0"  width='80'  height='80'></td>
+			<td id="centertable" style="padding-top:3%"><?php echo $myResult['id']; ?>
+            	<input type="hidden" name="articles[]" value="<?php echo $item['id'];?>">
+            </td>
+			<td id="centertable" style="padding-top:3%"><?php echo $myResult['name']; ?>
+            	<input type="hidden" name="articles2[]" value="<?php echo $item['name'];?>">
+            </td>
+			<td id="centertable" style="padding-top:3%" ><?php echo $myResult['brand']; ?>
+            	<input type="hidden" name="articles3[]" value="<?php echo $item['brand'];?>">
+            </td>
+            <td id="centertable" style="padding-top:3%" ><?php echo $myResult['category']; ?>
+            	<input type="hidden" name="articles3[]" value="<?php echo $item['category'];?>">
+            </td>
+			<td id="centertable" style="padding-top:3%" ><?php echo $myResult['balance']; ?>
+            	<input type="hidden" name="articles5[]" value="<?php echo $item['balance'];?>">
+            </td>
+			<td style="padding-top:2%" >
+				<a class="btn btn-primary btn-lg" href="updatecart.php?ItemID=<?php echo $myResult['id']; ?>" role="button">
+				<span></span>เลือกรายการ</a>
+                
+			</td>
+		</tr>
+        
+			<?php	
+	   }
+			?>
+		</tbody>
+		</table>
+      
+
+        </div> <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <script src="../js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+
 </script>
 	<script src="../../js/jquery.min.js"></script>
     <script src="../../JS/bootstrap.min.js"></script>   

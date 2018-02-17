@@ -1,11 +1,12 @@
-<?php
-	session_start();
+﻿<?php
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,15 +36,15 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="bg-white text-center navbar-brand-wrapper">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="../../images/logo_star_black.png" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../../images/logo_star_mini.jpg" alt=""></a>
+        <a class="navbar-brand brand-logo" href="../../index.php"><img src="../../images/Nopadol LOGO-1--05.png" /></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.php"><img src="../../images/Nopadol LOGO-1--03.png" alt=""></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="get">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search"  name='keyword'>
+        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="post">
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name='keyword'>
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -66,15 +67,15 @@
         <nav class="bg-white sidebar sidebar-offcanvas" id="sidebar">
           <div class="user-info">
             <img src="../../images/face.jpg" alt="">
-            <p class="name">Sittichai Wongfun</p>
+            <p class="name">Administrator</p>
             <p class="designation">Admin Manager</p>
             <span class="online"></span>
           </div>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
-                <img src="../../images/icons/1.png" alt="">
-                <span class="menu-title">Dashboard</span>
+              <a class="nav-link" href="../../index.php">
+                <img src="../../images/icons/house.png" alt="">
+                <span class="menu-title">Home</span>
               </a>
             </li>
             <li class="nav-item">
@@ -189,216 +190,151 @@
             </li>
            
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <img src="../../images/icons/10.png" alt="">
-                <span class="menu-title">Settings</span>
+              <a class="nav-link" href="../Search/Search_asset.php">
+                <img src="../../images/icons/search.png" alt="">
+                <span class="menu-title">Search asset</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../User/Logout.php">
+                <img src="../../images/icons/exit.png" alt="">
+                <span class="menu-title">Logout</span>
               </a>
             </li>
           </ul>
         </nav>
 
         <!-- partial -->
-        <div class="content-wrapper">
-    <link rel="stylesheet" href="css/css/bootstrap.min.css">
-<body class="bodyfont">
-<div class="container">
-
-	<!-- Static navbar -->
-<?php
-$action = isset($_GET['a'])? $_GET['a']: "";
-$ItemCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
-if(isset($_SESSION['Qty'])){
-	$myQty = 0;
-	foreach ($_SESSION['Qty'] as $myItem) {
-	if($myItem!=''){
-			$myQty =$myQty + $myItem;
-		}
-  }
-}
-else {
-	$myQty = 0;
-}
-	if (isset($_SESSION['cart']) and $ItemCount > 0){
-		$itemIDs = "";
-		foreach($_SESSION['cart'] as $ItemID){
-			$itemIDs = $itemIDs . $ItemID . " , ";
-	}
-	/*----------------------------------------------------------*/
+                <div class="content-wrapper">
+        <?php
 	
-		$inputItem = trim($itemIDs, ",");
-		$inputItem = explode(",", $itemIDs);
-		$inputItem = trim($inputItem[0]);
-		//echo var_dump($_SESSION['cart'])."<br>".count($_SESSION['cart'])."<hr>";
-		$cnt_list = $_SESSION['cart'];
-		$sql = "SELECT * FROM spare_part WHERE id = '$inputItem'";
-		// $sql = "SELECT * FROM spare_part";
-		$myQuery = mysqli_query($con,$sql) or die ("Error =>".mysqli_error($con));
-		$myCount = mysqli_num_rows($myQuery);
-	/*----------------------------------------------------------*/
-		}else{
-			$myCount = 0;
-		}
-?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>รายการวัสดุของฉัน</title>
-    <!-- Bootstrap -->
-    <link href="../../CSS/nava.css" rel="stylesheet">
-    <link href="../../CSS/bootstrapv3.1.1.min.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  <style>
-#ccc {
-    list-style-type: none;
-	border-radius: 8px;
-    margin: 0;
-    padding: 3;
-	font-family:"TH Sarabun New", "Tw Cen MT";
-    font-size:20px;
-    overflow: hidden;
-    background-color: #4F4F4F;
-}
-
-#xx {
-    float: left;
-}
-
-#xx a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 12px 16px;
-    text-decoration: none;
-}
-
-#xx a:hover {
-    background-color: #111;
-}
-</style>
-</head>
-<body>
- <ul id="ccc">
-             <li id="xx"><a class="active" href="#home">Spare Parts System</a></li>
-             <li id="xx"><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
-             <li id="xx"><a href="cart.php">รายการวัสดุของฉัน  &nbsp; <?php echo $myQty; ?></a></li>
-</ul>
-                 
-    <?php
-		if($action == "removed")
-		{
-			echo "<div class=\"alert alert-warning\">ลบข้อมูลเรียบร้อยแล้ว</div>";
-		}
-		if($myCount == 0){
-			echo "<div class=\"alert alert-warning\">ยังไม่มีรายการวัสดุ</div>";
-		}else{
-			?>  
-<hr>
-<form action="updatecart.php" method="post" name="fromupdate">
-<div align="center" id="centertable">
-<table class="table table-striped table-bordered">
-	<?php
-	if(isset($_SESSION['Qty'])){
-		$myQty = 0;
-		foreach ($_SESSION['Qty'] as $myItem) {
-			if($myItem!=''){
-				$myQty =$myQty + $myItem;
-			}
-  		}
+	if(empty($_GET['keyword'])){ 
+		$keyword="";
 	}
 	else{
-		$myQty = 0;
+		$keyword=$_GET['keyword'];
 	}
-	$total_matter = 0; //จำนวนทั้งหมด
-	$num = 0; //รับจำนวนที่กรอก
-		foreach($cnt_list as $rows) {
-			$sql = "SELECT * FROM spare_part WHERE id = '$rows'";
-			$myQuery = mysqli_query($con,$sql) or die ("Error =>".mysqli_error($con));
-			foreach($myQuery as $item) {
-				$key = array_search($item['id'],$_SESSION['cart']);
-				$total_matter = $_SESSION['Qty'][$key] ;
-				//$total_matter + ($item['stock'] * $_SESSION['Qty'][$key]);
-	?>
-    <thead>
-        <tr>
-            <th>รายการ</th>
-            <th id="centertable">รหัสสินค้า</th>
-            <th id="centertable">ชื่อสินค้า</th>
-            <th id="centertable">รุ่น / ยี่ห้อ</th>
-            <th id="centertable">ประเภท</th>
-            <th id="centertable">จำนวน</th>
-            <th id="centertable">จำนวนคงเหลือ</th>
-            <th id="centertable">จำนวนที่ยืม</th>
-            <th>&nbsp;</th>
-            </tr>
-	</thead>
-    <tbody>
-    	<tr align='center' >
-			<td><img src="../../img/<?php echo $item['photo']; ?>"  width='80'  height='80'></td>
-			<td><?php echo $item['id'] ?>
-            	<input type="hidden" name="articles[]" value="<?php echo $item['id'];?>">
-            </td>
-			<td><?php echo $item['name'] ?>
-            	<input type="hidden" name="articles2[]" value="<?php echo $item['name'];?>">
-            </td>
-			<td><?php echo $item['brand'] ?>
-            	<input type="hidden" name="articles3[]" value="<?php echo $item['brand'];?>">
-            </td>
-            <td><?php echo $item['category'] ?>
-            	<input type="hidden" name="articles4[]" value="<?php echo $item['category'];?>">
-            </td>
-			<td> <!---textbox จำนวน--->
-				<input type="text" name="Qty[<?php echo $num; ?>]" value="<?php echo $_SESSION['Qty'][$key]; ?>"
-				class="form-control" style="width:60px;text-align:center;">
-                <input type="hidden" name="articles5[]" value="<?php echo $_SESSION['Qty'][$key];?>">
-				<input type="hidden" name="arr_key_<?php echo $num; ?>" value="<?php echo $key; ?>">
-			</td>
-			<td><?php echo $item['stock']; ?>
-            	<?php /*?><input type="hidden" name="articles[]" value="<?php echo $item['stock'];?>"><?php */?>
-            </td> <!---โชว์จำนวนต๊อก--->
-			<td><?php echo $total_matter; ?>
-            	<?php /*?><input type="hidden" name="articles[]" value="<?php echo $total_matter;?>"><?php */?>
-            </td> <!---โชว์จำนวนที่ทำการยืม *ค่ามาจาก Key--->
-            <td>
-				<a class="btn btn-danger btn-lg" href="removecart.php?ItemID=<?php echo $item['id']; ?>" role="button">
-				<span></span>ลบทิ้ง</a>
-			</td>
-        <?php  
-			} 
-			$num++;
+	
+	$result = mysqli_query($con, "SELECT * FROM send_sp  WHERE  send_id  LIKE '%$keyword%' OR send_bill LIKE '%$keyword%' OR send_nameSp  LIKE '%$keyword%' ") or die ("MySQL =>".mysqli_error($con));
+	
+	$row=mysqli_num_rows($result);
+	$rowspage=15;
+	$page=ceil($row/$rowspage);
+
+    if(empty($_GET['page_id'])){
+		$page_id=1;
+	}
+	else{
+			$page_id=$_GET['page_id'];
+	}
+	
+	 $start_rows=($page_id*$rowspage)-$rowspage; 
+
+	$result2 = mysqli_query($con,"SELECT * FROM send_sp  WHERE  send_id  LIKE '%$keyword%' OR send_bill LIKE '%$keyword%' OR send_nameSp ORDER BY send_id   ASC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
+	
+	$result3 = mysqli_query($con,"SELECT rent_empID,rent_name,rent_department FROM lend_empsp WHERE rent_empID") 
+		or die ("Error =>".mysqli_error($con));
+		list($rent_empID,$rent_name,$rent_department) =  mysqli_fetch_row($result3);
+	
+	 if($row==0){ 
+		echo"<p><h3>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p></h3><hr>";
+	}
+	else{
+		echo"<p align='center'>จำนวนวัสดุปุกรณ์ที่มีตรงกับคำค้น \"<b>$keyword</b>\"
+มีทั้งหมด $row รายการ </p>";
+
+	$num=1;
+	echo "<table border='0' align='center' width='90%' >";
+	echo "<tr>";
+	echo "<td>";
+	echo "<table border='0' align='center' class='table table-sm' >";
+	echo "<thead>";
+	echo "<tr>";
+	echo "<th >ลำดับที่</th>";
+	echo "<th>เลขที่ใบเบิก</th>";
+	echo "<th>รหัสวัสดุ</th>";
+    echo "<th>รายการ</th>";
+	echo "<th>รุ่น / ยี่ห้อ</th>";
+    echo "<th>จำนวนที่เบิก</th>";
+	echo "<th>จำนวนที่คืน</th>";
+	echo "<th>รหัสพนักงาน</th>";
+	echo "<th>ชื่อผู้คืน</th>";
+    echo "<th>แผนก</th>";
+	echo "<th>วันที่คืน</th>";
+	echo "</tr>";
+	echo "</thead>";
+	
+	
+	while(list($send_id,$send_bill,$send_idSp,$send_nameSp,$send_brand,$send_number,$send_back,$send_name,$send_department,$send_date) = mysqli_fetch_row($result2)){ 
+
+	
+	echo "<tr>";
+	echo "<td align='left'>$send_id</td>";
+	echo "<td align='left'>$send_bill</td>";
+	echo "<td align='left'>$send_idSp</td>";
+	echo" <td align='left'>$send_nameSp</td>";
+	echo" <td align='left'>$send_brand</td>";
+	echo "<td align='left'>$send_number</td>";
+	echo "<td align='left'>$send_back</td>";
+	echo "<td align='left'>$rent_empID</td>";
+	echo "<td align='left'>$rent_name</td>";
+	echo "<td align='left'>$rent_department</td>";
+	echo "<td align='left'>$send_date</td>";;
+	echo "</tr>";
+	$num++;//เพิ่มค่าตัวแปรนับแถว
+	}
+	echo"</table>";
+	echo"<hr>";
+	//วนลูปแสดงลิงค์หมายเลขหน้า ตามจำนวนหน้า
+	echo"หน้า $page_id : จาก $page ";
+
+	$go=$page_id+1;
+	$back=$page_id-1;
+ 	if($page_id>1){//ถ้า$page มากกว่า 1 ให้แสดงหน้าก่อนหน้า
+		echo "<span><a href='send.php?page_id=$back&keyword=$keyword'>ก่อนหน้า...</a></span>";
 		}
-		
-		 ?>
-			<tr>
-				<td colspan="9" style="text-align: right;">
-					<h4>จำนวนรายการที่ยืมวัสดุ-อุปกรณ์ ทั้งหมด <?php echo $num; ?> รายการ</h4>
-                    <h4>รวมทั้งหมด <?php echo $myQty ; ?> ชิ้น</h4>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="9" style="text-align: right;">
-				<button type="submit" class="btn btn-info btn-lg">คำนวณจำนวนใหม่</button>
-				<a href="Sp_rent.php" type="button" class="btn btn-primary btn-lg">ทำใบเบิกวัสดุ-อุปกรณ์</a>
-				</td>
-			</tr>
-	</tbody>                     
-	</table>
+		 for($id=1;$id<=$page;$id++){
+
+ 	 if($id==$page_id){  //ถ้าเป็นหน้าปัจจุบัน ให้แสดงเลขหน้าเป็นตัวหนาสีแดงและไม่มีลิ้งค์
+     echo"<span style='font-weight:bold;color:red;'>[ $id ]</span>";
+  }
+  else{//ถ้าไม่ใช่หน้าปัจจุบันให้แสดงลิ้งค์ปกติ
+  echo"<span style='color:back;'><a href='send.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
+      }
+}
+
+		if($page!=$page_id){//ถ้า$page ไม่เท่ากับ $page_id ให้แสดงหน้าถัดไป
+			    echo "<span><a href='send.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";
+			  }
+}
+	
+	mysqli_free_result($result);//คืนหน่วยความจำให้กับระบบ
+ 	mysqli_free_result($result2);//คืนหน่วยความจำให้กับระบบ
+	mysqli_close($con); //ปิดฐานข้อมูล
+
+?>
         </div>
-        </form>
-        <?php
-		}
-		?>
-	</div> <!-- /container -->
-
-
+        <!-- partial -->
+      </div>
+    </div>
+  
+  <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="float-right">
+                <a href="http://www.nopadol.com" target="_blank">Nopadol Panich</a> &copy; 2018
+            </span>
+          </div>
+        </footer>
+        </div>
+<script>
+	function openModal(Asset_id, Asset_code ,Rent_time){
+		$('#id01').modal('show');
+		document.getElementById('id_asset').value = Asset_id;
+		document.getElementById('Rent_assets').value = Asset_code;
+		document.getElementById('Rent_time').value = Rent_time;
+		//document.getElementsByName('Rent_assets')[0].value = asset_code;
+}
 </script>
 	<script src="../../js/jquery.min.js"></script>
     <script src="../../JS/bootstrap.min.js"></script>   
