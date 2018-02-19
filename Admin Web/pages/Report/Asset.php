@@ -198,7 +198,7 @@
 		echo "<div class='col-lg-12'>";
 		echo "<div class='card'>";
 		echo "<div class='card-body'>";
-		echo "<h5 class='card-title mb-4'>ตารางแสดงการสรุปยอดสินทรัพย์ทั้งหมด</h5>";
+		echo "<h5 class='card-title mb-4' align=\"center\">ตารางแสดงการสรุปยอดสินทรัพย์ทั้งหมด</h5>";
 		echo "<div class='table-responsive'>";
 		echo "<table class='table table-striped'>";
 		echo "<tr align=\"center\">";

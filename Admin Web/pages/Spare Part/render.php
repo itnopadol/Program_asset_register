@@ -1,5 +1,10 @@
 ﻿<?php
 	session_start();
+	if(empty($_SESSION['user_Level']) == '1'){
+		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
+		echo "<script>window.location='../User/Login.php'</script>";
+		exit();	
+	}
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
@@ -11,7 +16,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin</title>
+  <title>Asset Register</title>
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -209,11 +214,11 @@
         <div class="content-wrapper">
        <?php
 	
-	if(empty($_GET['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
+	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
 		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
 	}
 	else{
-		$keyword=$_GET['keyword'];//รับค่าคำค้นมาจากฟอร์ม
+		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 	
 	$result=mysqli_query($con,"SELECT No FROM lend_empsp WHERE rent_name LIKE '%$keyword%' OR rent_empID LIKE '%$keyword%' OR rent_department") or die("SQL Error1=>".mysqli_error($con));

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert</title>
+<title>Asset Register</title>
 </head>
 <body>
 <?php 

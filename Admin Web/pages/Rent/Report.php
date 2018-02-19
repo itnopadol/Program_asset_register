@@ -24,7 +24,7 @@
     <input type="submit" value="ค้นหา" id="titletable2" class="btn btn-info">
 </form>
 <?php	
-	//include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
+	include("../../Funtion/funtion.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
 	$con=connect_db();
 	echo "<div class='container'>";
 	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์

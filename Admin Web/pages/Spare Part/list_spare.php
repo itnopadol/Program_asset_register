@@ -44,7 +44,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="post">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name='keyword'>
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -226,11 +226,11 @@
 			</div>
 		</nav>
 	<?php
-	if(empty($_GET['keyword'])){ 
+	if(empty($_POST['keyword'])){ 
 		$keyword="";
 	}
 	else{
-		$keyword=$_GET['keyword'];
+		$keyword=$_POST['keyword'];
 	}
 	$result1 = mysqli_query($con,"SELECT id FROM spare_part WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%'OR brand LIKE '%$keyword%'OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY id DESC LIMIT 1)")or die(mysqli_error($con));
 	
@@ -359,7 +359,6 @@
             
              <label for="recipient-name" class="control-label">วันที่เพิ่มจำนวน :</label>
             <input type="date" class="form-control" name="time" readonly  value="<?php echo date("Y-m-d") ?>" > </label>
-           
             <input type="hidden" name="pay" id="Pay">
                        
             <label for="recipient-name" class="control-label">จำนวนที่รับเข้า :</label>

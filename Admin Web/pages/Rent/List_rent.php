@@ -203,7 +203,6 @@
 		echo "<div class='col-lg-12'>";
 		echo "<div class='card'>";
 		echo "<div class='card-body'>";
-		echo "<h5 class='card-title mb-4'>ตารางแสดงสินทรัพย์ทั้งหมด</h5>";
 		echo "<div class='table-responsive'>";	
 		echo "<table align='center' class='table table-hover table-striped'>";
 		echo "<tr >";

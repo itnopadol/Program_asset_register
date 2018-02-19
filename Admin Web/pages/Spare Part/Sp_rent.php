@@ -264,7 +264,8 @@ if (isset($_SESSION['cart']) and $ItemCount > 0){
 <ul id="ccc">
   <li id="xx"><a class="active" href="#home">Spare Parts System</a></li>
   <li id="xx"><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
-  <li id="xx"><a href="cart.php">รายการวัสดุของฉัน &nbsp;<?php echo $myQty; ?></a></li>
+  <li id="xx"><a href="cart.php">รายการวัสดุของฉัน &nbsp;
+  <?php echo "<span class=\"badge badge-info\">$myQty</span>"; ?></a></li>
 </ul>
        
     <?php

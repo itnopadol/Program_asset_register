@@ -38,7 +38,7 @@
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
-            <a class="nav-link profile-pic" href="#"><img class="rounded-circle" src="../../images/proflie.png" alt=""></a>
+            <a class="nav-link profile-pic" href="#"><img class="rounded-circle" src="../../images/face.jpg" alt=""></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"><i class="fa fa-th"></i></a>
@@ -255,7 +255,7 @@
 		echo "<td align='center' id='titletable3'>$Asset_id</td>";
 		echo "<td align='center' id='titletable3'>$Asset_code</td>";
 		echo "<td align='center' id='titletable3'>$Asset_serial</td>";
-		echo "<td align='center' id='titletable3'><a href='index.php?module=6&action=24&id=$Asset_id'>$Asset_name</a></td>";
+		echo "<td align='center' id='titletable3'><a href='../Asset/asset_detail.php?id=$Asset_id'>$Asset_name</a></td>";
 		echo "<td align='center' id='titletable3'>$brand</td>";
 		/*----------------------------^------------------------------------*/
 		echo "<td align='center' id='titletable3'>";

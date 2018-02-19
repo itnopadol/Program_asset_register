@@ -11,7 +11,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin</title>
+  <title>Asset Register</title>
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -45,7 +45,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="post">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name='keyword'>
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -214,11 +214,11 @@
 
 <?php
 
-if(empty($_GET['keyword'])){ 
+if(empty($_POST['keyword'])){ 
 		$keyword="" ;
 	}
 	else{
-		$keyword=$_GET['keyword'];
+		$keyword=$_POST['keyword'];
 	}
 
 $result = mysqli_query($con,"SELECT*FROM spare_part WHERE  name  LIKE '%$keyword%' OR name LIKE '%$keyword%'OR brand LIKE '%$keyword%'OR category =(SELECT Category_id FROM category_spare WHERE Category_name  LIKE '%$keyword%'  ORDER BY id DESC LIMIT 1)")or die(mysqli_error($con));
@@ -280,9 +280,10 @@ $row=mysqli_num_rows($result);
 </head>
 <body>
   <ul id="ccc">
-  <li id="xx"><a class="active" href="#home">Spare Parts System</a></li>
-  <li id="xx"><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
-  <li id="xx"><a href="cart.php">รายการวัสดุที่ยืม &nbsp;<?php echo $myQty; ?></a></li>
+  <li id="xx"><a href="#home" >Spare Parts System</a></li>
+  <li id="xx"><a href="index_sp.php" style="background-color:#000;">หน้าแรกวัสดุ-อุปกรณ์</a></li>
+  <li id="xx"><a href="cart.php">รายการวัสดุที่ยืม &nbsp;
+  <?php echo "<span class=\"badge badge-info\">$myQty</span>"; ?></a></li>
 </ul>
  
  <?php

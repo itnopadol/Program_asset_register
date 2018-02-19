@@ -132,7 +132,7 @@ enctype="mu ltipart/form-data">
                         <div class="section colm colm6">
                             <label for="date" class="field prepend-icon">วันที่ซื้อ
                                 <input type="date" name="Asset_date" id="date" class="gui-input" 
-                                data-format="yyyy-mm-dd" placeholder="Date">
+                                data-format="yyyy-mm-dd" placeholder="Date" required>
                                 <label for="date" class="field-icon"></label>  
                             </label>
 						</div><!-- end section 5-->

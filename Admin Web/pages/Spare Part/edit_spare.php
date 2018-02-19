@@ -1,20 +1,23 @@
-﻿<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>ฟอร์มแก้ไขรายการวัสดุ-อุปกรณ์</title>
-</head>
-<?php
+﻿<?php
+	session_start();
+	if(empty($_SESSION['user_Level']) == '1'){
+		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
+		echo "<script>window.location='../User/Login.php'</script>";
+		exit();	
+	}
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Asset Register</title>
+  <title>ฟอร์มแก้ไขรายการวัสดุ-อุปกรณ์</title>
+
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />

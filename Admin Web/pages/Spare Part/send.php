@@ -1,4 +1,10 @@
 ﻿<?php
+	session_start();
+	if(empty($_SESSION['user_Level']) == '1'){
+		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
+		echo "<script>window.location='../User/Login.php'</script>";
+		exit();	
+	}
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
@@ -10,7 +16,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin</title>
+  <title>Asset Register</title>
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -44,7 +50,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="post">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name='keyword'>
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -208,11 +214,11 @@
                 <div class="content-wrapper">
         <?php
 	
-	if(empty($_GET['keyword'])){ 
+	if(empty($_POST['keyword'])){ 
 		$keyword="";
 	}
 	else{
-		$keyword=$_GET['keyword'];
+		$keyword=$_POST['keyword'];
 	}
 	
 	$result = mysqli_query($con, "SELECT * FROM send_sp  WHERE  send_id  LIKE '%$keyword%' OR send_bill LIKE '%$keyword%' OR send_nameSp  LIKE '%$keyword%' ") or die ("MySQL =>".mysqli_error($con));
@@ -236,12 +242,6 @@
 		or die ("Error =>".mysqli_error($con));
 		list($rent_empID,$rent_name,$rent_department) =  mysqli_fetch_row($result3);
 	
-	 if($row==0){ 
-		echo"<p><h3>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p></h3><hr>";
-	}
-	else{
-		echo"<p align='center'>จำนวนวัสดุปุกรณ์ที่มีตรงกับคำค้น \"<b>$keyword</b>\"
-มีทั้งหมด $row รายการ </p>";
 
 	$num=1;
 	echo "<table border='0' align='center' width='90%' >";
@@ -301,7 +301,7 @@
   else{//ถ้าไม่ใช่หน้าปัจจุบันให้แสดงลิ้งค์ปกติ
   echo"<span style='color:back;'><a href='send.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
       }
-}
+
 
 		if($page!=$page_id){//ถ้า$page ไม่เท่ากับ $page_id ให้แสดงหน้าถัดไป
 			    echo "<span><a href='send.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";

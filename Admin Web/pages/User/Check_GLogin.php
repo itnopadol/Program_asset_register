@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 if(isset($_POST['username'])){
 	$ch = curl_init();
@@ -7,7 +7,7 @@ if(isset($_POST['username'])){
 	// Will return the response, if false it print the response
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	// Set the url
-	curl_setopt($ch, CURLOPT_URL,"http://venus:9000/login?usercode=".$_POST['username']."&password=".$_POST['passwd']."&appid=6");
+	curl_setopt($ch, CURLOPT_URL,"venus:9000/login?usercode=".$_POST['username']."&password=".$_POST['passwd']."&appid=6");
 	//app.nopadol.com
 	// Execute
 	$result=curl_exec($ch);
