@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 ﻿<?php 
 	include("../../Funtion/funtion.php");
 	$con=connect_db();
+=======
+﻿<?php
+	session_start();
+	include("../../Funtion/funtion.php");
+	$con = connect_db();
+>>>>>>> e75746f5beb112ca02b923c09ee0100e71afa5ad
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -255,7 +262,7 @@
     
     <td><input type="date" name="time"  size="5" value=""></td>
    
-    <td align=''><a href='Insert_render.php'><button type='submit'  class="btn btn-info" data-toggle='modal' data-target='#myModal'><img src='../../../img/document_edit.png'  width='27'  height='27'> รับคืน</button></td>
+    <td align=''><a href='Insert_render.php'><button type='submit'  class="btn btn-info" data-toggle='modal' data-target='#myModal'><img src='../../images/document_edit.png'  width='27'  height='27'> รับคืน</button></td>
  <?php
     }
    ?>

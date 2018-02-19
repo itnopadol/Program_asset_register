@@ -3,7 +3,7 @@
 	$con=connect_db();
 	
 	
-	$sql="INSERT INTO send_Sp (send_id,send_bill,send_idSp,send_nameSp,send_brand,send_number,send_back,send_date)
+	$sql="INSERT INTO send_sp (send_id,send_bill,send_idSp,send_nameSp,send_brand,send_number,send_back,send_date)
 	
 	 VALUES ('','$_POST[Order_lend]'
 	 	              ,'$_POST[id_spare]'
