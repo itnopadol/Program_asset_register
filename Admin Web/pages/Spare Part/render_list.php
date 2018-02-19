@@ -1,6 +1,6 @@
-﻿<?php
-	include("../../Funtion/db_function.php");
-	$con = connect_db();
+﻿<?php 
+	include("../../Funtion/funtion.php");
+	$con=connect_db();
 ?>
 <!DOCTYPE html>
 <html lang="en">
