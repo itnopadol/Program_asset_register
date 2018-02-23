@@ -19,14 +19,13 @@
 	$Order_lend = mysqli_insert_id($con);
 	$Order_data = $_POST['lend_data'];
 	for ($i = 0; $i < count($_POST['articles']); $i++){
-		//foreach($_POST['articles'] as $row=>$art){
-			//$row = mysqli_fetch_row($conn);
+		
 			$articles = $_POST['articles'][$i];
 			$articles2 = $_POST['articles2'][$i];
 			$articles3 = $_POST['articles3'][$i];
 			$articles4 = $_POST['articles4'][$i];
 	        $articles5 = $_POST['articles5'][$i];
-			//$rent_empID = $_POST['rent_empID'][$i];
+
 		$balance = $_POST['stock'][$i]- $_POST['articles5'][$i];
 		
 		$update_spare = "UPDATE spare_part SET pay= '$articles5',balance='$balance' WHERE id =  '$articles'";
@@ -35,16 +34,16 @@
 		
 		$result2 = mysqli_query($con, $update_spare) or die ("Error in query: $update_spare " . mysqli_error($con));
 			
-		$sql = "INSERT INTO lend_spare (id_spare ,name ,detail ,category_lend,amount ,Order_lend ,lend_data ,rent_empID)  VALUES ('$articles' , 
+		$sql = "INSERT INTO lend_spare (id_spare ,name ,detail ,category_lend ,amount ,Order_lend ,lend_data ,rent_empID,description)  VALUES ('$articles' , 
 				'$articles2' ,
 				'$articles3' ,
 				'$articles4' ,
 				'$articles5' ,
 				'$Order_lend',
 				'$Order_data',
-				'$rent_empID'
-				) ";
-				$Order_id = $rent_empID;
+				'$rent_empID',
+				'$_POST[description]')";
+		 $Order_id = $rent_empID;
 		 $result = mysqli_query($con, $sql) or die ("Error in query: $sql " . mysqli_error($con));
 			//}
 		

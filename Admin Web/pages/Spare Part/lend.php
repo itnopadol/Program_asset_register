@@ -1,10 +1,4 @@
 ﻿<?php
-	session_start();
-	if(empty($_SESSION['user_Level']) == '1'){
-		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
-		echo "<script>window.location='../User/Login.php'</script>";
-		exit();	
-	}
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
@@ -16,7 +10,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Asset Register</title>
+  <title>Star Admin</title>
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -50,7 +44,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="post">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name='keyword'>
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -214,14 +208,14 @@
         <div class="content-wrapper">
       <?php
 	
-	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
+	if(empty($_GET['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
 		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
 	}
 	else{
-		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
+		$keyword=$_GET['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 
-	$result = mysqli_query($con,"SELECT lend_spare.*,lend_empsp.rent_name FROM lend_spare Left JOIN lend_empsp ON lend_spare.rent_empID=lend_empsp.rent_empID  WHERE lend_empsp.rent_name	LIKE '%$keyword%' OR lend_spare.Order_lend LIKE '%$keyword%' OR lend_spare.detail  LIKE '%$keyword%' OR lend_spare.category_lend LIKE '%$keyword%'  GROUP BY lend_spare.No ORDER BY lend_spare.No ASC")or die(mysqli_error($result));
+	$result = mysqli_query($con,"SELECT lend_spare.*,lend_empsp.rent_name FROM lend_spare Left JOIN lend_empsp ON lend_spare.rent_empID=lend_empsp.rent_empID  WHERE lend_empsp.rent_name	LIKE '%$keyword%' OR lend_spare.Order_lend LIKE '%$keyword%' OR lend_spare.detail  LIKE '%$keyword%' OR lend_spare.category_lend LIKE '%$keyword%' OR description GROUP BY lend_spare.No ORDER BY lend_spare.No ASC")or die(mysqli_error($result));
 	
 	$row=mysqli_num_rows($result); 
 	$rowspage=15;
@@ -239,6 +233,12 @@
 	 
 	  $result2= mysqli_query($con,"SELECT lend_spare.*,lend_empsp.rent_name FROM lend_spare Left JOIN lend_empsp ON lend_spare.rent_empID=lend_empsp.rent_empID  WHERE lend_empsp.rent_name	LIKE '%$keyword%' OR lend_spare.Order_lend LIKE '%$keyword%' OR lend_spare.detail  LIKE '%$keyword%' OR lend_spare.category_lend LIKE '%$keyword%' GROUP BY lend_spare.No ORDER BY lend_spare.No ASC LIMIT $start_rows,$rowspage")or die("SQL Error2".mysqli_error($con));
 	  
+	if($row==0){ 
+		echo"<p><h3>ไม่พบข้อมูลที่ตรงกับคำค้น \"<b>$keyword</b>\"</p></h3><hr>";
+	}
+	else{
+		echo"<p align='center'>ชื่อรายการวัสดุ - อุปกรณ์มีตรงกับคำค้น \"<b>$keyword</b>\"
+มีทั้งหมด $row รายการ </p>";
 
 	$num=1;
 	echo "<table border='0' align='center' width='90%' >";
@@ -257,14 +257,16 @@
     echo "<th>วันที่เบิก</th>";
 	echo "<th>รหัสพนักงาน</th>";
 	echo "<th>ชื่อพนักงาน</th>";
+    echo "<th>หมายเหตุ</th>";
 	echo "</tr>";
 	echo "</thead>";
 	
-	 while(list($No,$id_spare,$name,$detail,$category_lend,$amount,$Order_lend,$rent_date,$rent_empID,$rent_name) = mysqli_fetch_row($result)){ 
+	 while(list($No,$id_spare,$name,$detail,$category_lend,$amount,$Order_lend,$lend_data,$rent_empID,$rent_name,$description) = mysqli_fetch_row($result)){ 
 	
-	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare
+	$sql=mysqli_query($con,"SELECT Category_name FROM category_spare  
     WHERE Category_id='$category_lend' ")or die("SQL error2  ".mysqli_error($con));
     list($category_lend)=mysqli_fetch_row($sql);
+	
 	
 	echo "<tr>";
 	echo "<td align='left'>$No</td>";
@@ -274,8 +276,9 @@
 	echo "<td align='left'>$detail</td>";
 	echo "<td align='left'>$category_lend</td>";
 	echo "<td align='center'>$amount</td>";
-	echo "<td align='left'>$rent_date</td>";
+	echo "<td align='left'>$lend_data</td>";
 	echo "<td align='center'>$rent_empID</td>";
+	echo "<td align='center'>$description</td>";
 	echo "<td align='center'>$rent_name</td>";
 	echo "</tr>";
 
@@ -299,7 +302,7 @@
   else{//ถ้าไม่ใช่หน้าปัจจุบันให้แสดงลิ้งค์ปกติ
   echo"<span style='color:back;'><a href='lend.php?page_id=$id&keyword=$keyword'>[ $id ]</a></span> ";
       }
-
+}
 
 		if($page!=$page_id){//ถ้า$page ไม่เท่ากับ $page_id ให้แสดงหน้าถัดไป
 			    echo "<span><a href='lend.php?page_id=$go&keyword=$keyword'>...หน้าถัดไป</a></span>";

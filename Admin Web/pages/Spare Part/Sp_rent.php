@@ -286,7 +286,6 @@ if (isset($_SESSION['cart']) and $ItemCount > 0){
             <td><div class="form-group">
             <label for="exampleInputempID">รหัสพนักงาน</label>
             <input type="text" class="form-control" id="rent_empID" placeholder="ใส่รหัสพนักงาน" style="width:300px;" name="rent_empID">
-            <?php //include("../../api.php") ?>
             </div></td>
         	
            <td><div class="form-group">
@@ -361,9 +360,14 @@ if (isset($_SESSION['cart']) and $ItemCount > 0){
             <input type="date" class="form-control" id="lend_data"  style="width:300px;" name="lend_data"  
             readonly value="<?php echo date("Y-m-d"); ?>"
             </div> </td>
+            
+            <td><div class="form-group">
+            <label for="exampleInputempID">หมายเหตุ *</label>
+            <input type="text" class="form-control" id="description" placeholder="ใส่หมายเหตุ" style="width:300px; " name="description">
+            </div>
+            </td>  
             </table>
-            <br>
-           <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered">
 	<?php
 	if(isset($_SESSION['Qty'])){
 		$myQty = 0;
