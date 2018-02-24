@@ -1,14 +1,6 @@
-﻿<?php
-	session_start();
-	if(empty($_SESSION['user_Level']) == '1'){
-		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
-		echo "<script>window.location='../User/Login.php'</script>";
-		exit();	
-	}
-	include("../../Funtion/funtion.php");
-	$con = connect_db();
-?>
 <?php 
+	include("../function/db_function.php");// include ไฟล์ที่เขียนฟังก์ชันไว้เข้ามาใช้งาน
+	$con=connect_db();//เรียกใช้ฟงัก์ชั่นในการติดต่อฐานข้อมูล
 	
 if(empty($_FILES['photo']['name'])){//ถ้าไฟล์รูปว่าง
 	$photo="";

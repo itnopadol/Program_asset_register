@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
@@ -6,11 +6,11 @@
 <html lang="en">
 <head>
 <?php
-	if(empty($_GET['keyword'])){ 
+	if(empty($_POST['keyword'])){ 
 		$keyword="" ;
 	}
 	else{
-		$keyword=$_GET['keyword'];
+		$keyword=$_POST['keyword'];
 	}
 
 ?>
@@ -18,7 +18,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Asset Register</title>
+  <title>Star Admin</title>
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />

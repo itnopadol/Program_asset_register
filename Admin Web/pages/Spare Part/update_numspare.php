@@ -1,14 +1,6 @@
-﻿<?php
-	session_start();
-	if(empty($_SESSION['user_Level']) == '1'){
-		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
-		echo "<script>window.location='../User/Login.php'</script>";
-		exit();	
-	}
+<?php 
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
-?>
-<?php 
 	
 if(empty($_FILES['photo']['name'])){//ถ้าไฟล์รูปว่าง
 	$photo="";
@@ -25,7 +17,7 @@ else{
 	$update_photo=",photo='$photo'";
 	
 }
-	$balance = ($_POST['stock'] + $_POST['acquire']) ; /*- $_POST['pay']*/
+	$balance = ($_POST['stock'] + $_POST['acquire'])-$_POST['pay'];
 	$stock = $_POST['stock'] + $_POST['acquire'];
 	
 

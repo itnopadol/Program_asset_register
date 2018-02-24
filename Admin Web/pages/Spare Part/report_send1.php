@@ -6,11 +6,11 @@
 <html lang="en">
 <head>
       <?php
-if(empty($_GET['keyword'])){ 
+if(empty($_POST['keyword'])){ 
 		$keyword="" ;
 	}
 	else{
-		$keyword=$_GET['keyword'];
+		$keyword=$_POST['keyword'];
 	}
 ?>
 

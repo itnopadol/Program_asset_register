@@ -292,10 +292,10 @@ else {
 </head>
 <body>
  <ul id="ccc">
-             <li id="xx"><a href="index_sp.php">Spare Parts System</a></li>
+             <li id="xx"><a class="active" href="#home">Spare Parts System</a></li>
              <li id="xx"><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
-             <li id="xx"><a href="cart.php" style="background-color:#000;">รายการวัสดุของฉัน  &nbsp; 
-			 <?php echo "<span class=\"badge badge-info\">$myQty</span>"; ?></a></li>
+             <li id="xx"><a href="cart.php">รายการวัสดุของฉัน &nbsp;
+             <?php echo "<span class=\"badge badge-info\">$myQty</span>"; ?></a></li>
 </ul>
                  
     <?php

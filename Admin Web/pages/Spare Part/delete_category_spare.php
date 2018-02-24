@@ -6,12 +6,13 @@
 </head>
 <body>
 <?php
-include("../function/db_function.php");
-	$con=connect_db();
-mysqli_query($con,"DELETE FROM spare_part WHERE id= '$_GET[id]' ")or die ("delete".mysqli_error($con));
+	include("../../Funtion/funtion.php");
+	$con = connect_db();
+	
+mysqli_query($con,"DELETE FROM category_spare WHERE Category_id ='$_POST[Category_id]'")or die ("delete".mysqli_error($con));
 mysqli_close($con);
 echo "<script>alert('คุณต้องการลบข้อมูลหรือไม่')</script>";
-echo "<script>window.location='list_spare.php'</script>";
+echo "<script>window.location='list_category_spare.php'</script>";
 ?>
 
 </body>

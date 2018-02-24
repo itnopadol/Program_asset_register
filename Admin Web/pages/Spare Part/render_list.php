@@ -1,12 +1,6 @@
-﻿<?php
-	session_start();
-	if(empty($_SESSION['user_Level']) == '1'){
-		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
-		echo "<script>window.location='../User/Login.php'</script>";
-		exit();	
-	}
+﻿<?php 
 	include("../../Funtion/funtion.php");
-	$con = connect_db();
+	$con=connect_db();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -261,7 +255,7 @@
     
     <td><input type="date" name="time"  size="5" value=""></td>
    
-    <td align=''><a href='Insert_render.php'><button type='submit'  class="btn btn-info" data-toggle='modal' data-target='#myModal'><img src='../../images/document_edit.png'  width='27'  height='27'> รับคืน</button></td>
+    <td align=''><a href='Insert_render.php'><button type='submit'  class="btn btn-info" data-toggle='modal' data-target='#myModal'><img src='../../../img/document_edit.png'  width='27'  height='27'> รับคืน</button></td>
  <?php
     }
    ?>
