@@ -1,14 +1,23 @@
+﻿<?php
+	session_start();
+	if(empty($_SESSION['user_Level']) == '1'){
+		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
+		echo "<script>window.location='../User/Login.php'</script>";
+		exit();	
+	}
+	include("../../Funtion/funtion.php");
+	$con = connect_db();
+?>
 <!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>ฟอร์มแก้ไขประวัติรายการรับการวัสดุ / อุปกรณ์</title>
+<link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
 </head>
 
 <body>
 <?php
-	include("../function/db_function.php");
-	$con=connect_db();
 	 
 	$result=mysqli_query($con,"SELECT * FROM take WHERE 
 	take_id='$_GET[take_id]'")  or die("SQL Error=>".mysqli_error($con));

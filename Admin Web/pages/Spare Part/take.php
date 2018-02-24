@@ -1,16 +1,21 @@
 ﻿<?php
+	session_start();
+	if(empty($_SESSION['user_Level']) == '1'){
+		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
+		echo "<script>window.location='../User/Login.php'</script>";
+		exit();	
+	}
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin</title>
+  <title>Asset Register</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -43,8 +48,8 @@
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="POST">
-          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name='keyword'>
+        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="post">
+          <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name="keyword">
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
           <li class="nav-item">
@@ -274,7 +279,7 @@
 	echo "<td align='left' width='6.5%'>$take_acquire</td>";
 	echo "<td align='left'>$take_time</td>";
 	echo "<td align=''left'><a href='edit_take.php?take_id=$take_id'><img src='../../images/if_pencil_10550.png'  width='30'  height='30'></TD>";
-	echo "<td align=''left'><a href='delete_spare.php?take_id=$take_id'><img src='../../images/cancel.png'  width='30'  height='30'></td></tr>";
+	echo "<td align=''left'><a href='delete_take.php?take_id=$take_id'><img src='../../images/cancel.png'  width='30'  height='30'></td></tr>";
 	$num++;//เพิ่มค่าตัวแปรนับแถว
 	}
 	echo"</table>";

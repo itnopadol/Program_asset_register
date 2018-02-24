@@ -1,8 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Untitled Document</title>
+<title>Asset Register</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
 </head>
 <body>
 <?php

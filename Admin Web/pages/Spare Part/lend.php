@@ -43,7 +43,7 @@
         <button class="navbar-toggler navbar-toggler d-none d-lg-block navbar-dark align-self-center mr-3" type="button" data-toggle="minimize">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="POST">
+        <form class="form-inline mt-2 mt-md-0 d-none d-lg-block" method ="post">
           <input class="form-control mr-sm-2 search" type="text" placeholder="Search" name='keyword'>
         </form>
         <ul class="navbar-nav ml-lg-auto d-flex align-items-center flex-row">
@@ -208,11 +208,11 @@
         <div class="content-wrapper">
       <?php
 	
-	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
+	if(empty($_GET['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
 		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
 	}
 	else{
-		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
+		$keyword=$_GET['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
 
 	$result = mysqli_query($con,"SELECT lend_spare.*,lend_empsp.rent_name FROM lend_spare Left JOIN lend_empsp ON lend_spare.rent_empID=lend_empsp.rent_empID  WHERE lend_empsp.rent_name	LIKE '%$keyword%' OR lend_spare.Order_lend LIKE '%$keyword%' OR lend_spare.detail  LIKE '%$keyword%' OR lend_spare.category_lend LIKE '%$keyword%' OR description GROUP BY lend_spare.No ORDER BY lend_spare.No ASC")or die(mysqli_error($result));

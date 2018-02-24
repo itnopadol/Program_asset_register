@@ -10,6 +10,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Asset Register</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -292,10 +293,10 @@ else {
 </head>
 <body>
  <ul id="ccc">
-             <li id="xx"><a class="active" href="#home">Spare Parts System</a></li>
+             <li id="xx"><a href="index_sp.php">Spare Parts System</a></li>
              <li id="xx"><a href="index_sp.php">หน้าแรกวัสดุ-อุปกรณ์</a></li>
-             <li id="xx"><a href="cart.php">รายการวัสดุของฉัน &nbsp;
-             <?php echo "<span class=\"badge badge-info\">$myQty</span>"; ?></a></li>
+             <li id="xx"><a href="cart.php" style="background-color:#000;">รายการวัสดุของฉัน  &nbsp; 
+			 <?php echo "<span class=\"badge badge-info\">$myQty</span>"; ?></a></li>
 </ul>
                  
     <?php

@@ -7,8 +7,8 @@
 
 <body>
 <?php 
-			include("../../Funtion/funtion.php");
-	        $con = connect_db();
+		include("../function/db_function.php");//include ไฟล์ที่เขียนฟังก์ชั่นไว้ใช้งาน
+	    $con=connect_db(); //เลือกใช้คำสั่งในการติดต่อฐานข้อมูล
 
 
  		if(empty($_POST['Category_name'])){
